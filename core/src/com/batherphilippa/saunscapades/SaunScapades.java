@@ -1,31 +1,41 @@
 package com.batherphilippa.saunscapades;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.ScreenUtils;
+import com.batherphilippa.saunscapades.manager.B2WorldManager;
+import com.batherphilippa.saunscapades.manager.CameraManager;
+import com.batherphilippa.saunscapades.screen.GameScreen;
 
-public class SaunScapades extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
-	
+public class SaunScapades extends Game {
+	public SpriteBatch batch;
+	public B2WorldManager b2WorldManager;
+	public CameraManager camManager;
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		img = new Texture("bucket.png");
+
+		camManager = new CameraManager();
+		b2WorldManager = new B2WorldManager(this);
+
+		this.setScreen(new GameScreen(this));
+	}
+
+	public B2WorldManager getB2WorldManager() {
+		return b2WorldManager;
+	}
+
+	public CameraManager getCamManager() {
+		return camManager;
 	}
 
 	@Override
 	public void render () {
-		ScreenUtils.clear(1, 0, 0, 1);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+		super.render();
 	}
-	
+
 	@Override
 	public void dispose () {
 		batch.dispose();
-		img.dispose();
 	}
 }
