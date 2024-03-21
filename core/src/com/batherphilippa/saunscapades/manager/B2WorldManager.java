@@ -32,7 +32,7 @@ public class B2WorldManager implements Disposable {
 
         // inicializar la mapa y cargar el primer nivel automáticamente
         this.mapLoader = new TmxMapLoader();
-        this.map = mapLoader.load("tilesets/map_level_1.tmx");
+        this.map = mapLoader.load("tileset/map_level_1.tmx");
 
         this.renderer = new OrthogonalTiledMapRenderer(map, 1 / PPM);
         this.b2dr = new Box2DDebugRenderer();
