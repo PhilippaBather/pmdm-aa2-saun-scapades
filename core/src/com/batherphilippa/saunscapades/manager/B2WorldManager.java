@@ -1,24 +1,26 @@
 package com.batherphilippa.saunscapades.manager;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
 import com.batherphilippa.saunscapades.SaunScapades;
+import com.batherphilippa.saunscapades.domain.tilemap.Ground;
 
 import static com.batherphilippa.saunscapades.util.Constants.GRAVITY;
 import static com.batherphilippa.saunscapades.util.Constants.PPM;
 
 public class B2WorldManager implements Disposable {
     private final SaunScapades game;
-    private final CameraManager camManager;
     private final World world;
-    private final TmxMapLoader mapLoader;
+    private final TmxMapLoader mapLoader;  // TODO - don't convert to local var - to be used in setMap function for second level
     private final TiledMap map;
     private final OrthogonalTiledMapRenderer renderer; // renders map to screen
 
@@ -26,9 +28,8 @@ public class B2WorldManager implements Disposable {
 
     public B2WorldManager(SaunScapades game) {
         this.game = game;
-        this.camManager = this.game.getCamManager();
 
-        this.world = new World(new Vector2(0, 0), true);
+        this.world = new World(new Vector2(0, GRAVITY), true);
 
         // inicializar la mapa y cargar el primer nivel automáticamente
         this.mapLoader = new TmxMapLoader();
@@ -51,7 +52,11 @@ public class B2WorldManager implements Disposable {
     }
 
     private void renderUninterativeObjcts() {
-        // TODO
+        for(RectangleMapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle rect = object.getRectangle();
+
+            new Ground(world, map, rect);
+        }
     }
 
     public void renderTiledMap(Matrix4 combined) {
