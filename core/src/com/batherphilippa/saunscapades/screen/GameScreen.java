@@ -6,17 +6,20 @@ import com.badlogic.gdx.graphics.GL20;
 import com.batherphilippa.saunscapades.SaunScapades;
 import com.batherphilippa.saunscapades.manager.B2WorldManager;
 import com.batherphilippa.saunscapades.manager.CameraManager;
+import com.batherphilippa.saunscapades.manager.SpriteManager;
 
 public class GameScreen implements Screen {
 
     private final SaunScapades game;
     private final B2WorldManager b2WorldManager;
     private final CameraManager camManager;
+    private final SpriteManager spriteManager;
 
     public GameScreen(SaunScapades game) {
         this.game = game;
         this.b2WorldManager = this.game.getB2WorldManager();
         this.camManager = this.game.getCamManager();
+        this.spriteManager = this.game.getSpriteManager();
     }
 
     @Override
