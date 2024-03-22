@@ -3,7 +3,7 @@ package com.batherphilippa.saunscapades.manager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
 import com.batherphilippa.saunscapades.SaunScapades;
-import com.batherphilippa.saunscapades.domain.Shaun;
+import com.batherphilippa.saunscapades.domain.sprite.Shaun;
 
 public class SpriteManager implements Disposable {
 
