@@ -1,9 +1,13 @@
 package com.batherphilippa.saunscapades.domain.sprite;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Disposable;
+import com.batherphilippa.saunscapades.util.UserInput;
 
 import static com.batherphilippa.saunscapades.util.Constants.PPM;
 
@@ -11,9 +15,12 @@ public abstract class Character extends Sprite implements Disposable {
 
     protected World world;
     protected Body b2Body;
+    protected TextureRegion region;
 
-    public Character(World world, float x, float y, float radius) {
+    public Character(TextureRegion region, World world, float x, float y, float radius) {
         this.world = world;
+        this.region = region;
+        setPosition(x / PPM, y / PPM);
         initB2Body(x, y, radius);
     }
 
@@ -21,6 +28,10 @@ public abstract class Character extends Sprite implements Disposable {
         createBody(x, y);
         createFixture(radius);
 //        createHead();
+    }
+
+    public Body getB2Body() {
+        return b2Body;
     }
 
     /**
@@ -48,6 +59,6 @@ public abstract class Character extends Sprite implements Disposable {
     public abstract void render(SpriteBatch batch);
     public abstract void update(float delta);
 
-    public abstract void move();
+    public abstract void move(UserInput input);
 
 }
