@@ -31,11 +31,9 @@ public class CameraManager {
     public void resizeGamePort(int width, int height) {
         gamePort.update(width, height);
     }
-    public void update(float dt) {
-        // TODO - remove temporary condition: allows world to be navigated w/o sprite
-        if (Gdx.input.isTouched()) {
-            this.gameCam.position.x += 100 * dt / PPM;
-        }
+    public void update(float x) {
+        getGameCam().position.x = x; // player.getB2Body().getPosition().x;
+        getGameCam().update();
 
         this.gameCam.update();
     }
