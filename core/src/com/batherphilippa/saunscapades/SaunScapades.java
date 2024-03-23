@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.batherphilippa.saunscapades.manager.B2WorldManager;
 import com.batherphilippa.saunscapades.manager.CameraManager;
+import com.batherphilippa.saunscapades.manager.ResourceManager;
 import com.batherphilippa.saunscapades.manager.SpriteManager;
 import com.batherphilippa.saunscapades.screen.GameScreen;
 
@@ -11,6 +12,7 @@ public class SaunScapades extends Game {
 	public SpriteBatch batch;
 	private B2WorldManager b2WorldManager;
 	private CameraManager camManager;
+	private ResourceManager resManager;
 	private SpriteManager spriteManager;
 
 	@Override
@@ -19,7 +21,8 @@ public class SaunScapades extends Game {
 
 		camManager = new CameraManager();
 		b2WorldManager = new B2WorldManager(this);
-		spriteManager = new SpriteManager(this, b2WorldManager, batch);
+		resManager = new ResourceManager();
+		spriteManager = new SpriteManager(this, batch);
 
 		this.setScreen(new GameScreen(this));
 	}
@@ -30,6 +33,10 @@ public class SaunScapades extends Game {
 
 	public CameraManager getCamManager() {
 		return camManager;
+	}
+
+	public ResourceManager getResManager() {
+		return resManager;
 	}
 
 	public SpriteManager getSpriteManager() {
