@@ -1,2 +1,9 @@
-package com.batherphilippa.saunscapades.util;public enum UserInput {
+package com.batherphilippa.saunscapades.util;
+
+public enum UserInput {
+
+    LEFT,
+    RIGHT,
+
+    UP
 }
