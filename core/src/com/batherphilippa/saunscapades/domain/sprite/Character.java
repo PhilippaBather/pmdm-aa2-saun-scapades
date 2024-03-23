@@ -39,7 +39,7 @@ public abstract class Character extends Sprite implements Disposable {
      */
     private void createBody(float x, float y) {
         BodyDef bodyDef = new BodyDef();
-        bodyDef.position.set(x / PPM, y / PPM);  // TODO - remove temporary
+        bodyDef.position.set(x / PPM, y / PPM);
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         this.b2Body = world.createBody(bodyDef);
     }
@@ -50,7 +50,7 @@ public abstract class Character extends Sprite implements Disposable {
     private void createFixture(float radius) {
         FixtureDef fixDef = new FixtureDef();
         CircleShape shape = new CircleShape();
-        shape.setRadius(radius / PPM);  // TODO - remove temporary - add a float radius as param in the method definition
+        shape.setRadius(radius / PPM);
         fixDef.shape = shape;
         this.b2Body.createFixture(fixDef);
         shape.dispose();

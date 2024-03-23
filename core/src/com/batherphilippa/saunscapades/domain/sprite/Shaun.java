@@ -37,7 +37,6 @@ public class Shaun extends Character {
     public void update(float dt) {
         // as x and y coordinates are taken from the centre of the body
         this.setPosition((b2Body.getPosition().x - getWidth() / 2), b2Body.getPosition().y - getHeight() / 2);
-//        setRegion(getFrame(dt));
     }
 
     public float getLinearVelocity() {
