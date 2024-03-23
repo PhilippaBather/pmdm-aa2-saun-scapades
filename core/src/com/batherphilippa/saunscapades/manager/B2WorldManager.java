@@ -12,6 +12,8 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
 import com.batherphilippa.saunscapades.SaunScapades;
+import com.batherphilippa.saunscapades.domain.tilemap.Barrier;
+import com.batherphilippa.saunscapades.domain.tilemap.Coin;
 import com.batherphilippa.saunscapades.domain.tilemap.Ground;
 
 import static com.batherphilippa.saunscapades.util.Constants.GRAVITY;
@@ -48,7 +50,11 @@ public class B2WorldManager implements Disposable {
     }
 
     private void renderInteractiveObjects() {
-        // TODO
+        for (RectangleMapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
+            Rectangle rect = object.getRectangle();
+
+            new Coin(world, map, rect);
+        }
     }
 
     private void renderUninterativeObjcts() {
@@ -57,6 +63,13 @@ public class B2WorldManager implements Disposable {
 
             new Ground(world, map, rect);
         }
+
+        for (RectangleMapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
+            Rectangle rect = object.getRectangle();
+
+            new Barrier(world, map, rect);
+        }
+
     }
 
     public void renderTiledMap(Matrix4 combined) {
