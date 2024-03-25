@@ -1,4 +1,4 @@
-package com.batherphilippa.saunscapades.scene;
+package com.batherphilippa.saunscapades.screen.scene;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.batherphilippa.saunscapades.SaunScapades;
 import com.batherphilippa.saunscapades.manager.CameraManager;
 import com.batherphilippa.saunscapades.manager.OptionManager;
-import com.batherphilippa.saunscapades.scene.util.UIUtils;
+import com.batherphilippa.saunscapades.screen.util.UIUtils;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 
@@ -14,7 +14,6 @@ public class OptionBar implements Disposable {
 
     private final SaunScapades game;
     private final SpriteBatch batch;
-    private final CameraManager camManager;
     private final Stage stage;
 
     // opciones de la tabla
@@ -24,7 +23,7 @@ public class OptionBar implements Disposable {
     public OptionBar(SaunScapades game, SpriteBatch batch) {
         this.game = game;
         this.batch = batch;
-        this.camManager = this.game.getCamManager();
+        CameraManager camManager = this.game.getCamManager();
 
         VisTable table = UIUtils.createTableObj();
         setTextButtons();

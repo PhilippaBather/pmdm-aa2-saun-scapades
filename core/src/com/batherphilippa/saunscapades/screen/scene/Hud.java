@@ -1,4 +1,4 @@
-package com.batherphilippa.saunscapades.scene;
+package com.batherphilippa.saunscapades.screen.scene;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Disposable;
 import com.batherphilippa.saunscapades.SaunScapades;
 import com.batherphilippa.saunscapades.manager.CameraManager;
-import com.batherphilippa.saunscapades.scene.util.UIUtils;
+import com.batherphilippa.saunscapades.screen.util.UIUtils;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 
@@ -16,7 +16,6 @@ public class Hud implements Disposable {
 
     private final SaunScapades game;
     private final SpriteBatch batch;
-    private final CameraManager camManager;
 
     // tabla de HUD
     private final Stage stage;
@@ -46,7 +45,7 @@ public class Hud implements Disposable {
     public Hud(SaunScapades game, SpriteBatch batch) {
         this.game = game;
         this.batch = batch;
-        this.camManager = this.game.getCamManager();
+        CameraManager camManager = this.game.getCamManager();
 
         initialiseHudValues();
 
