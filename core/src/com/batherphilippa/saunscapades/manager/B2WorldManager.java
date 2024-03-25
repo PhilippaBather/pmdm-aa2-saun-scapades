@@ -28,7 +28,7 @@ public class B2WorldManager implements Disposable {
         this.game = game;
         this.camManager = this.game.getCamManager();
 
-        this.world = new World(new Vector2(0, GRAVITY), true);
+        this.world = new World(new Vector2(0, 0), true);
 
         // inicializar la mapa y cargar el primer nivel automáticamente
         this.mapLoader = new TmxMapLoader();
@@ -42,10 +42,16 @@ public class B2WorldManager implements Disposable {
 
     }
 
+    public World getWorld() {
+        return world;
+    }
+
     private void renderInteractiveObjects() {
+        // TODO
     }
 
     private void renderUninterativeObjcts() {
+        // TODO
     }
 
     public void renderTiledMap(Matrix4 combined) {

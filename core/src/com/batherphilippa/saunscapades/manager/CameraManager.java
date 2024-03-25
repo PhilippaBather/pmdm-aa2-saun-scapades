@@ -1,5 +1,6 @@
 package com.batherphilippa.saunscapades.manager;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -10,7 +11,7 @@ public class CameraManager {
 
     private final OrthographicCamera gameCam;
 
-    private Viewport gamePort;
+    private final Viewport gamePort;
 
     public CameraManager() {
         this.gameCam = new OrthographicCamera();
@@ -31,6 +32,11 @@ public class CameraManager {
         gamePort.update(width, height);
     }
     public void update(float dt) {
+        // TODO - remove temporary condition: allows world to be navigated w/o sprite
+        if (Gdx.input.isTouched()) {
+            this.gameCam.position.x += 100 * dt / PPM;
+        }
+
         this.gameCam.update();
     }
 }
