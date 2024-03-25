@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="200" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="16" nextobjectid="224">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="200" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="17" nextobjectid="275">
  <tileset firstgid="1" source="tileset_mbros.tsx"/>
  <tileset firstgid="925" source="platform-tileset.tsx"/>
  <tileset firstgid="1362" source="ornaments-tileset.tsx"/>
@@ -50,132 +50,50 @@
   <object id="180" x="816" y="124" width="33" height="83"/>
   <object id="181" x="488" y="122" width="24" height="86"/>
  </objectgroup>
- <objectgroup id="15" name="coins">
-  <object id="182" x="263" y="73">
-   <ellipse/>
-  </object>
-  <object id="183" x="294" y="72">
-   <ellipse/>
-  </object>
-  <object id="184" x="326" y="73">
-   <ellipse/>
-  </object>
-  <object id="185" x="359" y="74">
-   <ellipse/>
-  </object>
-  <object id="186" x="471" y="41">
-   <ellipse/>
-  </object>
-  <object id="187" x="534" y="41">
-   <ellipse/>
-  </object>
-  <object id="188" x="613" y="24">
-   <ellipse/>
-  </object>
-  <object id="189" x="662" y="25">
-   <ellipse/>
-  </object>
-  <object id="190" x="710" y="57">
-   <ellipse/>
-  </object>
-  <object id="191" x="951" y="121">
-   <ellipse/>
-  </object>
-  <object id="192" x="1015" y="120">
-   <ellipse/>
-  </object>
-  <object id="193" x="1077" y="122">
-   <ellipse/>
-  </object>
-  <object id="194" x="1270" y="105">
-   <ellipse/>
-  </object>
-  <object id="195" x="1417" y="121">
-   <ellipse/>
-  </object>
-  <object id="196" x="1464" y="72">
-   <ellipse/>
-  </object>
-  <object id="197" x="1494" y="89">
-   <ellipse/>
-  </object>
-  <object id="198" x="1543" y="119">
-   <ellipse/>
-  </object>
-  <object id="199" x="1608" y="136">
-   <ellipse/>
-  </object>
-  <object id="200" x="1766" y="167">
-   <ellipse/>
-  </object>
-  <object id="201" x="1814" y="135">
-   <ellipse/>
-  </object>
-  <object id="202" x="1861" y="169">
-   <ellipse/>
-  </object>
-  <object id="203" x="1941" y="136">
-   <ellipse/>
-  </object>
-  <object id="204" x="1990" y="169">
-   <ellipse/>
-  </object>
-  <object id="205" x="2087" y="103">
-   <ellipse/>
-  </object>
-  <object id="206" x="2199" y="89">
-   <ellipse/>
-  </object>
-  <object id="207" x="2263" y="40">
-   <ellipse/>
-  </object>
-  <object id="208" x="2312" y="41">
-   <ellipse/>
-  </object>
-  <object id="209" x="2391" y="42">
-   <ellipse/>
-  </object>
-  <object id="210" x="2455" y="41">
-   <ellipse/>
-  </object>
-  <object id="211" x="2502" y="104">
-   <ellipse/>
-  </object>
-  <object id="212" x="2533" y="138">
-   <ellipse/>
-  </object>
-  <object id="213" x="2582" y="121">
-   <ellipse/>
-  </object>
-  <object id="214" x="2630" y="72" height="1">
-   <ellipse/>
-  </object>
-  <object id="215" x="2679" y="103">
-   <ellipse/>
-  </object>
-  <object id="216" x="2855" y="169">
-   <ellipse/>
-  </object>
-  <object id="217" x="2886" y="138">
-   <ellipse/>
-  </object>
-  <object id="218" x="2808" y="105">
-   <ellipse/>
-  </object>
-  <object id="219" x="2968" y="136">
-   <ellipse/>
-  </object>
-  <object id="220" x="2919" y="169">
-   <ellipse/>
-  </object>
-  <object id="221" x="2999" y="168" height="1">
-   <ellipse/>
-  </object>
-  <object id="222" x="3078" y="119">
-   <ellipse/>
-  </object>
-  <object id="223" x="3111" y="153">
-   <ellipse/>
-  </object>
+ <objectgroup id="16" name="coins">
+  <object id="224" x="262" y="72"/>
+  <object id="225" x="295" y="72"/>
+  <object id="226" x="327" y="72"/>
+  <object id="227" x="358" y="72" height="1"/>
+  <object id="228" x="470" y="40"/>
+  <object id="229" x="535" y="40"/>
+  <object id="230" x="616" y="25"/>
+  <object id="231" x="663" y="27"/>
+  <object id="232" x="714" y="57"/>
+  <object id="233" x="951" y="121"/>
+  <object id="234" x="1015" y="122"/>
+  <object id="235" x="1079" y="122"/>
+  <object id="236" x="1272" y="105"/>
+  <object id="237" x="1416" y="121"/>
+  <object id="238" x="1465" y="71"/>
+  <object id="239" x="1496" y="90"/>
+  <object id="240" x="1545" y="122"/>
+  <object id="241" x="1609" y="136"/>
+  <object id="242" x="1768" y="167"/>
+  <object id="243" x="1813" y="136"/>
+  <object id="244" x="1865" y="169"/>
+  <object id="245" x="1940" y="136"/>
+  <object id="246" x="1990" y="171"/>
+  <object id="247" x="2085" y="103"/>
+  <object id="248" x="2200" y="89"/>
+  <object id="250" x="2262" y="42"/>
+  <object id="251" x="2312" y="42"/>
+  <object id="252" x="2392" y="41"/>
+  <object id="253" x="2455" y="39"/>
+  <object id="254" x="2504" y="104"/>
+  <object id="257" x="2537" y="137"/>
+  <object id="258" x="2583" y="122"/>
+  <object id="259" x="2633" y="73"/>
+  <object id="261" x="2680" y="105"/>
+  <object id="262" x="2808" y="105" height="1"/>
+  <object id="263" x="2854" y="171"/>
+  <object id="264" x="2887" y="137"/>
+  <object id="265" x="2919" y="170"/>
+  <object id="268" x="2968" y="137"/>
+  <object id="269" x="2997" y="169"/>
+  <object id="271" x="3079" y="121"/>
+  <object id="272" x="3110" y="153"/>
+  <object id="273" x="2807" y="107"/>
+  <object id="274" x="358" y="72"/>
  </objectgroup>
 </map>
