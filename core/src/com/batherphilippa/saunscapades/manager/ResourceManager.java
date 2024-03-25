@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class ResourceManager implements Disposable {
 
-    private TextureAtlas atlas;
+    private final TextureAtlas atlas;
     private final Map<String, Music> musicMap;
     private final Map<String, Sound> soundMap;
 

@@ -2,17 +2,12 @@ package com.batherphilippa.saunscapades.manager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.utils.Timer;
 import com.batherphilippa.saunscapades.SaunScapades;
 import com.batherphilippa.saunscapades.domain.sprite.Shaun;
 import com.batherphilippa.saunscapades.util.UserInput;
-
-import static com.batherphilippa.saunscapades.domain.sprite.SpritePositionState.IDLE;
-import static com.batherphilippa.saunscapades.domain.sprite.SpritePositionState.MOVING;
 
 public class SpriteManager implements Disposable {
 
@@ -21,8 +16,6 @@ public class SpriteManager implements Disposable {
     private final ResourceManager resManager;
     private final SpriteBatch batch;
     private Shaun player;
-    private float timeToNextLoop = 2;
-
 
     public SpriteManager(SaunScapades game, SpriteBatch batch) {
         this.game = game;

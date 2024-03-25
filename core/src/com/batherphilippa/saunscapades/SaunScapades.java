@@ -6,50 +6,77 @@ import com.batherphilippa.saunscapades.manager.B2WorldManager;
 import com.batherphilippa.saunscapades.manager.CameraManager;
 import com.batherphilippa.saunscapades.manager.ResourceManager;
 import com.batherphilippa.saunscapades.manager.SpriteManager;
+import com.batherphilippa.saunscapades.screen.scene.OptionBar;
 import com.batherphilippa.saunscapades.screen.GameScreen;
+import com.batherphilippa.saunscapades.screen.scene.Hud;
+import com.batherphilippa.saunscapades.screen.GameState;
 
 public class SaunScapades extends Game {
-	public SpriteBatch batch;
-	private B2WorldManager b2WorldManager;
-	private CameraManager camManager;
-	private ResourceManager resManager;
-	private SpriteManager spriteManager;
+    public SpriteBatch batch;
+    private B2WorldManager b2WorldManager;
+    private CameraManager camManager;
+    private Hud hud;
+    private OptionBar optionBar;
+    private ResourceManager resManager;
+    private SpriteManager spriteManager;
+    public GameState gameState;
 
-	@Override
-	public void create () {
-		batch = new SpriteBatch();
+    @Override
+    public void create() {
+        batch = new SpriteBatch();
 
-		camManager = new CameraManager();
-		b2WorldManager = new B2WorldManager(this);
-		resManager = new ResourceManager();
-		spriteManager = new SpriteManager(this, batch);
+        camManager = new CameraManager();
+        b2WorldManager = new B2WorldManager(this);
+        resManager = new ResourceManager();
+        spriteManager = new SpriteManager(this, batch);
 
-		this.setScreen(new GameScreen(this));
-	}
+        hud = new Hud(this, batch);
+        optionBar = new OptionBar(this, batch);
 
-	public B2WorldManager getB2WorldManager() {
-		return b2WorldManager;
-	}
+        gameState = GameState.RUNNING;
 
-	public CameraManager getCamManager() {
-		return camManager;
-	}
+        this.setScreen(new GameScreen(this));
+    }
 
-	public ResourceManager getResManager() {
-		return resManager;
-	}
+    public B2WorldManager getB2WorldManager() {
+        return b2WorldManager;
+    }
 
-	public SpriteManager getSpriteManager() {
-		return spriteManager;
-	}
+    public CameraManager getCamManager() {
+        return camManager;
+    }
 
-	@Override
-	public void render () {
-		super.render();
-	}
+    public Hud getHud() {
+        return hud;
+    }
 
-	@Override
-	public void dispose () {
-		batch.dispose();
-	}
+    public OptionBar getOptionBar() {
+        return optionBar;
+    }
+
+    public ResourceManager getResManager() {
+        return resManager;
+    }
+
+    public SpriteManager getSpriteManager() {
+        return spriteManager;
+    }
+
+    public GameState getGameState() {
+        return gameState;
+    }
+
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
+    }
+
+    @Override
+    public void render() {
+        super.render();
+    }
+
+    @Override
+    public void dispose() {
+        batch.dispose();
+    }
 }
