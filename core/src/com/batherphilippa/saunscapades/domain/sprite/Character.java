@@ -1,12 +1,11 @@
 package com.batherphilippa.saunscapades.domain.sprite;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
+import com.batherphilippa.saunscapades.manager.SpriteManager;
 import com.batherphilippa.saunscapades.util.UserInput;
 
 import static com.batherphilippa.saunscapades.util.Constants.PPM;
@@ -16,10 +15,12 @@ public abstract class Character extends Sprite implements Disposable {
     protected World world;
     protected Body b2Body;
     protected TextureRegion region;
+    protected SpriteManager spriteManager;
 
-    public Character(TextureRegion region, World world, float x, float y, float radius) {
+    public Character(TextureRegion region, World world, float x, float y, float radius, SpriteManager spriteManager) {
         this.world = world;
         this.region = region;
+        this.spriteManager = spriteManager;
         setPosition(x / PPM, y / PPM);
         initB2Body(x, y, radius);
     }
@@ -56,9 +57,19 @@ public abstract class Character extends Sprite implements Disposable {
         shape.dispose();
     }
 
-    public abstract void render(SpriteBatch batch);
-    public abstract void update(float delta);
+    protected Animation<TextureRegion> setAnimationFrames(String regionName, int regionStart, int regionEnd, float frameDuration) {
+        Array<TextureRegion> frames = new Array<>();
 
-    public abstract void move(UserInput input);
+        for (int i = regionStart; i < regionEnd; i++) {
+            frames.add(new TextureRegion(spriteManager.getTextureRegion(regionName, i)));
+        }
+
+        return new Animation<>(frameDuration, frames);
+    }
+
+    protected abstract void render(SpriteBatch batch);
+    protected abstract void update(float delta);
+
+    protected abstract void move(UserInput input);
 
 }
