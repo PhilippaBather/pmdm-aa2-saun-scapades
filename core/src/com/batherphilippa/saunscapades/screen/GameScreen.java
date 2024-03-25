@@ -39,11 +39,19 @@ public class GameScreen implements Screen {
         // clears screen
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+
         // render game map
         b2WorldManager.update(camManager.getGameCam());
 
+        // place before sprite manager (to see sprite): tell game batch to recognise where camera is in game world and only render what the camera can see
+        game.batch.setProjectionMatrix(camManager.getGameCam().combined);
         // camera
-        camManager.update(delta);
+        camManager.update(spriteManager.getPlayerPosition());
+
+        // sprites
+        spriteManager.manageInput();
+        spriteManager.update(delta);
+        spriteManager.draw();
     }
 
     @Override
