@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.batherphilippa.saunscapades.SaunScapades;
 import com.batherphilippa.saunscapades.manager.B2WorldManager;
 import com.batherphilippa.saunscapades.manager.CameraManager;
+import com.batherphilippa.saunscapades.manager.ResourceManager;
 import com.batherphilippa.saunscapades.manager.SpriteManager;
 
 public class GameScreen implements Screen {
@@ -13,12 +14,14 @@ public class GameScreen implements Screen {
     private final SaunScapades game;
     private final B2WorldManager b2WorldManager;
     private final CameraManager camManager;
+    private final ResourceManager resourceManager;
     private final SpriteManager spriteManager;
 
     public GameScreen(SaunScapades game) {
         this.game = game;
         this.b2WorldManager = this.game.getB2WorldManager();
         this.camManager = this.game.getCamManager();
+        this.resourceManager = this.game.getResManager();
         this.spriteManager = this.game.getSpriteManager();
     }
 
@@ -29,6 +32,7 @@ public class GameScreen implements Screen {
         // clears screen
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        resourceManager.playMusic("countryside");
     }
 
 
