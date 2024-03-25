@@ -1,2 +1,8 @@
-package com.batherphilippa.saunscapades.screen;public class GameState {
+package com.batherphilippa.saunscapades.screen;
+
+public enum GameState {
+
+    PAUSED,
+
+    RUNNING
 }
