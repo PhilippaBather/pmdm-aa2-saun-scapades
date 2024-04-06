@@ -15,6 +15,7 @@ import com.batherphilippa.saunscapades.SaunScapades;
 import com.batherphilippa.saunscapades.domain.tilemap.Barrier;
 import com.batherphilippa.saunscapades.domain.tilemap.Coin;
 import com.batherphilippa.saunscapades.domain.tilemap.Ground;
+import com.batherphilippa.saunscapades.domain.tilemap.Water;
 import com.batherphilippa.saunscapades.listener.WorldContactListener;
 import com.batherphilippa.saunscapades.screen.scene.Hud;
 
@@ -30,14 +31,14 @@ public class B2WorldManager implements Disposable {
 
     private final Box2DDebugRenderer b2dr;
 
-    private ResourceManager resourceManager;
+    private final ResourceManager resourceManager;
 
     public B2WorldManager(SaunScapades game, ResourceManager resManager, Hud hud) {
         this.game = game;
         this.resourceManager = resManager;
 
         this.world = new World(new Vector2(0, GRAVITY), true);
-        this.world.setContactListener(new WorldContactListener(resManager, hud)); // para identificar colisiones
+        this.world.setContactListener(new WorldContactListener(resManager, hud, this.game)); // para identificar colisiones
 
         // inicializar la mapa y cargar el primer nivel automáticamente
         this.mapLoader = new TmxMapLoader();
@@ -59,6 +60,12 @@ public class B2WorldManager implements Disposable {
             Rectangle rect = object.getRectangle();
 
             new Coin(world, map, rect);
+        }
+
+        for (RectangleMapObject object : map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)) {
+            Rectangle rect = object.getRectangle();
+
+            new Water(world, map, rect);
         }
     }
 
