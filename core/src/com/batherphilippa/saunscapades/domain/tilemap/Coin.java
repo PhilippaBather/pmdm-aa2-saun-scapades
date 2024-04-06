@@ -11,14 +11,9 @@ import static com.batherphilippa.saunscapades.listener.WorldCategoryBits.COIN_BI
 
 public class Coin extends TileObject {
 
-    private final int BLANK_COIN = 28;
-
-    private final TiledMapTileSet tileset;
-
     public Coin(World world, TiledMap map, Rectangle bounds) {
         super(world, map, bounds);
 
-        tileset = map.getTileSets().getTileSet("tileset_mbros");
         // vincula los datos del usuario con el objeto sí mismo
         this.fixture.setUserData(this);
         setCategoryFilter(COIN_BIT);
