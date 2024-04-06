@@ -66,6 +66,24 @@ public class SpriteManager implements Disposable {
         batch.end();
     }
 
+    public void resetPlayerPosition() {
+        try {
+            // B2 body can only be deleted after world step
+            if (!b2WorldManager.getWorld().isLocked() && player.isHasLostLife()) {
+                Thread.sleep(700);
+                b2WorldManager.getWorld().destroyBody(player.getB2Body());
+                player = null;
+                this.player = new Shaun(resManager.loadRegion("shaun_walk", 0), b2WorldManager.getWorld(), 32, 38, 8, this);
+            }
+        } catch (InterruptedException e) {
+            Gdx.app.error("Thread exception", "SpriteManager.resetPlayerPosition(): reset player after death");
+        }
+    }
+
+    public void resetPlayerState() {
+        this.player.resetState();
+    }
+
     @Override
     public void dispose() {
         batch.dispose();
