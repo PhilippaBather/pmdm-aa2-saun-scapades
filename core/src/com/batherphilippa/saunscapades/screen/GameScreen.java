@@ -60,6 +60,7 @@ public class GameScreen implements Screen {
 
             // render game map
             b2WorldManager.update(camManager.getGameCam());
+            spriteManager.resetPlayerPosition();
 
             // camera
             // place before sprite manager (to see sprite): tell game batch to recognise where camera is in game world and only render what the camera can see
