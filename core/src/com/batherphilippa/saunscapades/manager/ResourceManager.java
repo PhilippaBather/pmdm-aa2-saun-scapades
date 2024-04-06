@@ -26,6 +26,7 @@ public class ResourceManager implements Disposable {
         this.musicMap.put("countryside", Gdx.audio.newMusic(Gdx.files.internal("sound/music/countryside.wav")));
         this.soundMap.put("shaun_jump", Gdx.audio.newSound(Gdx.files.internal("sound/sound/jump-shaun.wav")));
         this.soundMap.put("coin", Gdx.audio.newSound(Gdx.files.internal("sound/sound/coin.wav")));
+        this.soundMap.put("sheep_death", Gdx.audio.newSound(Gdx.files.internal("sound/sound/sheep-death.wav")));
     }
 
     public TextureAtlas.AtlasRegion loadRegion(String name, int index) {
