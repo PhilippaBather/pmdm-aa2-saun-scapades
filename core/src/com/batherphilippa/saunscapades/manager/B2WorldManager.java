@@ -15,6 +15,8 @@ import com.batherphilippa.saunscapades.SaunScapades;
 import com.batherphilippa.saunscapades.domain.tilemap.Barrier;
 import com.batherphilippa.saunscapades.domain.tilemap.Coin;
 import com.batherphilippa.saunscapades.domain.tilemap.Ground;
+import com.batherphilippa.saunscapades.listener.WorldContactListener;
+import com.batherphilippa.saunscapades.screen.scene.Hud;
 
 import static com.batherphilippa.saunscapades.util.Constants.GRAVITY;
 import static com.batherphilippa.saunscapades.util.Constants.PPM;
@@ -28,10 +30,14 @@ public class B2WorldManager implements Disposable {
 
     private final Box2DDebugRenderer b2dr;
 
-    public B2WorldManager(SaunScapades game) {
+    private ResourceManager resourceManager;
+
+    public B2WorldManager(SaunScapades game, ResourceManager resManager, Hud hud) {
         this.game = game;
+        this.resourceManager = resManager;
 
         this.world = new World(new Vector2(0, GRAVITY), true);
+        this.world.setContactListener(new WorldContactListener(resManager, hud)); // para identificar colisiones
 
         // inicializar la mapa y cargar el primer nivel automáticamente
         this.mapLoader = new TmxMapLoader();
@@ -42,7 +48,6 @@ public class B2WorldManager implements Disposable {
 
         renderInteractiveObjects();
         renderUninterativeObjcts();
-
     }
 
     public World getWorld() {
