@@ -33,7 +33,6 @@ public abstract class Character extends Sprite implements Disposable {
     private void initB2Body(float x, float y, float radius) {
         createBody(x, y);
         createFixture(radius);
-        createHead();
     }
 
     public Body getB2Body() {
@@ -43,7 +42,7 @@ public abstract class Character extends Sprite implements Disposable {
     /**
      * Define el 'B2 Body' y crealo en el mundo.
      */
-    private void createBody(float x, float y) {
+    public void createBody(float x, float y) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(x / PPM, y / PPM);
         bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -69,12 +68,8 @@ public abstract class Character extends Sprite implements Disposable {
     private void createFilterCollisions(FixtureDef fixDef) {
         if (spriteType == SpriteType.PLAYER) {
             // what shaun can collide with
-            fixDef.filter.maskBits = GROUND_BIT | COIN_BIT ; // shaun
+            fixDef.filter.maskBits = GROUND_BIT | COIN_BIT | WATER_BIT; // shaun
         }
-//        else if (spriteType == SpriteType.ENEMY) {
-//            // what an enemy can collide with
-//            fixDef.filter.maskBits = GROUND_BIT | COIN_BIT | ENEMY_BIT | SHAUN_BIT;  // enemigo
-//        }
     }
 
     protected Animation<TextureRegion> setAnimationFrames(String regionName, int regionStart, int regionEnd, float frameDuration) {
@@ -86,8 +81,6 @@ public abstract class Character extends Sprite implements Disposable {
 
         return new Animation<>(frameDuration, frames);
     }
-
-    protected abstract void createHead();
 
     protected abstract void render(SpriteBatch batch);
 
