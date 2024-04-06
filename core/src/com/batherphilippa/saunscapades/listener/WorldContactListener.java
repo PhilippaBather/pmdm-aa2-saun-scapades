@@ -1,6 +1,7 @@
 package com.batherphilippa.saunscapades.listener;
 
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.utils.Disposable;
 import com.batherphilippa.saunscapades.SaunScapades;
 import com.batherphilippa.saunscapades.domain.tilemap.Coin;
 import com.batherphilippa.saunscapades.domain.tilemap.Water;
@@ -10,7 +11,7 @@ import com.batherphilippa.saunscapades.screen.scene.Hud;
 
 import static com.batherphilippa.saunscapades.listener.WorldCategoryBits.*;
 
-public class WorldContactListener implements ContactListener {
+public class WorldContactListener implements ContactListener, Disposable {
 
     private SaunScapades game;
     private ResourceManager resManager;
@@ -66,5 +67,12 @@ public class WorldContactListener implements ContactListener {
     @Override
     public void postSolve(Contact contact, ContactImpulse impulse) {
 
+    }
+
+    @Override
+    public void dispose() {
+        this.game.dispose();
+        this.hud.dispose();
+        this.resManager.dispose();
     }
 }
