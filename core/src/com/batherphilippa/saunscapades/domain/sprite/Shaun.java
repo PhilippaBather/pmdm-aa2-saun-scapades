@@ -5,8 +5,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.EdgeShape;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.batherphilippa.saunscapades.manager.SpriteManager;
 import com.batherphilippa.saunscapades.util.UserInput;
@@ -24,6 +22,7 @@ public class Shaun extends Character {
     private final TextureRegion shaunIdle;
     private float stateTimer;
     private boolean isDirRight;
+    private boolean hasLostLife ;
 
     public Shaun(TextureAtlas.AtlasRegion region, World world, float x, float y, float radius, SpriteManager spriteManager) {
         super(region, world, x, y, radius, spriteManager, PLAYER);
@@ -36,30 +35,31 @@ public class Shaun extends Character {
         // asociar la región de textura con el sprite
         this.setRegion(shaunIdle);
 
-        setState();
+        setInitialState();
 
         shaunJump = spriteManager.getTextureRegion("shaun_jump_up", 4);
         shaunMove = setAnimationFrames("shaun_walk", 0, 7, 0.1f);
 
+//        shaunDead =spriteManager.getTextureRegion("shaun_dead", );
+
+        this.hasLostLife = false;
+
     }
 
-    private void setState() {
+    private void setInitialState() {
         currState = SpritePositionState.IDLE;
         prevState = SpritePositionState.IDLE;
         stateTimer = 0;
         isDirRight = true;
     }
 
-    @Override
-    protected void createHead() {
-        FixtureDef fixDef = new FixtureDef();
-        EdgeShape head = new EdgeShape();
-        head.set(new Vector2(-4 / PPM, 8 / PPM), new Vector2(4 / PPM, 8 / PPM));
-        fixDef.shape = head;
-        // sensors provide info available for polling
-        fixDef.isSensor = true;
-        b2Body.createFixture(fixDef).setUserData("head"); // para identificar este 'fixture' como la cabeza de shaun
-        head.dispose();
+    public void resetState() {
+        currState = SpritePositionState.DEAD;
+        hasLostLife = true;
+    }
+
+    public boolean isHasLostLife() {
+        return hasLostLife;
     }
 
     @Override
@@ -113,6 +113,7 @@ public class Shaun extends Character {
         return switch (currState) {
             case MOVING -> shaunMove.getKeyFrame(stateTimer, true);
             case JUMPING -> shaunJump;
+            case DEAD -> shaunIdle; // TODO - shaunDead
             case IDLE, FALLING -> shaunIdle;
         };
     }
@@ -135,7 +136,6 @@ public class Shaun extends Character {
                     this.getB2Body().getWorldCenter(), true);
             case LEFT -> this.getB2Body().applyLinearImpulse(new Vector2(-0.1f, 0),
                     this.getB2Body().getWorldCenter(), true);
-
         }
     }
 
