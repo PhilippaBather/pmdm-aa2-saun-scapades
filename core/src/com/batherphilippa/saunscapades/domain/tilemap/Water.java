@@ -19,6 +19,8 @@ public class Water extends TileObject {
     @Override
     public void onContact(ResourceManager resourceManager, Hud hud) {
         hud.updateLives(-1);
+        resourceManager.stopMusic("countryside");
+        resourceManager.playSound("splash");
         resourceManager.playSound("sheep_death");
     }
 }
