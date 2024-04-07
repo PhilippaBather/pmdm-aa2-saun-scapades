@@ -36,9 +36,8 @@ public class GameScreen implements Screen {
         this.resourceManager = this.game.getResManager();
         this.spriteManager = this.game.getSpriteManager();
         this.hud = this.game.getHud();
-        this.optionBar = this.game.getOptionBar();
-        this.optionBarStage = new Stage();
         this.pauseMenu = new PauseBackground(this.game);
+        this.optionBar = new OptionBar(game, this.game.batch, this);
     }
 
     @Override
