@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="200" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="17" nextobjectid="275">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="200" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="18" nextobjectid="283">
  <tileset firstgid="1" source="tileset_mbros.tsx"/>
  <tileset firstgid="925" source="platform-tileset.tsx"/>
  <tileset firstgid="1362" source="ornaments-tileset.tsx"/>
@@ -95,5 +95,14 @@
   <object id="272" x="3110" y="153"/>
   <object id="273" x="2807" y="107"/>
   <object id="274" x="358" y="72"/>
+ </objectgroup>
+ <objectgroup id="17" name="water">
+  <object id="276" x="208" y="206" width="76" height="1"/>
+  <object id="277" x="400" y="204" width="88" height="4"/>
+  <object id="278" x="2109" y="205" width="634" height="3"/>
+  <object id="279" x="1377" y="205" width="62" height="3"/>
+  <object id="280" x="1248" y="205" width="45" height="2"/>
+  <object id="281" x="1132" y="203" width="36" height="4"/>
+  <object id="282" x="849" y="205" width="22" height="3"/>
  </objectgroup>
 </map>

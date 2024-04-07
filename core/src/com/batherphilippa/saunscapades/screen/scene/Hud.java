@@ -101,6 +101,7 @@ public class Hud implements Disposable {
 
     public void updateLives(int update) {
         this.lives += update;
+        livesValueLabel.setText(String.format("%02d", lives));
     }
 
     public void updateScore(int value) {

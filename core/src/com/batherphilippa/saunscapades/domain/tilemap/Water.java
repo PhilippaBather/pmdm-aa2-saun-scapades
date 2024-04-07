@@ -6,22 +6,21 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.batherphilippa.saunscapades.manager.ResourceManager;
 import com.batherphilippa.saunscapades.screen.scene.Hud;
 
-import static com.batherphilippa.saunscapades.listener.WorldCategoryBits.COIN_BIT;
+import static com.batherphilippa.saunscapades.listener.WorldCategoryBits.WATER_BIT;
 
-public class Coin extends TileObject {
-
-    public Coin(World world, TiledMap map, Rectangle bounds) {
+public class Water extends TileObject {
+    public Water(World world, TiledMap map, Rectangle bounds) {
         super(world, map, bounds);
-
         // vincula los datos del usuario con el objeto sí mismo
         this.fixture.setUserData(this);
-        setCategoryFilter(COIN_BIT);
+        setCategoryFilter(WATER_BIT);
     }
 
     @Override
     public void onContact(ResourceManager resourceManager, Hud hud) {
-        getCell().setTile(null);  // remove coin tile from the map
-        hud.updateScore(250);
-        resourceManager.playSound("coin");
+        hud.updateLives(-1);
+        resourceManager.stopMusic("countryside");
+        resourceManager.playSound("splash");
+        resourceManager.playSound("sheep_death");
     }
 }

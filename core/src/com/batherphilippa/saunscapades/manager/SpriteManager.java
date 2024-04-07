@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.Timer;
 import com.batherphilippa.saunscapades.SaunScapades;
 import com.batherphilippa.saunscapades.domain.sprite.Shaun;
 import com.batherphilippa.saunscapades.util.UserInput;
@@ -30,7 +31,7 @@ public class SpriteManager implements Disposable {
      * Inicializar a los sprites.
      */
     private void init() {
-        this.player = new Shaun(resManager.loadRegion("shaun_walk", 0), b2WorldManager.getWorld(), 32, 38, 8, this);
+        this.player = new Shaun(resManager.loadRegion("shaun_idle", -1), b2WorldManager.getWorld(), 32, 38, 8, this);
     }
 
     public TextureRegion getTextureRegion(String name, int index) {
@@ -64,6 +65,31 @@ public class SpriteManager implements Disposable {
         batch.begin();
         player.render(batch);
         batch.end();
+    }
+
+    public void schedulePlayerRestart(int delay) {
+        Timer.Task task = new Timer.Task() {
+            @Override
+            public void run() {
+                restartPlayer();
+            }
+        };
+
+        Timer.instance().scheduleTask(task, delay);
+    }
+
+    private void restartPlayer() {
+        if (!b2WorldManager.getWorld().isLocked() && player.isHasLostLife()) {
+            resManager.playSound("teleportdown");
+            b2WorldManager.getWorld().destroyBody(player.getB2Body());
+            player = null;
+            this.player = new Shaun(resManager.loadRegion("shaun_idle", -1), b2WorldManager.getWorld(), 32, 38, 8, this);
+        }
+        resManager.playMusic("countryside", 2);
+    }
+
+    public void playerHit() {
+        this.player.resetState();
     }
 
     @Override
