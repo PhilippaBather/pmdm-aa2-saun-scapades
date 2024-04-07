@@ -49,7 +49,8 @@ public class WorldContactListener implements ContactListener, Disposable {
                     ((Water) fixB.getUserData()).onContact(resManager, hud);
                 }
                 SpriteManager spriteManager = this.game.getSpriteManager();
-                spriteManager.resetPlayerState();
+                spriteManager.playerHit();
+                spriteManager.schedulePlayerRestart(3);
             }
         }
 
