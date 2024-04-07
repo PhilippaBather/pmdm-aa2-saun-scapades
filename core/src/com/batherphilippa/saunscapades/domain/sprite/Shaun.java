@@ -17,9 +17,9 @@ public class Shaun extends Character {
     private SpritePositionState currState;
     private SpritePositionState prevState;
     private final Animation<TextureRegion> shaunMove;
-
     private final TextureRegion shaunJump;
     private final TextureRegion shaunIdle;
+    private final TextureRegion shaunDead;
     private float stateTimer;
     private boolean isDirRight;
     private boolean hasLostLife ;
@@ -38,9 +38,8 @@ public class Shaun extends Character {
         setInitialState();
 
         shaunJump = spriteManager.getTextureRegion("shaun_jump_up", 4);
+        shaunDead = spriteManager.getTextureRegion("shaun_electrocute", 0);
         shaunMove = setAnimationFrames("shaun_walk", 0, 7, 0.1f);
-
-//        shaunDead =spriteManager.getTextureRegion("shaun_dead", );
 
         this.hasLostLife = false;
 
@@ -54,7 +53,6 @@ public class Shaun extends Character {
     }
 
     public void resetState() {
-        currState = SpritePositionState.DEAD;
         hasLostLife = true;
     }
 
@@ -98,6 +96,9 @@ public class Shaun extends Character {
      * @return SpritePositionState - el estado de la actividad del Sprite
      */
     public SpritePositionState getSpritePositionState() {
+        if(hasLostLife) {
+            return SpritePositionState.DEAD;
+        }
         if (b2Body.getLinearVelocity().y > 0 || (b2Body.getLinearVelocity().y < 0 && prevState == SpritePositionState.JUMPING)) {
             return SpritePositionState.JUMPING;
         } else if (b2Body.getLinearVelocity().y < 0) {
@@ -113,11 +114,10 @@ public class Shaun extends Character {
         return switch (currState) {
             case MOVING -> shaunMove.getKeyFrame(stateTimer, true);
             case JUMPING -> shaunJump;
-            case DEAD -> shaunIdle; // TODO - shaunDead
+            case DEAD -> shaunDead;
             case IDLE, FALLING -> shaunIdle;
         };
     }
-
 
     public float getLinearVelocity() {
         return this.getB2Body().getLinearVelocity().x;
