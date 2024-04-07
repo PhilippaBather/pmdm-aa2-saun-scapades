@@ -9,14 +9,12 @@ import com.batherphilippa.saunscapades.manager.SpriteManager;
 import com.batherphilippa.saunscapades.screen.GameScreen;
 import com.batherphilippa.saunscapades.screen.GameState;
 import com.batherphilippa.saunscapades.screen.scene.Hud;
-import com.batherphilippa.saunscapades.screen.scene.OptionBar;
 
 public class SaunScapades extends Game {
     public SpriteBatch batch;
     private B2WorldManager b2WorldManager;
     private CameraManager camManager;
     private Hud hud;
-    private OptionBar optionBar;
     private ResourceManager resManager;
     private SpriteManager spriteManager;
     public GameState gameState;
@@ -27,7 +25,6 @@ public class SaunScapades extends Game {
 
         camManager = new CameraManager();
         hud = new Hud(this, batch);
-        optionBar = new OptionBar(this, batch);
 
         resManager = new ResourceManager();
         b2WorldManager = new B2WorldManager(this, resManager, hud);
@@ -48,10 +45,6 @@ public class SaunScapades extends Game {
 
     public Hud getHud() {
         return hud;
-    }
-
-    public OptionBar getOptionBar() {
-        return optionBar;
     }
 
     public ResourceManager getResManager() {
