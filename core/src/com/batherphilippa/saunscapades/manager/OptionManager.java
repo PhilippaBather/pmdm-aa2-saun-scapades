@@ -8,6 +8,7 @@ import com.batherphilippa.saunscapades.SaunScapades;
 import com.batherphilippa.saunscapades.screen.GameScreen;
 import com.batherphilippa.saunscapades.screen.GameState;
 import com.batherphilippa.saunscapades.screen.MainMenu;
+import com.batherphilippa.saunscapades.screen.scene.OptionBar;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 
 public class OptionManager {
@@ -15,7 +16,9 @@ public class OptionManager {
     public static void handleExitClicked(VisTextButton btn, Screen screen) {
         btn.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                screen.dispose();
+                if (screen != null) {
+                    screen.dispose();
+                }
                 Gdx.app.log("Exit", "Game exiting...");
                 System.exit(0);
             }
@@ -26,12 +29,15 @@ public class OptionManager {
         btn.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 game.setGameState(GameState.RUNNING);
-                screen.dispose();
+                if (screen != null) {
+                    screen.dispose();
+                }
                 game.setScreen(new MainMenu(game));
 
             }
         });
     }
+
     public static void handlePauseClicked(VisTextButton btn, SaunScapades game) {
         btn.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
