@@ -1,5 +1,6 @@
 package com.batherphilippa.saunscapades.screen.scene;
 
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Disposable;
@@ -14,15 +15,18 @@ public class OptionBar implements Disposable {
 
     private final SaunScapades game;
     private final SpriteBatch batch;
+    private Screen screen;
     private final Stage stage;
 
     // opciones de la tabla
     private VisTextButton menuBtn;
     private VisTextButton pauseBtn;
+    private VisTextButton exitBtn;
 
-    public OptionBar(SaunScapades game, SpriteBatch batch) {
+    public OptionBar(SaunScapades game, SpriteBatch batch, Screen screen) {
         this.game = game;
         this.batch = batch;
+        this.screen = screen;
         CameraManager camManager = this.game.getCamManager();
 
         VisTable table = UIUtils.createTableObj();
@@ -36,19 +40,22 @@ public class OptionBar implements Disposable {
     }
 
     private void defineTable(VisTable table) {
-        table.bottom();
-        table.add(pauseBtn).height(15).width(65);
-        table.add(menuBtn).height(15).width(65);
+        table.bottom().left();
+        table.add(pauseBtn).height(15);
+        table.add(menuBtn).height(15);
+        table.add(exitBtn).height(15);
     }
 
     private void setTextButtons() {
         menuBtn = new VisTextButton("Menu");
         pauseBtn = new VisTextButton("Pause");
+        exitBtn = new VisTextButton("Exit");
     }
 
     private void addClickListeners() {
         OptionManager.handlePauseClicked(pauseBtn, game);
-        // TODO - menu button action
+        OptionManager.handleExitClicked(exitBtn, null);
+        OptionManager.handleMainMenuClicked(menuBtn, game, null);
     }
 
     public Stage getStage() {
