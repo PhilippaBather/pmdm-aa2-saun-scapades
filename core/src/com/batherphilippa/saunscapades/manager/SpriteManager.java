@@ -30,7 +30,7 @@ public class SpriteManager implements Disposable {
      * Inicializar a los sprites.
      */
     private void init() {
-        this.player = new Shaun(resManager.loadRegion("shaun_walk", 0), b2WorldManager.getWorld(), 32, 38, 6, this);
+        this.player = new Shaun(resManager.loadRegion("shaun_walk", 0), b2WorldManager.getWorld(), 32, 38, 8, this);
     }
 
     public TextureRegion getTextureRegion(String name, int index) {
