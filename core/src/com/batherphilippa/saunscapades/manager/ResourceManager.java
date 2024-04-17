@@ -17,7 +17,7 @@ public class ResourceManager implements Disposable {
     private final Map<String, Sound> soundMap;
 
     public ResourceManager() {
-        this.atlas = new TextureAtlas(Gdx.files.internal("atlas/shaun_friends_enemies.atlas"));
+        this.atlas = new TextureAtlas(Gdx.files.internal("atlas/shaun_friends_enemies_1.atlas"));
         this.musicMap = new HashMap<>();
         this.soundMap = new HashMap<>();
         loadSoundFX();
@@ -27,7 +27,10 @@ public class ResourceManager implements Disposable {
         this.musicMap.put("countryside", Gdx.audio.newMusic(Gdx.files.internal("sound/music/countryside.wav")));
         this.soundMap.put("shaun_jump", Gdx.audio.newSound(Gdx.files.internal("sound/sound/jump-shaun.wav")));
         this.soundMap.put("coin", Gdx.audio.newSound(Gdx.files.internal("sound/sound/coin.wav")));
+        this.soundMap.put("enemy_death", Gdx.audio.newSound(Gdx.files.internal("sound/sound/enemy-death.wav")));
+        this.soundMap.put("sheep_victory", Gdx.audio.newSound(Gdx.files.internal("sound/sound/shaun-celebrate.wav")));
         this.soundMap.put("sheep_death", Gdx.audio.newSound(Gdx.files.internal("sound/sound/sheep-death.wav")));
+        this.soundMap.put("sheep_death_no", Gdx.audio.newSound(Gdx.files.internal("sound/sound/sheep-death-noo.wav")));
         this.soundMap.put("splash", Gdx.audio.newSound(Gdx.files.internal("sound/sound/splash.wav")));
         this.soundMap.put("teleportdown", Gdx.audio.newSound(Gdx.files.internal("sound/sound/teleportdown.wav")));
     }
