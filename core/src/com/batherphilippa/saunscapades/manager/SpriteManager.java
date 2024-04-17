@@ -4,10 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Timer;
 import com.batherphilippa.saunscapades.SaunScapades;
+import com.batherphilippa.saunscapades.domain.sprite.AngrySheep;
 import com.batherphilippa.saunscapades.domain.sprite.Shaun;
+import com.batherphilippa.saunscapades.screen.scene.Hud;
 import com.batherphilippa.saunscapades.util.UserInput;
 
 public class SpriteManager implements Disposable {
@@ -16,13 +19,17 @@ public class SpriteManager implements Disposable {
     private final B2WorldManager b2WorldManager;
     private final ResourceManager resManager;
     private final SpriteBatch batch;
+    private final Hud hud;
     private Shaun player;
+    private AngrySheep enemy;
+    private Array<AngrySheep> angrySheepArray;
 
-    public SpriteManager(SaunScapades game, SpriteBatch batch) {
+    public SpriteManager(SaunScapades game, SpriteBatch batch, Hud hud) {
         this.game = game;
         this.batch = batch;
         this.b2WorldManager = this.game.getB2WorldManager();
         this.resManager = this.game.getResManager();
+        this.hud = hud;
 
         init();
     }
@@ -32,6 +39,8 @@ public class SpriteManager implements Disposable {
      */
     private void init() {
         this.player = new Shaun(resManager.loadRegion("shaun_idle", -1), b2WorldManager.getWorld(), 32, 38, 8, this);
+//        this.enemy = new AngrySheep(resManager.loadRegion("black_sheep_run", 1), b2WorldManager.getWorld(), 500, 30, 7, this);
+        this.angrySheepArray = b2WorldManager.renderAngrySheep(resManager.loadRegion("black_sheep_run", 1), this);
     }
 
     public TextureRegion getTextureRegion(String name, int index) {
@@ -44,6 +53,9 @@ public class SpriteManager implements Disposable {
 
     public void update(float dt) {
         this.player.update(dt);
+        for(AngrySheep angrySheep : angrySheepArray) {
+            angrySheep.update(dt);
+        }
     }
 
     public void manageInput() {
@@ -64,6 +76,9 @@ public class SpriteManager implements Disposable {
     public void draw() {
         batch.begin();
         player.render(batch);
+        for(AngrySheep angrySheep : angrySheepArray) {
+            angrySheep.render(batch);
+        }
         batch.end();
     }
 
@@ -88,11 +103,26 @@ public class SpriteManager implements Disposable {
         resManager.playMusic("countryside", 2);
     }
 
-    public void playerHit() {
-        this.player.resetState();
+    public void updateScore(int score) {
+        this.hud.updateScore(score);
     }
 
-    @Override
+    public void playerHit(boolean isEnemy, int delay) {
+        if (isEnemy) {
+            resManager.playSound("sheep_death_no");
+        }
+        this.player.resetState();
+        schedulePlayerRestart(delay);
+        this.hud.updateLives(-1);
+    }
+
+    public void enemyHit() {
+        resManager.playSound("enemy_death");
+        resManager.playSound("sheep_victory");
+        updateScore(500);
+    }
+
+        @Override
     public void dispose() {
         batch.dispose();
         b2WorldManager.dispose();
