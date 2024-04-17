@@ -1,6 +1,7 @@
 package com.batherphilippa.saunscapades.manager;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -10,8 +11,10 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.batherphilippa.saunscapades.SaunScapades;
+import com.batherphilippa.saunscapades.domain.sprite.AngrySheep;
 import com.batherphilippa.saunscapades.domain.tilemap.Barrier;
 import com.batherphilippa.saunscapades.domain.tilemap.Coin;
 import com.batherphilippa.saunscapades.domain.tilemap.Ground;
@@ -28,9 +31,9 @@ public class B2WorldManager implements Disposable {
     private final TmxMapLoader mapLoader;  // TODO - don't convert to local var - to be used in setMap function for second level
     private final TiledMap map;
     private final OrthogonalTiledMapRenderer renderer; // renders map to screen
+    private final Array<AngrySheep> angrySheepArray;
 
     private final Box2DDebugRenderer b2dr;
-
     private final ResourceManager resourceManager;
 
     public B2WorldManager(SaunScapades game, ResourceManager resManager, Hud hud) {
@@ -46,6 +49,8 @@ public class B2WorldManager implements Disposable {
 
         this.renderer = new OrthogonalTiledMapRenderer(map, 1 / PPM);
         this.b2dr = new Box2DDebugRenderer();
+
+        this.angrySheepArray = new Array<>();
 
         renderInteractiveObjects();
         renderUninterativeObjcts();
@@ -81,7 +86,16 @@ public class B2WorldManager implements Disposable {
 
             new Barrier(world, map, rect);
         }
+    }
 
+    public Array<AngrySheep> renderAngrySheep(TextureRegion region, SpriteManager spriteManager) {
+        Array<AngrySheep> angrySheep = new Array<>();
+        for (RectangleMapObject object : map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)) {
+            Rectangle rect = object.getRectangle();
+//            new AngrySheep(resManager.loadRegion("black_sheep_run", 1), b2WorldManager.getWorld(), 500, 30, 7, this);
+            angrySheepArray.add(new AngrySheep(region, world, rect.getX(), rect.getY(), 7, spriteManager));
+        }
+        return angrySheepArray;
     }
 
     public void renderTiledMap(Matrix4 combined) {
