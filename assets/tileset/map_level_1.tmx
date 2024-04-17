@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="200" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="18" nextobjectid="283">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="200" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="19" nextobjectid="292">
  <tileset firstgid="1" source="tileset_mbros.tsx"/>
  <tileset firstgid="925" source="platform-tileset.tsx"/>
  <tileset firstgid="1362" source="ornaments-tileset.tsx"/>
@@ -24,7 +24,7 @@
   <object id="156" x="253" y="117" width="141" height="22"/>
   <object id="157" x="462" y="84" width="93" height="23"/>
   <object id="158" x="590" y="52" width="93" height="25"/>
-  <object id="159" x="512" y="172" width="305" height="35"/>
+  <object id="159" x="491.333" y="172" width="325.667" height="35"/>
   <object id="160" x="895" y="158" width="210" height="28"/>
   <object id="161" x="766" y="69" width="83" height="21"/>
   <object id="162" x="942" y="53" width="82" height="23"/>
@@ -104,5 +104,14 @@
   <object id="280" x="1248" y="205" width="45" height="2"/>
   <object id="281" x="1132" y="203" width="36" height="4"/>
   <object id="282" x="849" y="205" width="22" height="3"/>
+ </objectgroup>
+ <objectgroup id="18" name="angry_sheep">
+  <object id="283" x="584" y="168"/>
+  <object id="284" x="742.667" y="167.333"/>
+  <object id="287" x="984" y="149.333"/>
+  <object id="288" x="1577.33" y="164.667"/>
+  <object id="289" x="1810.67" y="164.667"/>
+  <object id="290" x="2046.67" y="166"/>
+  <object id="291" x="2808.67" y="164"/>
  </objectgroup>
 </map>
