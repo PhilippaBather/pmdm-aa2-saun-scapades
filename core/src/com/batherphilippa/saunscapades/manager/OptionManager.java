@@ -57,7 +57,6 @@ public class OptionManager {
     public static void handlePlayAgainClicked(VisTextButton btn, SaunScapades game, Screen screen) {
         btn.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("In handlePlayAGainClicked");
                 screen.dispose();
                 game.reset();
                 game.setScreen(new GameScreen(game));
