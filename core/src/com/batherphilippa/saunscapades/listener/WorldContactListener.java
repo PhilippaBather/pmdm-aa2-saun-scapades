@@ -1,8 +1,10 @@
 package com.batherphilippa.saunscapades.listener;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Disposable;
 import com.batherphilippa.saunscapades.SaunScapades;
+import com.batherphilippa.saunscapades.domain.sprite.AngrySheep;
 import com.batherphilippa.saunscapades.domain.tilemap.Coin;
 import com.batherphilippa.saunscapades.domain.tilemap.Water;
 import com.batherphilippa.saunscapades.manager.ResourceManager;
@@ -13,9 +15,9 @@ import static com.batherphilippa.saunscapades.listener.WorldCategoryBits.*;
 
 public class WorldContactListener implements ContactListener, Disposable {
 
-    private SaunScapades game;
-    private ResourceManager resManager;
-    private Hud hud;
+    private final SaunScapades game;
+    private final ResourceManager resManager;
+    private final Hud hud;
 
     public WorldContactListener(ResourceManager resManager, Hud hud, SaunScapades game) {
         this.game = game;
@@ -23,10 +25,10 @@ public class WorldContactListener implements ContactListener, Disposable {
         this.hud = hud;
     }
 
-    // TODO - should the WorldContactListener manage contacts or the classes for sprites and TileObjects?
-
     @Override
     public void beginContact(Contact contact) {
+        SpriteManager spriteManager = this.game.getSpriteManager();
+
         // un contato consiste en dos fixtures
         Fixture fixA = contact.getFixtureA();
         Fixture fixB = contact.getFixtureB();
@@ -37,20 +39,42 @@ public class WorldContactListener implements ContactListener, Disposable {
         switch (collisionDef) {
             case (SHAUN_BIT | COIN_BIT) -> {
                 if (fixA.getFilterData().categoryBits == COIN_BIT) {
-                    ((Coin) fixA.getUserData()).onContact(resManager, hud);
+                    ((Coin) fixA.getUserData()).onContact(resManager);
                 } else {
-                    ((Coin) fixB.getUserData()).onContact(resManager, hud);
+                    ((Coin) fixB.getUserData()).onContact(resManager);
                 }
+                spriteManager.updateScore(250);
             }
             case (SHAUN_BIT | WATER_BIT) -> {
                 if (fixA.getFilterData().categoryBits == WATER_BIT) {
-                    ((Water) fixA.getUserData()).onContact(resManager, hud);
+                    ((Water) fixA.getUserData()).onContact(resManager);
                 } else {
-                    ((Water) fixB.getUserData()).onContact(resManager, hud);
+                    ((Water) fixB.getUserData()).onContact(resManager);
                 }
-                SpriteManager spriteManager = this.game.getSpriteManager();
-                spriteManager.playerHit();
-                spriteManager.schedulePlayerRestart(3);
+                spriteManager.playerHit(false,  3);
+            }
+            case (ENEMY_BIT | OBJECT_BIT) -> {
+                if (fixA.getFilterData().categoryBits == ENEMY_BIT) {
+                    ((AngrySheep) fixA.getUserData()).reverseMovement(true, false);
+                } else {
+                    ((AngrySheep) fixB.getUserData()).reverseMovement(true, false);
+                }
+            }
+            case (ENEMY_BIT | SHAUN_BIT) -> {
+                if (fixA.getFilterData().categoryBits == ENEMY_BIT) {
+                    ((AngrySheep) fixA.getUserData()).reverseMovement(true, false);
+                } else {
+                    ((AngrySheep) fixB.getUserData()).reverseMovement(true, false);
+                }
+                spriteManager.playerHit(true, 1);
+            }
+            case (ENEMY_HEAD_BIT | SHAUN_BIT) -> {
+                if (fixA.getFilterData().categoryBits == ENEMY_HEAD_BIT) {
+                    ((AngrySheep) fixA.getUserData()).resetState();
+                } else {
+                    ((AngrySheep) fixB.getUserData()).resetState();
+                }
+                spriteManager.enemyHit();
             }
         }
 
