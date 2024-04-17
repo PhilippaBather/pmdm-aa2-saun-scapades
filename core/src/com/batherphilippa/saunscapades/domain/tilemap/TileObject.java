@@ -61,7 +61,7 @@ public abstract class TileObject {
                 (int) (body.getPosition().y * PPM / 16));
     }
 
-    public abstract void onContact(ResourceManager resourceManager, Hud hud);
+    public abstract void onContact(ResourceManager resourceManager);
 
 }
 
