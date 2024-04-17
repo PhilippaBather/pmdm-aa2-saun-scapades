@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
@@ -61,16 +62,41 @@ public abstract class Character extends Sprite implements Disposable {
         createFilterCollisions(fixDef);
 
         fixDef.shape = shape;
-        this.b2Body.createFixture(fixDef);
+        this.b2Body.createFixture(fixDef).setUserData(this);
+
+        if (spriteType == SpriteType.ENEMY) {
+            createHead(fixDef);
+        }
+
         shape.dispose();
     }
 
     private void createFilterCollisions(FixtureDef fixDef) {
         if (spriteType == SpriteType.PLAYER) {
-            // what shaun can collide with
-            fixDef.filter.maskBits = GROUND_BIT | COIN_BIT | WATER_BIT; // shaun
+            // con lo que shaun puede chocar
+            fixDef.filter.maskBits = GROUND_BIT | COIN_BIT | WATER_BIT | ENEMY_BIT | ENEMY_HEAD_BIT | OBJECT_BIT; // shaun
+        } else {
+            // con lo que un enemigo puede chocar
+            fixDef.filter.maskBits = GROUND_BIT | SHAUN_BIT | COIN_BIT | ENEMY_BIT | OBJECT_BIT;
         }
     }
+
+    private void createHead(FixtureDef fixDef) {
+        PolygonShape head = new PolygonShape();
+        Vector2[] vertices = new Vector2[4];
+        vertices[0] = new Vector2(-6, 10).scl( 1 / PPM);
+        vertices[1] = new Vector2(6, 10).scl( 1 / PPM); // to right
+        vertices[2] = new Vector2(-5, 6).scl( 1 / PPM);
+        vertices[3] = new Vector2(5, 6).scl( 1 / PPM);
+        head.set(vertices);
+        fixDef.shape = head;
+        // 'bounciness'
+        fixDef.restitution = 0.5f;
+        fixDef.filter.categoryBits = ENEMY_HEAD_BIT;
+        // tener acceso al objeto desde el 'collision handler'
+        b2Body.createFixture(fixDef).setUserData(this);
+    }
+
 
     protected Animation<TextureRegion> setAnimationFrames(String regionName, int regionStart, int regionEnd, float frameDuration) {
         Array<TextureRegion> frames = new Array<>();
@@ -87,5 +113,6 @@ public abstract class Character extends Sprite implements Disposable {
     protected abstract void update(float delta);
 
     protected abstract void move(UserInput input);
+    public abstract void resetState();
 
 }
