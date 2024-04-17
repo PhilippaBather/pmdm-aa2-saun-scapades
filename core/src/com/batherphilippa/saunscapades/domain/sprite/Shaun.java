@@ -52,6 +52,7 @@ public class Shaun extends Character {
         isDirRight = true;
     }
 
+    @Override
     public void resetState() {
         hasLostLife = true;
     }
