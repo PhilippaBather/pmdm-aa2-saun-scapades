@@ -71,7 +71,7 @@ public class Bomb extends Character implements Disposable {
     }
 
     @Override
-    public void resetState() {
+    public void resetState(SpriteState state) {
         isDetonated = true;
     }
 

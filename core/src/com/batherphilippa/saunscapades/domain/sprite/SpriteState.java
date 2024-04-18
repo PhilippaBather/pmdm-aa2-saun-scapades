@@ -1,6 +1,6 @@
 package com.batherphilippa.saunscapades.domain.sprite;
 
-public enum SpritePositionState {
+public enum SpriteState {
     DEAD,
     IDLE,
     FALLING,
