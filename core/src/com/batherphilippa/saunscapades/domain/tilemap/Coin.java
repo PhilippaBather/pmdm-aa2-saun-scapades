@@ -4,9 +4,9 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
 import com.batherphilippa.saunscapades.manager.ResourceManager;
-import com.batherphilippa.saunscapades.screen.scene.Hud;
 
 import static com.batherphilippa.saunscapades.listener.WorldCategoryBits.COIN_BIT;
+import static com.batherphilippa.saunscapades.listener.WorldCategoryBits.DESTROYED_BIT;
 
 public class Coin extends TileObject {
 
@@ -19,9 +19,9 @@ public class Coin extends TileObject {
     }
 
     @Override
-    public void onContact(ResourceManager resourceManager, Hud hud) {
+    public void onContact(ResourceManager resourceManager) {
+        setCategoryFilter(DESTROYED_BIT);
         getCell().setTile(null);  // remove coin tile from the map
-        hud.updateScore(250);
         resourceManager.playSound("coin");
     }
 }

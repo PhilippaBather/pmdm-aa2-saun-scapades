@@ -28,7 +28,7 @@ public class SaunScapades extends Game {
 
         resManager = new ResourceManager();
         b2WorldManager = new B2WorldManager(this, resManager, hud);
-        spriteManager = new SpriteManager(this, batch);
+        spriteManager = new SpriteManager(this, batch, hud);
 
         gameState = GameState.RUNNING;
 

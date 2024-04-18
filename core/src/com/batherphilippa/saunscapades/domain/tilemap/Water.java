@@ -4,7 +4,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
 import com.batherphilippa.saunscapades.manager.ResourceManager;
-import com.batherphilippa.saunscapades.screen.scene.Hud;
 
 import static com.batherphilippa.saunscapades.listener.WorldCategoryBits.WATER_BIT;
 
@@ -17,8 +16,7 @@ public class Water extends TileObject {
     }
 
     @Override
-    public void onContact(ResourceManager resourceManager, Hud hud) {
-        hud.updateLives(-1);
+    public void onContact(ResourceManager resourceManager) {
         resourceManager.stopMusic("countryside");
         resourceManager.playSound("splash");
         resourceManager.playSound("sheep_death");

@@ -14,7 +14,7 @@ public class Ground extends TileObject {
     }
 
     @Override
-    public void onContact(ResourceManager resourceManager, Hud hud) {
+    public void onContact(ResourceManager resourceManager) {
         Gdx.app.log("Ground", "Ground collision");
     }
 }
