@@ -9,7 +9,9 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Timer;
 import com.batherphilippa.saunscapades.SaunScapades;
 import com.batherphilippa.saunscapades.domain.sprite.AngrySheep;
+import com.batherphilippa.saunscapades.domain.sprite.Bomb;
 import com.batherphilippa.saunscapades.domain.sprite.Shaun;
+import com.batherphilippa.saunscapades.domain.sprite.SpriteType;
 import com.batherphilippa.saunscapades.screen.scene.Hud;
 import com.batherphilippa.saunscapades.util.UserInput;
 
@@ -21,8 +23,8 @@ public class SpriteManager implements Disposable {
     private final SpriteBatch batch;
     private final Hud hud;
     private Shaun player;
-    private AngrySheep enemy;
     private Array<AngrySheep> angrySheepArray;
+    private Array<Bomb> bombArray;
 
     public SpriteManager(SaunScapades game, SpriteBatch batch, Hud hud) {
         this.game = game;
@@ -39,8 +41,8 @@ public class SpriteManager implements Disposable {
      */
     private void init() {
         this.player = new Shaun(resManager.loadRegion("shaun_idle", -1), b2WorldManager.getWorld(), 32, 38, 8, this);
-//        this.enemy = new AngrySheep(resManager.loadRegion("black_sheep_run", 1), b2WorldManager.getWorld(), 500, 30, 7, this);
         this.angrySheepArray = b2WorldManager.renderAngrySheep(resManager.loadRegion("black_sheep_run", 1), this);
+        this.bombArray = b2WorldManager.renderBombs(resManager.loadRegion("bomb_idle", -1), this);
     }
 
     public TextureRegion getTextureRegion(String name, int index) {
@@ -55,6 +57,9 @@ public class SpriteManager implements Disposable {
         this.player.update(dt);
         for(AngrySheep angrySheep : angrySheepArray) {
             angrySheep.update(dt);
+        }
+        for(Bomb bomb : bombArray) {
+            bomb.update(dt);
         }
     }
 
@@ -78,6 +83,9 @@ public class SpriteManager implements Disposable {
         player.render(batch);
         for(AngrySheep angrySheep : angrySheepArray) {
             angrySheep.render(batch);
+        }
+        for(Bomb bomb : bombArray) {
+            bomb.render(batch);
         }
         batch.end();
     }
@@ -107,10 +115,14 @@ public class SpriteManager implements Disposable {
         this.hud.updateScore(score);
     }
 
-    public void playerHit(boolean isEnemy, int delay) {
-        if (isEnemy) {
+    public void playerHit(SpriteType npc, int delay) {
+        if (npc == SpriteType.ENEMY || npc == SpriteType.BOMB) {
             resManager.playSound("sheep_death_no");
         }
+        if (npc == SpriteType.BOMB) {
+            resManager.playSound("explosion");
+        }
+
         this.player.resetState();
         schedulePlayerRestart(delay);
         this.hud.updateLives(-1);
