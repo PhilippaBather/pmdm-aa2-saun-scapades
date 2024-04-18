@@ -56,7 +56,12 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         UIUtils.clearScreen();
 
-        if (!game.getGameState().equals(GameState.PAUSED)) {
+        if(game.gameState == GameState.GAME_OVER) {
+            resourceManager.stopMusic("countryside");
+            game.setScreen(new GameOver(game));
+        }
+
+        if (!game.getGameState().equals(GameState.PAUSED) && game.gameState != GameState.GAME_OVER) {
 
             // render game map
             b2WorldManager.update(camManager.getGameCam());

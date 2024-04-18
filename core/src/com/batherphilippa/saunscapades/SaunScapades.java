@@ -6,10 +6,10 @@ import com.batherphilippa.saunscapades.manager.B2WorldManager;
 import com.batherphilippa.saunscapades.manager.CameraManager;
 import com.batherphilippa.saunscapades.manager.ResourceManager;
 import com.batherphilippa.saunscapades.manager.SpriteManager;
-import com.batherphilippa.saunscapades.screen.scene.OptionBar;
 import com.batherphilippa.saunscapades.screen.GameScreen;
-import com.batherphilippa.saunscapades.screen.scene.Hud;
 import com.batherphilippa.saunscapades.screen.GameState;
+import com.batherphilippa.saunscapades.screen.scene.Hud;
+import com.batherphilippa.saunscapades.screen.scene.OptionBar;
 
 public class SaunScapades extends Game {
     public SpriteBatch batch;
@@ -68,6 +68,14 @@ public class SaunScapades extends Game {
 
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
+    }
+
+    public int getTotalPoints() {
+        return hud.getScore();
+    }
+    public void reset() {
+        setGameState(GameState.RUNNING);
+        this.hud = new Hud(this, batch);
     }
 
     @Override

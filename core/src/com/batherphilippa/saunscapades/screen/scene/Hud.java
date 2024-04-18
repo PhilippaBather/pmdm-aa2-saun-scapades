@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Disposable;
 import com.batherphilippa.saunscapades.SaunScapades;
 import com.batherphilippa.saunscapades.manager.CameraManager;
+import com.batherphilippa.saunscapades.screen.GameState;
 import com.batherphilippa.saunscapades.screen.util.UIUtils;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
@@ -95,6 +96,10 @@ public class Hud implements Disposable {
         timerValueLabel = new VisLabel(String.format(String.format("%04d", worldTimer)), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
     }
 
+    public int getScore() {
+        return score;
+    }
+
     public void updateEnergy(int update) {
         this.energy += update;
     }
@@ -102,6 +107,9 @@ public class Hud implements Disposable {
     public void updateLives(int update) {
         this.lives += update;
         livesValueLabel.setText(String.format("%02d", lives));
+        if (lives <= 0) {
+            game.setGameState(GameState.GAME_OVER);
+        }
     }
 
     public void updateScore(int value) {
