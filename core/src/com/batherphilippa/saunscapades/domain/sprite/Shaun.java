@@ -5,11 +5,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.batherphilippa.saunscapades.manager.SpriteManager;
 import com.batherphilippa.saunscapades.util.UserInput;
 
 import static com.batherphilippa.saunscapades.domain.sprite.SpriteType.PLAYER;
+import static com.batherphilippa.saunscapades.listener.WorldCategoryBits.SHAUN_BIT;
 import static com.batherphilippa.saunscapades.util.Constants.PPM;
 
 public class Shaun extends Character {
@@ -55,6 +57,16 @@ public class Shaun extends Character {
     @Override
     public void resetState() {
         hasLostLife = true;
+    }
+
+    @Override
+    public void createHead(FixtureDef fixDef) {
+
+    }
+
+    @Override
+    public short getCategoryBit() {
+        return SHAUN_BIT;
     }
 
     public boolean isHasLostLife() {

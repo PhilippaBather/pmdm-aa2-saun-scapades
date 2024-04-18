@@ -4,10 +4,14 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.batherphilippa.saunscapades.manager.SpriteManager;
 import com.batherphilippa.saunscapades.util.UserInput;
 
+import static com.batherphilippa.saunscapades.listener.WorldCategoryBits.ENEMY_BIT;
+import static com.batherphilippa.saunscapades.listener.WorldCategoryBits.ENEMY_HEAD_BIT;
 import static com.batherphilippa.saunscapades.util.Constants.PPM;
 
 public class AngrySheep extends Character {
@@ -55,6 +59,27 @@ public class AngrySheep extends Character {
         if (y) {
             movement.y = -movement.y;
         }
+    }
+
+    public void createHead(FixtureDef fixDef) {
+        PolygonShape head = new PolygonShape();
+        Vector2[] vertices = new Vector2[4];
+        vertices[0] = new Vector2(-6, 10).scl( 1 / PPM);
+        vertices[1] = new Vector2(6, 10).scl( 1 / PPM); // to right
+        vertices[2] = new Vector2(-5, 6).scl( 1 / PPM);
+        vertices[3] = new Vector2(5, 6).scl( 1 / PPM);
+        head.set(vertices);
+        fixDef.shape = head;
+        // 'bounciness'
+        fixDef.restitution = 0.5f;
+        fixDef.filter.categoryBits = ENEMY_HEAD_BIT;
+        // tener acceso al objeto desde el 'collision handler'
+        b2Body.createFixture(fixDef).setUserData(this);
+    }
+
+    @Override
+    public short getCategoryBit() {
+        return ENEMY_BIT;
     }
 
     @Override
