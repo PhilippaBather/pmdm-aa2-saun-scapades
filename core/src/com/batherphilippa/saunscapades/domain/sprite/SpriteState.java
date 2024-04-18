@@ -5,5 +5,6 @@ public enum SpritePositionState {
     IDLE,
     FALLING,
     JUMPING,
-    MOVING
+    MOVING,
+    VICTORY
 }
