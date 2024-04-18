@@ -8,10 +8,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Timer;
 import com.batherphilippa.saunscapades.SaunScapades;
-import com.batherphilippa.saunscapades.domain.sprite.AngrySheep;
-import com.batherphilippa.saunscapades.domain.sprite.Bomb;
-import com.batherphilippa.saunscapades.domain.sprite.Shaun;
-import com.batherphilippa.saunscapades.domain.sprite.SpriteType;
+import com.batherphilippa.saunscapades.domain.sprite.*;
 import com.batherphilippa.saunscapades.screen.scene.Hud;
 import com.batherphilippa.saunscapades.util.UserInput;
 
@@ -23,6 +20,7 @@ public class SpriteManager implements Disposable {
     private final SpriteBatch batch;
     private final Hud hud;
     private Shaun player;
+    private Shirley shirleySheep;
     private Array<AngrySheep> angrySheepArray;
     private Array<Bomb> bombArray;
 
@@ -43,6 +41,7 @@ public class SpriteManager implements Disposable {
         this.player = new Shaun(resManager.loadRegion("shaun_idle", -1), b2WorldManager.getWorld(), 32, 38, 8, this);
         this.angrySheepArray = b2WorldManager.renderAngrySheep(resManager.loadRegion("black_sheep_run", 1), this);
         this.bombArray = b2WorldManager.renderBombs(resManager.loadRegion("bomb_idle", -1), this);
+        this.shirleySheep = b2WorldManager.rendLevelEndObject(resManager.loadRegion("shirley_end_level", -1), this);
     }
 
     public TextureRegion getTextureRegion(String name, int index) {
@@ -55,6 +54,7 @@ public class SpriteManager implements Disposable {
 
     public void update(float dt) {
         this.player.update(dt);
+        this.shirleySheep.update(dt);
         for(AngrySheep angrySheep : angrySheepArray) {
             angrySheep.update(dt);
         }
@@ -64,7 +64,7 @@ public class SpriteManager implements Disposable {
     }
 
     public void manageInput() {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && player.getB2Body().getLinearVelocity().y == 0) {
             player.move(UserInput.UP);
             resManager.playSound("shaun_jump");
         }
@@ -81,6 +81,7 @@ public class SpriteManager implements Disposable {
     public void draw() {
         batch.begin();
         player.render(batch);
+        shirleySheep.draw(batch);
         for(AngrySheep angrySheep : angrySheepArray) {
             angrySheep.render(batch);
         }
@@ -123,7 +124,7 @@ public class SpriteManager implements Disposable {
             resManager.playSound("explosion");
         }
 
-        this.player.resetState();
+        this.player.resetState(SpriteState.DEAD);
         schedulePlayerRestart(delay);
         this.hud.updateLives(-1);
     }
@@ -134,10 +135,17 @@ public class SpriteManager implements Disposable {
         updateScore(500);
     }
 
+    public void levelEndCelebration() {
+        this.player.resetState(SpriteState.VICTORY);
+        updateScore(1000);
+    }
+
         @Override
     public void dispose() {
         batch.dispose();
         b2WorldManager.dispose();
+        angrySheepArray.clear();
+        bombArray.clear();
         game.dispose();
         player.dispose();
     }
