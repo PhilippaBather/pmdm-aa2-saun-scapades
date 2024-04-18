@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.batherphilippa.saunscapades.SaunScapades;
 import com.batherphilippa.saunscapades.domain.sprite.AngrySheep;
+import com.batherphilippa.saunscapades.domain.sprite.Bomb;
 import com.batherphilippa.saunscapades.domain.tilemap.Barrier;
 import com.batherphilippa.saunscapades.domain.tilemap.Coin;
 import com.batherphilippa.saunscapades.domain.tilemap.Ground;
@@ -89,13 +90,21 @@ public class B2WorldManager implements Disposable {
     }
 
     public Array<AngrySheep> renderAngrySheep(TextureRegion region, SpriteManager spriteManager) {
-        Array<AngrySheep> angrySheep = new Array<>();
+        Array<AngrySheep> angrySheepArr = new Array<>();
         for (RectangleMapObject object : map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = object.getRectangle();
-//            new AngrySheep(resManager.loadRegion("black_sheep_run", 1), b2WorldManager.getWorld(), 500, 30, 7, this);
-            angrySheepArray.add(new AngrySheep(region, world, rect.getX(), rect.getY(), 7, spriteManager));
+            angrySheepArr.add(new AngrySheep(region, world, rect.getX(), rect.getY(), 7, spriteManager));
         }
-        return angrySheepArray;
+        return angrySheepArr;
+    }
+
+    public Array<Bomb> renderBombs(TextureRegion region, SpriteManager spriteManager) {
+        Array<Bomb> bombArr = new Array<>();
+        for (RectangleMapObject object : map.getLayers().get(8).getObjects().getByType(RectangleMapObject.class)) {
+            Rectangle rect = object.getRectangle();
+            bombArr.add(new Bomb(region, world, rect.getX(), rect.getY(), 6, spriteManager));
+        }
+        return bombArr;
     }
 
     public void renderTiledMap(Matrix4 combined) {

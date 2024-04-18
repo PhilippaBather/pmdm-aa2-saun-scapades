@@ -58,7 +58,8 @@ public abstract class Character extends Sprite implements Disposable {
         CircleShape shape = new CircleShape();
         shape.setRadius(radius / PPM);
 
-        fixDef.filter.categoryBits = spriteType == SpriteType.PLAYER ? SHAUN_BIT : ENEMY_BIT;
+        fixDef.filter.categoryBits = getCategoryBit();
+
         createFilterCollisions(fixDef);
 
         fixDef.shape = shape;
@@ -74,29 +75,12 @@ public abstract class Character extends Sprite implements Disposable {
     private void createFilterCollisions(FixtureDef fixDef) {
         if (spriteType == SpriteType.PLAYER) {
             // con lo que shaun puede chocar
-            fixDef.filter.maskBits = GROUND_BIT | COIN_BIT | WATER_BIT | ENEMY_BIT | ENEMY_HEAD_BIT | OBJECT_BIT; // shaun
+            fixDef.filter.maskBits = GROUND_BIT | COIN_BIT | WATER_BIT | ENEMY_BIT | ENEMY_HEAD_BIT | OBJECT_BIT |BOMB_BIT; // shaun
         } else {
             // con lo que un enemigo puede chocar
-            fixDef.filter.maskBits = GROUND_BIT | SHAUN_BIT | COIN_BIT | ENEMY_BIT | OBJECT_BIT;
+            fixDef.filter.maskBits = GROUND_BIT | SHAUN_BIT | COIN_BIT | ENEMY_BIT | OBJECT_BIT | BOMB_BIT;
         }
     }
-
-    private void createHead(FixtureDef fixDef) {
-        PolygonShape head = new PolygonShape();
-        Vector2[] vertices = new Vector2[4];
-        vertices[0] = new Vector2(-6, 10).scl( 1 / PPM);
-        vertices[1] = new Vector2(6, 10).scl( 1 / PPM); // to right
-        vertices[2] = new Vector2(-5, 6).scl( 1 / PPM);
-        vertices[3] = new Vector2(5, 6).scl( 1 / PPM);
-        head.set(vertices);
-        fixDef.shape = head;
-        // 'bounciness'
-        fixDef.restitution = 0.5f;
-        fixDef.filter.categoryBits = ENEMY_HEAD_BIT;
-        // tener acceso al objeto desde el 'collision handler'
-        b2Body.createFixture(fixDef).setUserData(this);
-    }
-
 
     protected Animation<TextureRegion> setAnimationFrames(String regionName, int regionStart, int regionEnd, float frameDuration) {
         Array<TextureRegion> frames = new Array<>();
@@ -114,5 +98,7 @@ public abstract class Character extends Sprite implements Disposable {
 
     protected abstract void move(UserInput input);
     public abstract void resetState();
+    public abstract void createHead(FixtureDef fixDef);
+    public abstract short getCategoryBit();
 
 }

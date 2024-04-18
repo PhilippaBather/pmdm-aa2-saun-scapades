@@ -5,6 +5,8 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Disposable;
 import com.batherphilippa.saunscapades.SaunScapades;
 import com.batherphilippa.saunscapades.domain.sprite.AngrySheep;
+import com.batherphilippa.saunscapades.domain.sprite.Bomb;
+import com.batherphilippa.saunscapades.domain.sprite.SpriteType;
 import com.batherphilippa.saunscapades.domain.tilemap.Coin;
 import com.batherphilippa.saunscapades.domain.tilemap.Water;
 import com.batherphilippa.saunscapades.manager.ResourceManager;
@@ -51,7 +53,7 @@ public class WorldContactListener implements ContactListener, Disposable {
                 } else {
                     ((Water) fixB.getUserData()).onContact(resManager);
                 }
-                spriteManager.playerHit(false,  3);
+                spriteManager.playerHit(SpriteType.OBJECT, 3);
             }
             case (ENEMY_BIT | OBJECT_BIT) -> {
                 if (fixA.getFilterData().categoryBits == ENEMY_BIT) {
@@ -66,7 +68,7 @@ public class WorldContactListener implements ContactListener, Disposable {
                 } else {
                     ((AngrySheep) fixB.getUserData()).reverseMovement(true, false);
                 }
-                spriteManager.playerHit(true, 1);
+                spriteManager.playerHit(SpriteType.ENEMY, 1);
             }
             case (ENEMY_HEAD_BIT | SHAUN_BIT) -> {
                 if (fixA.getFilterData().categoryBits == ENEMY_HEAD_BIT) {
@@ -75,6 +77,14 @@ public class WorldContactListener implements ContactListener, Disposable {
                     ((AngrySheep) fixB.getUserData()).resetState();
                 }
                 spriteManager.enemyHit();
+            }
+            case (BOMB_BIT | SHAUN_BIT) -> {
+                if (fixA.getFilterData().categoryBits == BOMB_BIT) {
+                    ((Bomb) fixA.getUserData()).resetState();
+                } else {
+                    ((Bomb) fixB.getUserData()).resetState();
+                }
+                spriteManager.playerHit(SpriteType.BOMB, 1);
             }
         }
 

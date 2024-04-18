@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="200" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="19" nextobjectid="292">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="200" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="20" nextobjectid="302">
  <tileset firstgid="1" source="tileset_mbros.tsx"/>
  <tileset firstgid="925" source="platform-tileset.tsx"/>
  <tileset firstgid="1362" source="ornaments-tileset.tsx"/>
@@ -113,5 +113,17 @@
   <object id="289" x="1810.67" y="164.667"/>
   <object id="290" x="2046.67" y="166"/>
   <object id="291" x="2808.67" y="164"/>
+ </objectgroup>
+ <objectgroup id="19" name="bombs">
+  <object id="292" x="312.667" y="108.667"/>
+  <object id="293" x="545.333" y="76"/>
+  <object id="294" x="886" y="114.667"/>
+  <object id="295" x="1208.67" y="116"/>
+  <object id="296" x="1336" y="116"/>
+  <object id="297" x="1465.33" y="114.667"/>
+  <object id="298" x="2167.33" y="118"/>
+  <object id="299" x="2518.67" y="150"/>
+  <object id="300" x="2758" y="116.667"/>
+  <object id="301" x="3052.67" y="164"/>
  </objectgroup>
 </map>
