@@ -13,7 +13,6 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
-import com.batherphilippa.saunscapades.SaunScapades;
 import com.batherphilippa.saunscapades.domain.sprite.AngrySheep;
 import com.batherphilippa.saunscapades.domain.sprite.Bomb;
 import com.batherphilippa.saunscapades.domain.sprite.Shirley;
@@ -22,25 +21,23 @@ import com.batherphilippa.saunscapades.domain.tilemap.Coin;
 import com.batherphilippa.saunscapades.domain.tilemap.Ground;
 import com.batherphilippa.saunscapades.domain.tilemap.Water;
 import com.batherphilippa.saunscapades.listener.WorldContactListener;
+import com.batherphilippa.saunscapades.screen.GameScreen;
 import com.batherphilippa.saunscapades.screen.scene.Hud;
 
 import static com.batherphilippa.saunscapades.util.Constants.GRAVITY;
 import static com.batherphilippa.saunscapades.util.Constants.PPM;
 
 public class B2WorldManager implements Disposable {
-    private final SaunScapades game;
+    private final GameScreen game;
     private final World world;
     private final TmxMapLoader mapLoader;  // TODO - don't convert to local var - to be used in setMap function for second level
     private final TiledMap map;
     private final OrthogonalTiledMapRenderer renderer; // renders map to screen
-    private final Array<AngrySheep> angrySheepArray;
 
     private final Box2DDebugRenderer b2dr;
-    private final ResourceManager resourceManager;
 
-    public B2WorldManager(SaunScapades game, ResourceManager resManager, Hud hud) {
-        this.game = game;
-        this.resourceManager = resManager;
+    public B2WorldManager(GameScreen gameScreen, ResourceManager resManager, Hud hud) {
+        this.game = gameScreen;
 
         this.world = new World(new Vector2(0, GRAVITY), true);
         this.world.setContactListener(new WorldContactListener(resManager, hud, this.game)); // para identificar colisiones
@@ -51,8 +48,6 @@ public class B2WorldManager implements Disposable {
 
         this.renderer = new OrthogonalTiledMapRenderer(map, 1 / PPM);
         this.b2dr = new Box2DDebugRenderer();
-
-        this.angrySheepArray = new Array<>();
 
         renderInteractiveObjects();
         renderUninterativeObjcts();
