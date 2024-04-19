@@ -2,7 +2,6 @@ package com.batherphilippa.saunscapades.listener;
 
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Disposable;
-import com.batherphilippa.saunscapades.SaunScapades;
 import com.batherphilippa.saunscapades.domain.sprite.AngrySheep;
 import com.batherphilippa.saunscapades.domain.sprite.Bomb;
 import com.batherphilippa.saunscapades.domain.sprite.SpriteState;
@@ -11,25 +10,26 @@ import com.batherphilippa.saunscapades.domain.tilemap.Coin;
 import com.batherphilippa.saunscapades.domain.tilemap.Water;
 import com.batherphilippa.saunscapades.manager.ResourceManager;
 import com.batherphilippa.saunscapades.manager.SpriteManager;
+import com.batherphilippa.saunscapades.screen.GameScreen;
 import com.batherphilippa.saunscapades.screen.scene.Hud;
 
 import static com.batherphilippa.saunscapades.listener.WorldCategoryBits.*;
 
 public class WorldContactListener implements ContactListener, Disposable {
 
-    private final SaunScapades game;
+    private final GameScreen gameScreen;
     private final ResourceManager resManager;
     private final Hud hud;
 
-    public WorldContactListener(ResourceManager resManager, Hud hud, SaunScapades game) {
-        this.game = game;
+    public WorldContactListener(ResourceManager resManager, Hud hud, GameScreen gameScreen) {
+        this.gameScreen = gameScreen;
         this.resManager = resManager;
         this.hud = hud;
     }
 
     @Override
     public void beginContact(Contact contact) {
-        SpriteManager spriteManager = this.game.getSpriteManager();
+        SpriteManager spriteManager = this.gameScreen.getSpriteManager();
 
         // un contato consiste en dos fixtures
         Fixture fixA = contact.getFixtureA();
@@ -41,18 +41,20 @@ public class WorldContactListener implements ContactListener, Disposable {
         switch (collisionDef) {
             case (SHAUN_BIT | COIN_BIT) -> {
                 if (fixA.getFilterData().categoryBits == COIN_BIT) {
-                    ((Coin) fixA.getUserData()).onContact(resManager);
+                    ((Coin) fixA.getUserData()).onContact();
                 } else {
-                    ((Coin) fixB.getUserData()).onContact(resManager);
+                    ((Coin) fixB.getUserData()).onContact();
                 }
                 spriteManager.updateScore(250);
+                resManager.playSound("coin");
             }
             case (SHAUN_BIT | WATER_BIT) -> {
                 if (fixA.getFilterData().categoryBits == WATER_BIT) {
-                    ((Water) fixA.getUserData()).onContact(resManager);
+                    ((Water) fixA.getUserData()).onContact();
                 } else {
-                    ((Water) fixB.getUserData()).onContact(resManager);
+                    ((Water) fixB.getUserData()).onContact();
                 }
+                resManager.playSound("splash");
                 spriteManager.playerHit(SpriteType.OBJECT, 2);
             }
             case (ENEMY_BIT | OBJECT_BIT)-> {
@@ -113,7 +115,7 @@ public class WorldContactListener implements ContactListener, Disposable {
 
     @Override
     public void dispose() {
-        this.game.dispose();
+        this.gameScreen.dispose();
         this.hud.dispose();
         this.resManager.dispose();
     }
