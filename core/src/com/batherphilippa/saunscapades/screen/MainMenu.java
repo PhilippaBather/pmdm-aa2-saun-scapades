@@ -81,12 +81,12 @@ public class MainMenu implements Screen {
 
     @Override
     public void pause() {
-        game.gameState = GameState.PAUSED;
+        SaunScapades.gameState = GameState.PAUSED;
     }
 
     @Override
     public void resume() {
-        game.gameState = GameState.RUNNING;
+        SaunScapades.gameState = GameState.RUNNING;
     }
 
     @Override
@@ -96,7 +96,6 @@ public class MainMenu implements Screen {
 
     @Override
     public void dispose() {
-        this.game.dispose();
         this.stage.dispose();
     }
 }
