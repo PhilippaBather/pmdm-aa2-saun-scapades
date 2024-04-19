@@ -45,7 +45,7 @@ public class MainMenu implements Screen {
         this.titleLabel = new VisLabel("MAIN MENU");
         this.exitBtn = new VisTextButton("EXIT");
         this.configBtn = new VisTextButton("CONFIGURATIONS");
-        this.playBtn = new VisTextButton("PLAY AGAIN");
+        this.playBtn = new VisTextButton("PLAY");
     }
 
     private void setClickListeners() {
