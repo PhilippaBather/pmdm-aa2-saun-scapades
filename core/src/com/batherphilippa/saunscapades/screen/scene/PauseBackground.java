@@ -8,6 +8,9 @@ import com.batherphilippa.saunscapades.screen.util.UIUtils;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 
+import static com.batherphilippa.saunscapades.screen.constants.UIConstants.BTN_RESUME;
+import static com.batherphilippa.saunscapades.screen.constants.UIConstants.LABEL_GAME_PAUSED_TITLE;
+
 public class PauseBackground implements Disposable {
 
     private final SaunScapades game;
@@ -18,7 +21,7 @@ public class PauseBackground implements Disposable {
         this.game = game;
 
         VisTable table = UIUtils.createTableObj();
-        resumBtn = new VisTextButton("Resume Game");
+        resumBtn = new VisTextButton(BTN_RESUME);
         OptionManager.handleUnPauseClicked(resumBtn);
         defineTable(table);
 
@@ -33,7 +36,7 @@ public class PauseBackground implements Disposable {
     private void defineTable(VisTable table) {
         table.center();
         table.setFillParent(true);
-        table.add("Game Paused").expandX().pad(10);
+        table.add(LABEL_GAME_PAUSED_TITLE).expandX().pad(10);
         table.row();
         table.add(resumBtn).expandX().pad(10);
     }

@@ -10,11 +10,12 @@ import com.batherphilippa.saunscapades.screen.util.UIUtils;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 
+import static com.batherphilippa.saunscapades.screen.constants.UIConstants.*;
+
 public class OptionBar implements Disposable {
 
     private final SaunScapades game;
     private final SpriteBatch batch;
-//    private Screen screen;
     private final Stage stage;
 
     // opciones de la tabla
@@ -45,9 +46,9 @@ public class OptionBar implements Disposable {
     }
 
     private void setTextButtons() {
-        menuBtn = new VisTextButton("Menu");
-        pauseBtn = new VisTextButton("Pause");
-        exitBtn = new VisTextButton("Exit");
+        menuBtn = new VisTextButton(BTN_MENU);
+        pauseBtn = new VisTextButton(BTN_PAUSE);
+        exitBtn = new VisTextButton(BTN_EXIT);
     }
 
     private void addClickListeners() {

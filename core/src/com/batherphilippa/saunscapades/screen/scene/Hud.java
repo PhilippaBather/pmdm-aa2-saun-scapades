@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Disposable;
 import com.batherphilippa.saunscapades.SaunScapades;
 import com.batherphilippa.saunscapades.manager.CameraManager;
+import com.batherphilippa.saunscapades.manager.ConfigManager;
 import com.batherphilippa.saunscapades.screen.GameState;
 import com.batherphilippa.saunscapades.screen.util.UIUtils;
 import com.kotcrab.vis.ui.widget.VisLabel;
@@ -57,12 +58,12 @@ public class Hud implements Disposable {
     }
 
     public void setInitialValues() {
-        this.energy = 4;
+        this.energy = (int) ConfigManager.getGameEnergy();
         this.level = 1;
-        this.lives = 3;
+        this.lives = (int) ConfigManager.getGameLives();
         this.score = 0;
         this.timeCount = 0;
-        this.worldTimer = 180; // 3 minutos
+        this.worldTimer = (int) ConfigManager.getGameLength();
     }
 
     private void defineTable(VisTable table) {
