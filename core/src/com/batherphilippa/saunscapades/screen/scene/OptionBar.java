@@ -1,6 +1,5 @@
 package com.batherphilippa.saunscapades.screen.scene;
 
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Disposable;
@@ -15,7 +14,7 @@ public class OptionBar implements Disposable {
 
     private final SaunScapades game;
     private final SpriteBatch batch;
-    private Screen screen;
+//    private Screen screen;
     private final Stage stage;
 
     // opciones de la tabla
@@ -23,10 +22,9 @@ public class OptionBar implements Disposable {
     private VisTextButton pauseBtn;
     private VisTextButton exitBtn;
 
-    public OptionBar(SaunScapades game, SpriteBatch batch, Screen screen) {
+    public OptionBar(SaunScapades game, SpriteBatch batch) {
         this.game = game;
         this.batch = batch;
-        this.screen = screen;
         CameraManager camManager = this.game.getCamManager();
 
         VisTable table = UIUtils.createTableObj();
@@ -53,7 +51,7 @@ public class OptionBar implements Disposable {
     }
 
     private void addClickListeners() {
-        OptionManager.handlePauseClicked(pauseBtn, game);
+        OptionManager.handlePauseClicked(pauseBtn);
         OptionManager.handleExitClicked(exitBtn, null);
         OptionManager.handleMainMenuClicked(menuBtn, game, null);
     }

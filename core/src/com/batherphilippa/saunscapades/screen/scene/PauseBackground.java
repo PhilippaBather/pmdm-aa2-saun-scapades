@@ -19,7 +19,7 @@ public class PauseBackground implements Disposable {
 
         VisTable table = UIUtils.createTableObj();
         resumBtn = new VisTextButton("Resume Game");
-        OptionManager.handleUnPauseClicked(resumBtn, this.game);
+        OptionManager.handleUnPauseClicked(resumBtn);
         defineTable(table);
 
         this.stage = new Stage();
