@@ -4,8 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
-import com.batherphilippa.saunscapades.manager.ResourceManager;
-import com.batherphilippa.saunscapades.screen.scene.Hud;
 
 
 public class Ground extends TileObject {
@@ -14,7 +12,7 @@ public class Ground extends TileObject {
     }
 
     @Override
-    public void onContact(ResourceManager resourceManager) {
+    public void onContact() {
         Gdx.app.log("Ground", "Ground collision");
     }
 }
