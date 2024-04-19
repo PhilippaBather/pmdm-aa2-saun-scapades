@@ -58,7 +58,7 @@ public class Hud implements Disposable {
     }
 
     private void initialiseHudValues() {
-        this.energy = 5;
+        this.energy = 4;
         this.level = 1;
         this.lives = 3;
         this.score = 0;
@@ -100,8 +100,13 @@ public class Hud implements Disposable {
         return score;
     }
 
+    public int getEnergy() {
+        return energy;
+    }
+
     public void updateEnergy(int update) {
         this.energy += update;
+        energyValueLabel.setText(String.format("%02d", energy));
     }
 
     public void updateLives(int update) {
