@@ -1,6 +1,5 @@
 package com.batherphilippa.saunscapades.listener;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Disposable;
 import com.batherphilippa.saunscapades.SaunScapades;
@@ -54,14 +53,18 @@ public class WorldContactListener implements ContactListener, Disposable {
                 } else {
                     ((Water) fixB.getUserData()).onContact(resManager);
                 }
-                spriteManager.playerHit(SpriteType.OBJECT, 3);
+                spriteManager.playerHit(SpriteType.OBJECT, 2);
             }
-            case (ENEMY_BIT | OBJECT_BIT) -> {
+            case (ENEMY_BIT | OBJECT_BIT)-> {
                 if (fixA.getFilterData().categoryBits == ENEMY_BIT) {
                     ((AngrySheep) fixA.getUserData()).reverseMovement(true, false);
                 } else {
                     ((AngrySheep) fixB.getUserData()).reverseMovement(true, false);
                 }
+            }
+            case (ENEMY_BIT) -> {
+                ((AngrySheep) fixA.getUserData()).reverseMovement(true, false);
+                ((AngrySheep) fixB.getUserData()).reverseMovement(true, false);
             }
             case (ENEMY_BIT | SHAUN_BIT) -> {
                 if (fixA.getFilterData().categoryBits == ENEMY_BIT) {

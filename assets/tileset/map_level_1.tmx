@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="200" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="21" nextobjectid="310">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="200" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="21" nextobjectid="320">
  <tileset firstgid="1" source="tileset_mbros.tsx"/>
  <tileset firstgid="925" source="platform-tileset.tsx"/>
  <tileset firstgid="1362" source="ornaments-tileset.tsx"/>
@@ -51,6 +51,7 @@
   <object id="179" x="873" y="122" width="23" height="85"/>
   <object id="180" x="816" y="124" width="33" height="83"/>
   <object id="181" x="488" y="122" width="24" height="86"/>
+  <object id="311" x="1520" y="126.667" width="1.33333" height="50.6667"/>
  </objectgroup>
  <objectgroup id="16" name="coins">
   <object id="224" x="262" y="72"/>
@@ -109,12 +110,14 @@
  </objectgroup>
  <objectgroup id="18" name="angry_sheep">
   <object id="283" x="584" y="168"/>
-  <object id="284" x="742.667" y="167.333"/>
   <object id="287" x="984" y="149.333"/>
   <object id="288" x="1577.33" y="164.667"/>
-  <object id="289" x="1810.67" y="164.667"/>
   <object id="290" x="2046.67" y="166"/>
   <object id="291" x="2808.67" y="164"/>
+  <object id="314" x="713.333" y="168.667"/>
+  <object id="315" x="1816" y="168"/>
+  <object id="316" x="1670.67" y="168"/>
+  <object id="319" x="2888.67" y="167.333"/>
  </objectgroup>
  <objectgroup id="19" name="bombs">
   <object id="292" x="341.334" y="108.667"/>
