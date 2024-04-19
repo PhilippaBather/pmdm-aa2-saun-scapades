@@ -108,8 +108,11 @@ public class SpriteManager implements Disposable {
             resManager.playSound("teleportdown");
             b2WorldManager.getWorld().destroyBody(player.getB2Body());
             player = null;
-            this.player = new Shaun(resManager.loadRegion("shaun_idle", -1), b2WorldManager.getWorld(), 32, 38, 8, this);
+            player = new Shaun(resManager.loadRegion("shaun_idle", -1), b2WorldManager.getWorld(), 32, 38, 8, this);
             resManager.playMusic("countryside", 2);
+            if (hud.getEnergy() <= 0) {
+                hud.updateEnergy(4);
+            }
         }
     }
 
@@ -121,14 +124,14 @@ public class SpriteManager implements Disposable {
         resManager.playSound("sheep_death_no");
 
         if (npc == SpriteType.ENEMY) {
-            this.hud.updateEnergy(-2);
-            if (this.hud.getEnergy() <= 0) {
+            hud.updateEnergy(-2);
+            if (hud.getEnergy() <= 0) {
                 playerKilled(delay);
             }
         }
 
         if (npc == SpriteType.BOMB) {
-            this.player.launchShaun();
+            player.launchShaun();
             resManager.playSound("explosion");
         }
 
@@ -150,7 +153,9 @@ public class SpriteManager implements Disposable {
     }
 
     public void levelEndCelebration() {
-        this.player.resetState(SpriteState.VICTORY);
+        player.resetState(SpriteState.VICTORY);
+        resManager.stopMusic("countryside");
+        resManager.playMusic("level_end");
         updateScore(1000);
     }
 
