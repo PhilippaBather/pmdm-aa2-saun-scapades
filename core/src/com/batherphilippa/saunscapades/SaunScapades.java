@@ -3,8 +3,8 @@ package com.batherphilippa.saunscapades;
 import com.badlogic.gdx.Game;
 import com.batherphilippa.saunscapades.manager.CameraManager;
 import com.batherphilippa.saunscapades.manager.ResourceManager;
-import com.batherphilippa.saunscapades.screen.GameScreen;
 import com.batherphilippa.saunscapades.screen.GameState;
+import com.batherphilippa.saunscapades.screen.MainMenuScreen;
 
 public class SaunScapades extends Game {
     private CameraManager camManager;
@@ -18,7 +18,7 @@ public class SaunScapades extends Game {
         this.camManager = new CameraManager();
         this.resManager = new ResourceManager();
 
-        this.setScreen(new GameScreen(this));
+        this.setScreen(new MainMenuScreen(this));
     }
 
     public CameraManager getCamManager() {
