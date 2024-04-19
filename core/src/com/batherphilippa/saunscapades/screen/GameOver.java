@@ -21,9 +21,13 @@ public class GameOver implements Screen {
     private VisTextButton mainMenuBtn;
     private VisTextButton playBtn;
 
-    public GameOver(SaunScapades game) {
+    private final int score;
+
+    public GameOver(SaunScapades game, int score) {
         this.game = game;
         this.resManager = this.game.getResManager();
+
+        this.score = score;
     }
 
     @Override
@@ -65,7 +69,7 @@ public class GameOver implements Screen {
         infoTable.row();
         infoTable.add(titleLabel).center().width(50).height(40).pad(5);
         infoTable.row();
-        infoTable.add("Points: " + game.getTotalPoints()).center().width(50).height(40).pad(5);
+        infoTable.add("Points: " + score).center().width(50).height(40).pad(5);
         // action button table
         actionsTable.setPosition(0, -200);
         actionsTable.row();
@@ -89,12 +93,12 @@ public class GameOver implements Screen {
 
     @Override
     public void pause() {
-        game.gameState = GameState.PAUSED;
+        SaunScapades.gameState = GameState.PAUSED;
     }
 
     @Override
     public void resume() {
-        game.gameState = GameState.RUNNING;
+        SaunScapades.gameState = GameState.RUNNING;
     }
 
     @Override
