@@ -68,7 +68,7 @@ public class SaunScapades extends Game {
     }
     public void reset() {
         setGameState(GameState.RUNNING);
-        this.hud = new Hud(this, batch);
+        this.hud.initialiseHudValues();
     }
 
     @Override
@@ -79,5 +79,6 @@ public class SaunScapades extends Game {
     @Override
     public void dispose() {
         batch.dispose();
+        hud.dispose();
     }
 }
