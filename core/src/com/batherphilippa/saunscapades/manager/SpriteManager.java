@@ -4,12 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Timer;
 import com.batherphilippa.saunscapades.SaunScapades;
 import com.batherphilippa.saunscapades.domain.sprite.*;
+import com.batherphilippa.saunscapades.screen.GameState;
 import com.batherphilippa.saunscapades.screen.scene.Hud;
 import com.batherphilippa.saunscapades.util.UserInput;
 
@@ -104,13 +104,13 @@ public class SpriteManager implements Disposable {
     }
 
     private void restartPlayer() {
-        if (!b2WorldManager.getWorld().isLocked() && player.isHasLostLife()) {
+        if (!b2WorldManager.getWorld().isLocked() && player.isHasLostLife() && game.gameState != GameState.GAME_OVER) {
             resManager.playSound("teleportdown");
             b2WorldManager.getWorld().destroyBody(player.getB2Body());
             player = null;
             this.player = new Shaun(resManager.loadRegion("shaun_idle", -1), b2WorldManager.getWorld(), 32, 38, 8, this);
+            resManager.playMusic("countryside", 2);
         }
-        resManager.playMusic("countryside", 2);
     }
 
     public void updateScore(int score) {
