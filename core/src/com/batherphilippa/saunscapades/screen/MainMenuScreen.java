@@ -10,7 +10,9 @@ import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 
-public class MainMenu implements Screen {
+import static com.batherphilippa.saunscapades.screen.constants.UIConstants.*;
+
+public class MainMenuScreen implements Screen {
 
     private final SaunScapades game;
     private Stage stage;
@@ -19,7 +21,7 @@ public class MainMenu implements Screen {
     private VisTextButton exitBtn;
     private VisTextButton playBtn;
 
-    public MainMenu(SaunScapades game) {
+    public MainMenuScreen(SaunScapades game) {
         this.game = game;
     }
 
@@ -42,16 +44,16 @@ public class MainMenu implements Screen {
     }
 
     private void createComponents() {
-        this.titleLabel = new VisLabel("MAIN MENU");
-        this.exitBtn = new VisTextButton("EXIT");
-        this.configBtn = new VisTextButton("CONFIGURATIONS");
-        this.playBtn = new VisTextButton("PLAY");
+        this.titleLabel = new VisLabel(LABEL_MAIN_MENU_TITLE);
+        this.exitBtn = new VisTextButton(BTN_EXIT);
+        this.configBtn = new VisTextButton(BTN_CONFIG);
+        this.playBtn = new VisTextButton(BTN_PLAY);
     }
 
     private void setClickListeners() {
         OptionManager.handleExitClicked(exitBtn, this);
-//        OptionManager.handleConfigurationClicked(configBtn, game, this); // screen game, menu type, sprite manager needed as param
-        OptionManager.handlePlayAgainClicked(playBtn, game, this);
+        OptionManager.handleConfigMenuClicked(configBtn, game, this); // screen game, menu type, sprite manager needed as param
+        OptionManager.handlePlayClicked(playBtn, game, this);
     }
 
     private void createTableStructure(VisTable infoTable, VisTable actionsTable) {
@@ -96,6 +98,6 @@ public class MainMenu implements Screen {
 
     @Override
     public void dispose() {
-        this.stage.dispose();
+        stage.dispose();
     }
 }

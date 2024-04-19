@@ -68,7 +68,7 @@ public class GameScreen implements Screen {
         if(SaunScapades.gameState == GameState.GAME_OVER) {
             resourceManager.stopMusic("countryside");
             dispose();
-            game.setScreen(new GameOver(game, hud.getScore()));
+            game.setScreen(new GameOverScreen(game, hud.getScore()));
         }
 
         if (!SaunScapades.getGameState().equals(GameState.PAUSED) && SaunScapades.gameState != GameState.GAME_OVER) {

@@ -11,7 +11,9 @@ import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 
-public class GameOver implements Screen {
+import static com.batherphilippa.saunscapades.screen.constants.UIConstants.*;
+
+public class GameOverScreen implements Screen {
 
     private final SaunScapades game;
     private final ResourceManager resManager;
@@ -23,7 +25,7 @@ public class GameOver implements Screen {
 
     private final int score;
 
-    public GameOver(SaunScapades game, int score) {
+    public GameOverScreen(SaunScapades game, int score) {
         this.game = game;
         this.resManager = this.game.getResManager();
 
@@ -51,16 +53,16 @@ public class GameOver implements Screen {
     }
 
     private void createComponents() {
-        this.titleLabel = new VisLabel("GAME OVER!!!");
-        this.exitBtn = new VisTextButton("EXIT");
-        this.mainMenuBtn = new VisTextButton("MAIN MENU");
-        this.playBtn = new VisTextButton("PLAY AGAIN");
+        this.titleLabel = new VisLabel(LABEL_GAME_OVER_TITLE);
+        this.exitBtn = new VisTextButton(BTN_EXIT);
+        this.mainMenuBtn = new VisTextButton(BTN_MAIN_MENU);
+        this.playBtn = new VisTextButton(BTN_PLAY_AGAIN);
     }
 
     private void setClickListeners() {
         OptionManager.handleExitClicked(exitBtn, this);
         OptionManager.handleMainMenuClicked(mainMenuBtn, game, this); // screen game, menu type, sprite manager needed as param
-        OptionManager.handlePlayAgainClicked(playBtn, game, this);
+        OptionManager.handlePlayClicked(playBtn, game, this);
     }
 
     private void createTableStructure(VisTable infoTable, VisTable actionsTable) {
