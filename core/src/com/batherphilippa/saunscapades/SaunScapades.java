@@ -68,7 +68,9 @@ public class SaunScapades extends Game {
     }
     public void reset() {
         setGameState(GameState.RUNNING);
-        this.hud.initialiseHudValues();
+        spriteManager.resetPlayer();
+        hud.setInitialValues();
+        hud.reRenderInitialValues();
     }
 
     @Override
