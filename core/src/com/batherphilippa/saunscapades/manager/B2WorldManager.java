@@ -94,7 +94,7 @@ public class B2WorldManager implements Disposable {
         Array<AngrySheep> angrySheepArr = new Array<>();
         for (RectangleMapObject object : map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = object.getRectangle();
-            angrySheepArr.add(new AngrySheep(region, world, rect.getX(), rect.getY(), 7, spriteManager));
+            angrySheepArr.add(new AngrySheep(region, world, rect.getX(), rect.getY(), 9, spriteManager));
         }
         return angrySheepArr;
     }
