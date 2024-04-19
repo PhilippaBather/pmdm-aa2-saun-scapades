@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Timer;
@@ -55,10 +56,10 @@ public class SpriteManager implements Disposable {
     public void update(float dt) {
         this.player.update(dt);
         this.shirleySheep.update(dt);
-        for(AngrySheep angrySheep : angrySheepArray) {
+        for (AngrySheep angrySheep : angrySheepArray) {
             angrySheep.update(dt);
         }
-        for(Bomb bomb : bombArray) {
+        for (Bomb bomb : bombArray) {
             bomb.update(dt);
         }
     }
@@ -82,10 +83,10 @@ public class SpriteManager implements Disposable {
         batch.begin();
         player.render(batch);
         shirleySheep.draw(batch);
-        for(AngrySheep angrySheep : angrySheepArray) {
+        for (AngrySheep angrySheep : angrySheepArray) {
             angrySheep.render(batch);
         }
-        for(Bomb bomb : bombArray) {
+        for (Bomb bomb : bombArray) {
             bomb.render(batch);
         }
         batch.end();
@@ -117,13 +118,25 @@ public class SpriteManager implements Disposable {
     }
 
     public void playerHit(SpriteType npc, int delay) {
-        if (npc == SpriteType.ENEMY || npc == SpriteType.BOMB) {
-            resManager.playSound("sheep_death_no");
+        resManager.playSound("sheep_death_no");
+
+        if (npc == SpriteType.ENEMY) {
+            this.hud.updateEnergy(-2);
+            if (this.hud.getEnergy() <= 0) {
+                playerKilled(delay);
+            }
         }
+
         if (npc == SpriteType.BOMB) {
             resManager.playSound("explosion");
         }
 
+        if (npc == SpriteType.BOMB || npc == SpriteType.OBJECT) {
+            playerKilled(delay);
+        }
+    }
+
+    private void playerKilled(int delay) {
         this.player.resetState(SpriteState.DEAD);
         schedulePlayerRestart(delay);
         this.hud.updateLives(-1);
@@ -140,7 +153,7 @@ public class SpriteManager implements Disposable {
         updateScore(1000);
     }
 
-        @Override
+    @Override
     public void dispose() {
         batch.dispose();
         b2WorldManager.dispose();
