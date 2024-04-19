@@ -14,4 +14,5 @@ public class WorldCategoryBits {
     public static final short ENEMY_HEAD_BIT = 32;
     public static final short OBJECT_BIT = 64;
     public static final short BOMB_BIT = 128;
+    public static final short SHIRLEY_BIT = 256;
 }

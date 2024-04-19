@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.batherphilippa.saunscapades.SaunScapades;
 import com.batherphilippa.saunscapades.domain.sprite.AngrySheep;
 import com.batherphilippa.saunscapades.domain.sprite.Bomb;
+import com.batherphilippa.saunscapades.domain.sprite.Shirley;
 import com.batherphilippa.saunscapades.domain.tilemap.Barrier;
 import com.batherphilippa.saunscapades.domain.tilemap.Coin;
 import com.batherphilippa.saunscapades.domain.tilemap.Ground;
@@ -105,6 +106,12 @@ public class B2WorldManager implements Disposable {
             bombArr.add(new Bomb(region, world, rect.getX(), rect.getY(), 6, spriteManager));
         }
         return bombArr;
+    }
+
+    public Shirley rendLevelEndObject(TextureRegion region, SpriteManager spriteManager) {
+        Array<RectangleMapObject> objArray = map.getLayers().get(9).getObjects().getByType(RectangleMapObject.class);
+        Rectangle rect = objArray.get(0).getRectangle();
+        return new Shirley(region, world, rect.getX(), rect.getY(), 8, spriteManager);
     }
 
     public void renderTiledMap(Matrix4 combined) {

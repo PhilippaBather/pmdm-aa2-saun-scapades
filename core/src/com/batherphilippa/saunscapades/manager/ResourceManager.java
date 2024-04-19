@@ -17,7 +17,7 @@ public class ResourceManager implements Disposable {
     private final Map<String, Sound> soundMap;
 
     public ResourceManager() {
-        this.atlas = new TextureAtlas(Gdx.files.internal("atlas/shaun_friends_enemies_1.atlas"));
+        this.atlas = new TextureAtlas(Gdx.files.internal("atlas/shaun_friends_enemies_2.atlas"));
         this.musicMap = new HashMap<>();
         this.soundMap = new HashMap<>();
         loadSoundFX();

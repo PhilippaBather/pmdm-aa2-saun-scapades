@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.batherphilippa.saunscapades.SaunScapades;
 import com.batherphilippa.saunscapades.domain.sprite.AngrySheep;
 import com.batherphilippa.saunscapades.domain.sprite.Bomb;
+import com.batherphilippa.saunscapades.domain.sprite.SpriteState;
 import com.batherphilippa.saunscapades.domain.sprite.SpriteType;
 import com.batherphilippa.saunscapades.domain.tilemap.Coin;
 import com.batherphilippa.saunscapades.domain.tilemap.Water;
@@ -72,19 +73,22 @@ public class WorldContactListener implements ContactListener, Disposable {
             }
             case (ENEMY_HEAD_BIT | SHAUN_BIT) -> {
                 if (fixA.getFilterData().categoryBits == ENEMY_HEAD_BIT) {
-                    ((AngrySheep) fixA.getUserData()).resetState();
+                    ((AngrySheep) fixA.getUserData()).resetState(SpriteState.DEAD);
                 } else {
-                    ((AngrySheep) fixB.getUserData()).resetState();
+                    ((AngrySheep) fixB.getUserData()).resetState(SpriteState.DEAD);
                 }
                 spriteManager.enemyHit();
             }
             case (BOMB_BIT | SHAUN_BIT) -> {
                 if (fixA.getFilterData().categoryBits == BOMB_BIT) {
-                    ((Bomb) fixA.getUserData()).resetState();
+                    ((Bomb) fixA.getUserData()).resetState(SpriteState.DEAD);
                 } else {
-                    ((Bomb) fixB.getUserData()).resetState();
+                    ((Bomb) fixB.getUserData()).resetState(SpriteState.DEAD);
                 }
                 spriteManager.playerHit(SpriteType.BOMB, 1);
+            }
+            case (SHAUN_BIT | SHIRLEY_BIT) -> {
+                spriteManager.levelEndCelebration();
             }
         }
 

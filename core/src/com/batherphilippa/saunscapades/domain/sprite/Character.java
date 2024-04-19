@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
@@ -75,7 +74,7 @@ public abstract class Character extends Sprite implements Disposable {
     private void createFilterCollisions(FixtureDef fixDef) {
         if (spriteType == SpriteType.PLAYER) {
             // con lo que shaun puede chocar
-            fixDef.filter.maskBits = GROUND_BIT | COIN_BIT | WATER_BIT | ENEMY_BIT | ENEMY_HEAD_BIT | OBJECT_BIT |BOMB_BIT; // shaun
+            fixDef.filter.maskBits = GROUND_BIT | COIN_BIT | WATER_BIT | ENEMY_BIT | ENEMY_HEAD_BIT | OBJECT_BIT | BOMB_BIT | SHIRLEY_BIT; // shaun
         } else {
             // con lo que un enemigo puede chocar
             fixDef.filter.maskBits = GROUND_BIT | SHAUN_BIT | COIN_BIT | ENEMY_BIT | OBJECT_BIT | BOMB_BIT;
@@ -97,7 +96,7 @@ public abstract class Character extends Sprite implements Disposable {
     protected abstract void update(float delta);
 
     protected abstract void move(UserInput input);
-    public abstract void resetState();
+    public abstract void resetState(SpriteState state);
     public abstract void createHead(FixtureDef fixDef);
     public abstract short getCategoryBit();
 

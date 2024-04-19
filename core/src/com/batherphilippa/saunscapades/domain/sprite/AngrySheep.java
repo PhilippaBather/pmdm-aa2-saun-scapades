@@ -130,7 +130,7 @@ public class AngrySheep extends Character {
     }
 
     @Override
-    public void resetState() {
+    public void resetState(SpriteState state) {
         this.isDead = true;
     }
 

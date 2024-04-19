@@ -16,15 +16,17 @@ import static com.batherphilippa.saunscapades.util.Constants.PPM;
 
 public class Shaun extends Character {
 
-    private SpritePositionState currState;
-    private SpritePositionState prevState;
+    private SpriteState currState;
+    private SpriteState prevState;
     private final Animation<TextureRegion> shaunMove;
+    private final Animation<TextureRegion> shaunVictory;
     private final TextureRegion shaunJump;
     private final TextureRegion shaunIdle;
     private final TextureRegion shaunDead;
     private float stateTimer;
     private boolean isDirRight;
-    private boolean hasLostLife ;
+    private boolean hasLostLife;
+    private boolean isVictorious;
 
     public Shaun(TextureAtlas.AtlasRegion region, World world, float x, float y, float radius, SpriteManager spriteManager) {
         super(region, world, x, y, radius, spriteManager, PLAYER);
@@ -42,21 +44,27 @@ public class Shaun extends Character {
         shaunJump = spriteManager.getTextureRegion("shaun_jump_up", 4);
         shaunDead = spriteManager.getTextureRegion("shaun_electrocute", 0);
         shaunMove = setAnimationFrames("shaun_walk", 0, 7, 0.1f);
+        shaunVictory = setAnimationFrames("shaun_victory", 1, 6, 0.2f);
 
         this.hasLostLife = false;
 
     }
 
     private void setInitialState() {
-        currState = SpritePositionState.IDLE;
-        prevState = SpritePositionState.IDLE;
+        currState = SpriteState.IDLE;
+        prevState = SpriteState.IDLE;
         stateTimer = 0;
         isDirRight = true;
     }
 
     @Override
-    public void resetState() {
-        hasLostLife = true;
+    public void resetState(SpriteState state) {
+        if (state == SpriteState.DEAD) {
+            hasLostLife = true;
+        }
+        if (state == SpriteState.VICTORY) {
+            isVictorious = true;
+        }
     }
 
     @Override
@@ -106,20 +114,21 @@ public class Shaun extends Character {
     /**
      * Coge el estado de la posición del Sprite basado en lo que el B2Body está haciendo.
      *
-     * @return SpritePositionState - el estado de la actividad del Sprite
+     * @return SpriteState - el estado de la actividad del Sprite
      */
-    public SpritePositionState getSpritePositionState() {
-        if(hasLostLife) {
-            return SpritePositionState.DEAD;
-        }
-        if (b2Body.getLinearVelocity().y > 0 || (b2Body.getLinearVelocity().y < 0 && prevState == SpritePositionState.JUMPING)) {
-            return SpritePositionState.JUMPING;
+    public SpriteState getSpritePositionState() {
+        if (hasLostLife) {
+            return SpriteState.DEAD;
+        } else if (isVictorious) {
+            return SpriteState.VICTORY;
+        } else if (b2Body.getLinearVelocity().y > 0 || (b2Body.getLinearVelocity().y < 0 && prevState == SpriteState.JUMPING)) {
+            return SpriteState.JUMPING;
         } else if (b2Body.getLinearVelocity().y < 0) {
-            return SpritePositionState.FALLING;
+            return SpriteState.FALLING;
         } else if (b2Body.getLinearVelocity().x != 0) {
-            return SpritePositionState.MOVING;
+            return SpriteState.MOVING;
         } else {
-            return SpritePositionState.IDLE;
+            return SpriteState.IDLE;
         }
     }
 
@@ -128,6 +137,7 @@ public class Shaun extends Character {
             case MOVING -> shaunMove.getKeyFrame(stateTimer, true);
             case JUMPING -> shaunJump;
             case DEAD -> shaunDead;
+            case VICTORY -> shaunVictory.getKeyFrame(stateTimer, true);
             case IDLE, FALLING -> shaunIdle;
         };
     }
