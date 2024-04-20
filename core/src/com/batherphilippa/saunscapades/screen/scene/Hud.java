@@ -86,7 +86,7 @@ public class Hud implements Disposable {
     private void setLabels() {
         energyLabel = new VisLabel("Energy", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         energyValueLabel = new VisLabel(String.format("%01d", energy), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        levelLabel = new VisLabel("Level", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        levelLabel = new VisLabel("GameLevel", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         levelValueLabel = new VisLabel(String.format("%01d", level), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         livesLabel = new VisLabel("Lives", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         livesValueLabel = new VisLabel(String.format("%02d", lives), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
