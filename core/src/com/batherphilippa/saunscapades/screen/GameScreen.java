@@ -15,9 +15,12 @@ import com.batherphilippa.saunscapades.screen.scene.OptionBar;
 import com.batherphilippa.saunscapades.screen.scene.PauseBackground;
 import com.batherphilippa.saunscapades.screen.util.UIUtils;
 
+import static com.batherphilippa.saunscapades.manager.constants.SoundResources.MUSIC_COUNTRYSIDE;
+
 public class GameScreen implements Screen {
 
     private final SaunScapades game;
+    private GameLevel currLevel;
     private final SpriteBatch batch;
     private final B2WorldManager b2WorldManager;
     private final CameraManager camManager;
@@ -34,7 +37,8 @@ public class GameScreen implements Screen {
 
     public GameScreen(SaunScapades game) {
         this.game = game;
-        this.resourceManager = this.game.getResManager();
+        this.currLevel = SaunScapades.currGameLevel;
+        this.resourceManager = new ResourceManager();
 
         this.batch = new SpriteBatch();
 
@@ -43,7 +47,7 @@ public class GameScreen implements Screen {
         this.hud = new Hud(this.batch, this.camManager);
 
         this.b2WorldManager = new B2WorldManager(this, resourceManager, hud);
-        this.spriteManager = new SpriteManager(this.game, batch, hud, b2WorldManager);
+        this.spriteManager = new SpriteManager(resourceManager, batch, hud, b2WorldManager);
         this.pauseMenu = new PauseBackground(this.game);
         this.optionBar = new OptionBar(this.game, this.batch);
     }
@@ -55,7 +59,7 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
         UIUtils.clearScreen();
-        resourceManager.playMusic("countryside");
+        resourceManager.playMusic(MUSIC_COUNTRYSIDE);
         optionBarStage = optionBar.getStage();
         pauseStage = pauseMenu.getStage();
         Gdx.input.setInputProcessor(new InputMultiplexer(optionBarStage, pauseStage));
@@ -66,12 +70,16 @@ public class GameScreen implements Screen {
         UIUtils.clearScreen();
 
         if(SaunScapades.gameState == GameState.GAME_OVER) {
-            resourceManager.stopMusic("countryside");
+            resourceManager.stopMusic(MUSIC_COUNTRYSIDE);
             dispose();
             game.setScreen(new GameOverScreen(game, hud.getScore()));
         }
 
-        if (!SaunScapades.getGameState().equals(GameState.PAUSED) && SaunScapades.gameState != GameState.GAME_OVER) {
+        if (SaunScapades.currGameLevel != currLevel) {
+            SaunScapades.score = hud.getScore();
+            dispose();
+            game.setScreen(new LevelSplashScreen(game));
+        } else if (!SaunScapades.getGameState().equals(GameState.PAUSED) && SaunScapades.gameState != GameState.GAME_OVER) {
 
             // render game map
             b2WorldManager.update(camManager.getGameCam());
@@ -126,8 +134,10 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
+        b2WorldManager.dispose();
         hud.dispose();
-        pauseStage.dispose();
         optionBarStage.dispose();
+        pauseStage.dispose();
+        resourceManager.dispose();
     }
 }
