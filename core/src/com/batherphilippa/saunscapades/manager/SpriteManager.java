@@ -9,13 +9,17 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Timer;
 import com.batherphilippa.saunscapades.SaunScapades;
 import com.batherphilippa.saunscapades.domain.sprite.*;
+import com.batherphilippa.saunscapades.screen.GameLevel;
 import com.batherphilippa.saunscapades.screen.GameState;
 import com.batherphilippa.saunscapades.screen.scene.Hud;
 import com.batherphilippa.saunscapades.util.UserInput;
 
+import static com.batherphilippa.saunscapades.SaunScapades.*;
+import static com.batherphilippa.saunscapades.manager.constants.SoundResources.*;
+import static com.batherphilippa.saunscapades.util.Constants.PPM;
+
 public class SpriteManager implements Disposable {
 
-    private final SaunScapades game;
     private final B2WorldManager b2WorldManager;
     private final ResourceManager resManager;
     private final SpriteBatch batch;
@@ -24,25 +28,29 @@ public class SpriteManager implements Disposable {
     private Shirley shirleySheep;
     private Array<AngrySheep> angrySheepArray;
     private Array<Bomb> bombArray;
+    private Array<TrappedSheep> trappedSheepArray;
 
-    public SpriteManager(SaunScapades game, SpriteBatch batch, Hud hud, B2WorldManager b2WorldManager) {
-        this.game = game;
+    public SpriteManager(ResourceManager resManager, SpriteBatch batch, Hud hud, B2WorldManager b2WorldManager) {
         this.batch = batch;
         this.b2WorldManager = b2WorldManager;
-        this.resManager = this.game.getResManager();
+        this.resManager = resManager;
         this.hud = hud;
 
         init();
     }
 
     /**
-     * Inicializar a los sprites.
+     * Inicializa a los sprites.
      */
     private void init() {
         this.player = new Shaun(resManager.loadRegion("shaun_idle", -1), b2WorldManager.getWorld(), 32, 38, 8, this);
+        this.shirleySheep = b2WorldManager.rendLevelEndObject(resManager.loadRegion("shirley_end_level", -1), this);
         this.angrySheepArray = b2WorldManager.renderAngrySheep(resManager.loadRegion("black_sheep_run", 1), this);
         this.bombArray = b2WorldManager.renderBombs(resManager.loadRegion("bomb_idle", -1), this);
-        this.shirleySheep = b2WorldManager.rendLevelEndObject(resManager.loadRegion("shirley_end_level", -1), this);
+
+        if (currGameLevel == GameLevel.LEVEL_2) {
+            this.trappedSheepArray = b2WorldManager.renderTrappedSheep(resManager.loadRegion("shirley_end_level", -1), this);
+        }
     }
 
     public TextureRegion getTextureRegion(String name, int index) {
@@ -56,18 +64,29 @@ public class SpriteManager implements Disposable {
     public void update(float dt) {
         this.player.update(dt);
         this.shirleySheep.update(dt);
+
         for (AngrySheep angrySheep : angrySheepArray) {
             angrySheep.update(dt);
         }
+
         for (Bomb bomb : bombArray) {
-            bomb.update(dt);
+            if (bomb.getX() < player.getX() + 224 / PPM) {
+                bomb.update(dt);
+            }
         }
+
+        if (currGameLevel == GameLevel.LEVEL_2){
+            for(TrappedSheep sheep: trappedSheepArray) {
+                sheep.update(dt);
+            }
+        }
+
     }
 
     public void manageInput() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && player.getB2Body().getLinearVelocity().y == 0) {
             player.move(UserInput.UP);
-            resManager.playSound("shaun_jump");
+            resManager.playSound(SOUND_SHAUN_JUMP);
         }
         // not just pressed as want to know if the user is holding the key down
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.getLinearVelocity() <= 2) {
@@ -80,6 +99,7 @@ public class SpriteManager implements Disposable {
     }
 
     public void draw() {
+
         batch.begin();
         player.render(batch);
         shirleySheep.draw(batch);
@@ -89,7 +109,54 @@ public class SpriteManager implements Disposable {
         for (Bomb bomb : bombArray) {
             bomb.render(batch);
         }
+
+        if (currGameLevel == GameLevel.LEVEL_2){
+            for(TrappedSheep sheep: trappedSheepArray) {
+                sheep.render(batch);
+            }
+        }
+
         batch.end();
+    }
+
+    public void enemyHit() {
+        resManager.playSound(SOUND_ENEMY_DEATH);
+        resManager.playSound(SOUND_SHAUN_CELEBRATION);
+        hud.updateScore(500);
+    }
+
+    public void playerHit(SpriteType npc, int delay) {
+        resManager.playSound(SOUND_SHAUN_DEATH_NOO);
+
+        if (npc == SpriteType.ENEMY) {
+            hud.updateEnergy(-2);
+            if (hud.getEnergy() <= 0) {
+                resManager.stopMusic(MUSIC_COUNTRYSIDE);
+                hud.stopTimer();
+                playerKilled(delay);
+            }
+        }
+
+        if (npc == SpriteType.BOMB) {
+            player.launchShaun();
+            resManager.playSound(SOUND_EXPLOSION);
+        }
+
+        if (npc == SpriteType.BOMB || npc == SpriteType.OBJECT) {
+            resManager.stopMusic(MUSIC_COUNTRYSIDE);
+            if (npc == SpriteType.OBJECT) {
+                resManager.playSound(SOUND_SHAUN_DEATH_NOO);
+            }
+            hud.stopTimer();
+            playerKilled(delay);
+        }
+    }
+
+
+    private void playerKilled(int delay) {
+        this.player.resetState(SpriteState.DEAD);
+        schedulePlayerRestart(delay);
+        this.hud.updateLives(-1);
     }
 
     public void schedulePlayerRestart(int delay) {
@@ -105,8 +172,8 @@ public class SpriteManager implements Disposable {
     private void restartPlayer() {
 
         if (SaunScapades.gameState != GameState.GAME_OVER) {
-            resManager.playSound("teleportdown");
-            resManager.playMusic("countryside", 2);
+            resManager.playSound(SOUND_TELEPORT_DOWN);
+            resManager.playMusic(MUSIC_COUNTRYSIDE, 8);
             if (hud.getEnergy() <= 0) {
                 hud.updateEnergy(4);
             }
@@ -123,64 +190,43 @@ public class SpriteManager implements Disposable {
         }
     }
 
-    public void updateScore(int score) {
-        this.hud.updateScore(score);
+    public void handleSheepDeath() {
+        resManager.playSound(SOUND_SHIRLEY_DEATH_NOO);
+        resManager.playSound(SOUND_SHAUN_DEATH_NOO);
+        resManager.playSound(SOUND_EXPLOSION, 1);
+        hud.updateScore(-500);
     }
 
-    public void playerHit(SpriteType npc, int delay) {
-        resManager.playSound("sheep_death_no");
-
-        if (npc == SpriteType.ENEMY) {
-            hud.updateEnergy(-2);
-            if (hud.getEnergy() <= 0) {
-                resManager.stopMusic("countryside");
-                hud.stopTimer();
-                playerKilled(delay);
-            }
-        }
-
-        if (npc == SpriteType.BOMB) {
-            player.launchShaun();
-            resManager.playSound("explosion");
-        }
-
-        if (npc == SpriteType.BOMB || npc == SpriteType.OBJECT) {
-            resManager.stopMusic("countryside");
-            if (npc == SpriteType.OBJECT) {
-                resManager.playSound("sheep_death");
-                resManager.playSound("splash");
-            }
-            hud.stopTimer();
-            playerKilled(delay);
-        }
-    }
-
-    private void playerKilled(int delay) {
-        this.player.resetState(SpriteState.DEAD);
-        schedulePlayerRestart(delay);
-        this.hud.updateLives(-1);
-    }
-
-    public void enemyHit() {
-        resManager.playSound("enemy_death");
-        resManager.playSound("sheep_victory");
-        updateScore(500);
+    public void handleSavedSheep() {
+        resManager.playSound(SOUND_SHIRLEY_CELEBRATION);
+        resManager.playSound(SOUND_SHAUN_CELEBRATION, 1);
+        hud.updateScore(500);
     }
 
     public void levelEndCelebration() {
         player.resetState(SpriteState.VICTORY);
-        resManager.stopMusic("countryside");
-        resManager.playMusic("level_end");
-        updateScore(1000);
+        resManager.stopMusic(MUSIC_COUNTRYSIDE);
+        resManager.playMusic(MUSIC_LEVEL_END);
+        hud.updateScore(1000);
+        Timer.Task task = new Timer.Task() {
+            @Override
+            public void run() {
+                resManager.stopMusic(MUSIC_LEVEL_END);
+                SaunScapades.currGameLevel = GameLevel.LEVEL_2;
+            }
+        };
+        Timer.instance().scheduleTask(task, 4);
     }
 
     @Override
     public void dispose() {
         batch.dispose();
-        b2WorldManager.dispose();
         angrySheepArray.clear();
         bombArray.clear();
-        game.dispose();
+        b2WorldManager.dispose();
+        hud.dispose();
+        resManager.dispose();
         player.dispose();
+        shirleySheep.dispose();
     }
 }
