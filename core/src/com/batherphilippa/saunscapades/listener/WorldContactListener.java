@@ -1,18 +1,13 @@
 package com.batherphilippa.saunscapades.listener;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.utils.Timer;
-import com.batherphilippa.saunscapades.SaunScapades;
 import com.batherphilippa.saunscapades.domain.sprite.*;
 import com.batherphilippa.saunscapades.domain.tilemap.Block;
 import com.batherphilippa.saunscapades.domain.tilemap.Coin;
-import com.batherphilippa.saunscapades.domain.tilemap.Ground;
 import com.batherphilippa.saunscapades.domain.tilemap.Water;
 import com.batherphilippa.saunscapades.manager.ResourceManager;
 import com.batherphilippa.saunscapades.manager.SpriteManager;
-import com.batherphilippa.saunscapades.screen.GameLevel;
 import com.batherphilippa.saunscapades.screen.GameScreen;
 import com.batherphilippa.saunscapades.screen.scene.Hud;
 
@@ -112,7 +107,7 @@ public class WorldContactListener implements ContactListener, Disposable {
                 } else {
                     ((TrappedSheep) fixB.getUserData()).setKilled();
                 }
-                spriteManager.handleTrappedSheepDeath();
+                spriteManager.handleSheepDeath();
             }
             case (TRAPPED_SHEEP_BIT | GROUND_BIT), SHAUN_BIT -> {
                 spriteManager.handleSavedSheep();
