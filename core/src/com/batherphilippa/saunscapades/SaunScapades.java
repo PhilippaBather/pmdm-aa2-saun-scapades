@@ -11,12 +11,16 @@ public class SaunScapades extends Game {
     private CameraManager camManager;
     private ResourceManager resManager;
     public static GameState gameState;
-    public static GameLevel gameLevel;
+    public static GameLevel currGameLevel;
+    public static GameLevel prevGameLevel;
+    public static int score;
 
     @Override
     public void create() {
         gameState = GameState.RUNNING;
-        gameLevel = GameLevel.LEVEL_1;
+        currGameLevel = GameLevel.LEVEL_1;
+        prevGameLevel = GameLevel.LEVEL_1;
+        score = 0;
 
         this.camManager = new CameraManager();
         this.resManager = new ResourceManager();
@@ -50,6 +54,6 @@ public class SaunScapades extends Game {
 
     @Override
     public void dispose() {
-        resManager.dispose();
+
     }
 }
