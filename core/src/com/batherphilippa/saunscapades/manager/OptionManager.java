@@ -74,4 +74,24 @@ public class OptionManager {
         });
     }
 
+    public static void handlePlayNewLevelClicked(VisTextButton btn, SaunScapades game, Screen screen) {
+        btn.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                screen.dispose();
+                game.setScreen(new GameScreen(game));
+            }
+        });
+    }
+
+    public static void handleSaveClicked(VisTextButton btn, SaunScapades game, Screen screen) {
+        btn.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.log("Btn click", "handleSaveClicked");
+//                screen.dispose();
+//                game.setScreen(new GameScreen(game));
+            }
+        });
+    }
+
+
 }
