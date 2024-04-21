@@ -16,35 +16,36 @@ import com.badlogic.gdx.utils.Disposable;
 import com.batherphilippa.saunscapades.domain.sprite.AngrySheep;
 import com.batherphilippa.saunscapades.domain.sprite.Bomb;
 import com.batherphilippa.saunscapades.domain.sprite.Shirley;
-import com.batherphilippa.saunscapades.domain.tilemap.Barrier;
-import com.batherphilippa.saunscapades.domain.tilemap.Coin;
-import com.batherphilippa.saunscapades.domain.tilemap.Ground;
-import com.batherphilippa.saunscapades.domain.tilemap.Water;
+import com.batherphilippa.saunscapades.domain.sprite.TrappedSheep;
+import com.batherphilippa.saunscapades.domain.tilemap.*;
 import com.batherphilippa.saunscapades.listener.WorldContactListener;
+import com.batherphilippa.saunscapades.screen.GameLevel;
 import com.batherphilippa.saunscapades.screen.GameScreen;
 import com.batherphilippa.saunscapades.screen.scene.Hud;
 
+import static com.batherphilippa.saunscapades.SaunScapades.currGameLevel;
+import static com.batherphilippa.saunscapades.manager.constants.TileLayers.*;
 import static com.batherphilippa.saunscapades.util.Constants.GRAVITY;
 import static com.batherphilippa.saunscapades.util.Constants.PPM;
 
 public class B2WorldManager implements Disposable {
     private final GameScreen game;
+    private final ResourceManager resManager;
     private final World world;
-    private final TmxMapLoader mapLoader;  // TODO - don't convert to local var - to be used in setMap function for second level
-    private final TiledMap map;
+    private TiledMap map;
     private final OrthogonalTiledMapRenderer renderer; // renders map to screen
 
     private final Box2DDebugRenderer b2dr;
 
     public B2WorldManager(GameScreen gameScreen, ResourceManager resManager, Hud hud) {
         this.game = gameScreen;
+        this.resManager = resManager;
 
         this.world = new World(new Vector2(0, GRAVITY), true);
         this.world.setContactListener(new WorldContactListener(resManager, hud, this.game)); // para identificar colisiones
 
         // inicializar la mapa y cargar el primer nivel automáticamente
-        this.mapLoader = new TmxMapLoader();
-        this.map = mapLoader.load("tileset/map_level_1.tmx");
+        this.map = loadMap();
 
         this.renderer = new OrthogonalTiledMapRenderer(map, 1 / PPM);
         this.b2dr = new Box2DDebugRenderer();
@@ -53,50 +54,76 @@ public class B2WorldManager implements Disposable {
         renderUninterativeObjcts();
     }
 
+    private TiledMap loadMap() {
+        TmxMapLoader mapLoader = new TmxMapLoader();
+
+        String level = switch (currGameLevel) {
+            case LEVEL_1 -> "tileset/map_level_1.tmx";
+            case LEVEL_2 -> "tileset/map_level_2.tmx";
+        };
+        return mapLoader.load(level);
+    }
+
     public World getWorld() {
         return world;
     }
 
     private void renderInteractiveObjects() {
-        for (RectangleMapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
+        for (RectangleMapObject object : map.getLayers().get(COINS_TL).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = object.getRectangle();
-
-            new Coin(world, map, rect);
+            new Coin(world, map, rect, resManager);
         }
 
-        for (RectangleMapObject object : map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)) {
+        for (RectangleMapObject object : map.getLayers().get(WATER_TL).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = object.getRectangle();
+            new Water(world, map, rect, resManager);
+        }
 
-            new Water(world, map, rect);
+        if (currGameLevel == GameLevel.LEVEL_2) {
+            for (RectangleMapObject object : map.getLayers().get(BLOCKS_TL).getObjects().getByType(RectangleMapObject.class)) {
+                Rectangle rect = object.getRectangle();
+
+                new Block(world, map, rect, resManager);
+            }
         }
     }
 
     private void renderUninterativeObjcts() {
-        for(RectangleMapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
+        for (RectangleMapObject object : map.getLayers().get(GROUND_TL).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = object.getRectangle();
 
-            new Ground(world, map, rect);
+            new Ground(world, map, rect, resManager);
         }
 
-        for (RectangleMapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
+        for (RectangleMapObject object : map.getLayers().get(BARRIERS_TL).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = object.getRectangle();
 
-            new Barrier(world, map, rect);
+            new Barrier(world, map, rect, resManager);
+
         }
     }
 
     public Array<AngrySheep> renderAngrySheep(TextureRegion region, SpriteManager spriteManager) {
         Array<AngrySheep> angrySheepArr = new Array<>();
-        for (RectangleMapObject object : map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)) {
+        for (RectangleMapObject object : map.getLayers().get(ANGRY_SHEEP_TL).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = object.getRectangle();
             angrySheepArr.add(new AngrySheep(region, world, rect.getX(), rect.getY(), 9, spriteManager));
         }
         return angrySheepArr;
     }
 
+    public Array<TrappedSheep> renderTrappedSheep(TextureRegion region, SpriteManager spriteManager) {
+        Array<TrappedSheep> trappedSheepArr = new Array<>();
+        for (RectangleMapObject object : map.getLayers().get(TRAPPED_SHEEP_TL).getObjects().getByType(RectangleMapObject.class)) {
+            Rectangle rect = object.getRectangle();
+            trappedSheepArr.add(new TrappedSheep(region, world, rect.getX(), rect.getY(), 9, spriteManager));
+        }
+        return trappedSheepArr;
+    }
+
     public Array<Bomb> renderBombs(TextureRegion region, SpriteManager spriteManager) {
         Array<Bomb> bombArr = new Array<>();
-        for (RectangleMapObject object : map.getLayers().get(8).getObjects().getByType(RectangleMapObject.class)) {
+        for (RectangleMapObject object : map.getLayers().get(BOMBS_TL).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = object.getRectangle();
             bombArr.add(new Bomb(region, world, rect.getX(), rect.getY(), 6, spriteManager));
         }
@@ -104,7 +131,7 @@ public class B2WorldManager implements Disposable {
     }
 
     public Shirley rendLevelEndObject(TextureRegion region, SpriteManager spriteManager) {
-        Array<RectangleMapObject> objArray = map.getLayers().get(9).getObjects().getByType(RectangleMapObject.class);
+        Array<RectangleMapObject> objArray = map.getLayers().get(SHIRLEY_SHEEP_TL).getObjects().getByType(RectangleMapObject.class);
         Rectangle rect = objArray.get(0).getRectangle();
         return new Shirley(region, world, rect.getX(), rect.getY(), 8, spriteManager);
     }
@@ -114,6 +141,7 @@ public class B2WorldManager implements Disposable {
         // render our Box2DDebugLines; camera.combined = projection matrix for the game
         b2dr.render(world, combined);
     }
+
     public void update(OrthographicCamera camera) {
         // tell Box2D how many times to calc per second in order to execute physics simulation
         // velocity iterations affects how two bodies react during a collision,
@@ -127,13 +155,9 @@ public class B2WorldManager implements Disposable {
         renderer.setView(camera);
     }
 
-    // TODO - method to set other tiled maps for other levels
-    public void setTiledMap(TiledMap map) {}
-
     @Override
     public void dispose() {
         b2dr.dispose();
-        game.dispose();
         map.dispose();
         renderer.dispose();
         world.dispose();
