@@ -59,9 +59,9 @@ public class Hud implements Disposable {
 
     public void setInitialValues() {
         this.energy = (int) ConfigManager.getGameEnergy();
-        this.level = 1;
+        this.level = SaunScapades.currGameLevel.getLevel();
         this.lives = (int) ConfigManager.getGameLives();
-        this.score = 0;
+        this.score = SaunScapades.score;
         this.timeCount = 0;
         this.worldTimer = (int) ConfigManager.getGameLength();
     }
