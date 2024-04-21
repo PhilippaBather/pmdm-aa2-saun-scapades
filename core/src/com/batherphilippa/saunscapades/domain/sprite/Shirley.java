@@ -12,7 +12,7 @@ import static com.batherphilippa.saunscapades.util.Constants.PPM;
 
 public class Shirley extends Character {
 
-    private TextureRegion shirleyIdle;
+    private final TextureRegion shirleyIdle;
 
     public Shirley(TextureRegion region, World world, float x, float y, float radius, SpriteManager spriteManager) {
         super(region, world, x, y, radius, spriteManager, SpriteType.SHIRLEY);
@@ -23,7 +23,7 @@ public class Shirley extends Character {
     }
 
     @Override
-    protected void render(SpriteBatch batch) {
+    public void render(SpriteBatch batch) {
         super.draw(batch);
 
     }
