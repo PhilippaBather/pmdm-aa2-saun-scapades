@@ -10,6 +10,8 @@ import com.badlogic.gdx.utils.Timer;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.batherphilippa.saunscapades.manager.constants.SoundResources.*;
+
 public class ResourceManager implements Disposable {
 
     private final TextureAtlas atlas;
@@ -24,19 +26,21 @@ public class ResourceManager implements Disposable {
     }
 
     private void loadSoundFX() {
-        this.musicMap.put("countryside", Gdx.audio.newMusic(Gdx.files.internal("sound/music/countryside.wav")));
-        this.musicMap.put("level_end", Gdx.audio.newMusic(Gdx.files.internal("sound/music/level_end.mp3")));
+        this.musicMap.put(MUSIC_COUNTRYSIDE, Gdx.audio.newMusic(Gdx.files.internal("sound/music/countryside.wav")));
+        this.musicMap.put(MUSIC_LEVEL_END, Gdx.audio.newMusic(Gdx.files.internal("sound/music/level_end.mp3")));
 
-        this.soundMap.put("shaun_jump", Gdx.audio.newSound(Gdx.files.internal("sound/sound/jump-shaun.wav")));
-        this.soundMap.put("coin", Gdx.audio.newSound(Gdx.files.internal("sound/sound/coin.wav")));
-        this.soundMap.put("enemy_death", Gdx.audio.newSound(Gdx.files.internal("sound/sound/enemy-death.wav")));
-        this.soundMap.put("explosion", Gdx.audio.newSound(Gdx.files.internal("sound/sound/explosion.wav")));
-        this.soundMap.put("game_over", Gdx.audio.newSound(Gdx.files.internal("sound/sound/game_over.wav")));
-        this.soundMap.put("sheep_victory", Gdx.audio.newSound(Gdx.files.internal("sound/sound/shaun-celebrate.wav")));
-        this.soundMap.put("sheep_death", Gdx.audio.newSound(Gdx.files.internal("sound/sound/sheep-death.wav")));
-        this.soundMap.put("sheep_death_no", Gdx.audio.newSound(Gdx.files.internal("sound/sound/sheep-death-noo.wav")));
-        this.soundMap.put("splash", Gdx.audio.newSound(Gdx.files.internal("sound/sound/splash.wav")));
-        this.soundMap.put("teleportdown", Gdx.audio.newSound(Gdx.files.internal("sound/sound/teleportdown.wav")));
+        this.soundMap.put(SOUND_BRICK_BREAK, Gdx.audio.newSound(Gdx.files.internal("sound/sound/brick_break.wav")));
+        this.soundMap.put(SOUND_COIN, Gdx.audio.newSound(Gdx.files.internal("sound/sound/coin.wav")));
+        this.soundMap.put(SOUND_ENEMY_DEATH, Gdx.audio.newSound(Gdx.files.internal("sound/sound/enemy-death.wav")));
+        this.soundMap.put(SOUND_EXPLOSION, Gdx.audio.newSound(Gdx.files.internal("sound/sound/explosion.wav")));
+        this.soundMap.put(SOUND_GAME_OVER, Gdx.audio.newSound(Gdx.files.internal("sound/sound/game_over.wav")));
+        this.soundMap.put(SOUND_SHAUN_CELEBRATION, Gdx.audio.newSound(Gdx.files.internal("sound/sound/shaun-celebration.wav")));
+        this.soundMap.put(SOUND_SHAUN_DEATH_NOO, Gdx.audio.newSound(Gdx.files.internal("sound/sound/shaun-death-noo.wav")));
+        this.soundMap.put(SOUND_SHAUN_JUMP, Gdx.audio.newSound(Gdx.files.internal("sound/sound/shaun-jump.wav")));
+        this.soundMap.put(SOUND_SHIRLEY_CELEBRATION, Gdx.audio.newSound(Gdx.files.internal("sound/sound/shirley-celebration.wav")));
+        this.soundMap.put(SOUND_SHIRLEY_DEATH_NOO, Gdx.audio.newSound(Gdx.files.internal("sound/sound/shirley-death-noo.wav")));
+        this.soundMap.put(SOUND_SPLASH, Gdx.audio.newSound(Gdx.files.internal("sound/sound/splash.wav")));
+        this.soundMap.put(SOUND_TELEPORT_DOWN, Gdx.audio.newSound(Gdx.files.internal("sound/sound/teleport-down.wav")));
     }
 
     public TextureAtlas.AtlasRegion loadRegion(String name, int index) {
@@ -60,6 +64,17 @@ public class ResourceManager implements Disposable {
     }
     public void playSound(String name) {
         this.soundMap.get(name).play();
+    }
+
+    public void playSound(String name, int delay) {
+        Timer.Task task = new Timer.Task() {
+            @Override
+            public void run() {
+                playSound(name);
+            }
+        };
+
+        Timer.instance().scheduleTask(task, delay);
     }
 
     public void stopMusic(String name) {
