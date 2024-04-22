@@ -104,6 +104,10 @@ public class Hud implements Disposable {
         return energy;
     }
 
+    public int getWorldTimer() {
+        return worldTimer;
+    }
+
     public void updateEnergy(int update) {
         this.energy += update;
         energyValueLabel.setText(String.format("%02d", energy));
