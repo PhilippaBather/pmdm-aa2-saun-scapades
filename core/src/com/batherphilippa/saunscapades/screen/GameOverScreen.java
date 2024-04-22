@@ -25,11 +25,11 @@ public class GameOverScreen implements Screen {
 
     private final int score;
 
-    public GameOverScreen(SaunScapades game, int score) {
+    public GameOverScreen(SaunScapades game) {
         this.game = game;
         this.resManager = this.game.getResManager();
 
-        this.score = score;
+        this.score = SaunScapades.score;
     }
 
     @Override
