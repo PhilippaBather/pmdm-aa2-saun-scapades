@@ -15,6 +15,7 @@ public class UIConstants {
 
     public static final String LABEL_GAME_LENGTH = "Select Game Length";
     public static final String LABEL_GAME_DIFFICULTY = "Select game difficulty";
+    public static final String LABEL_GAME_FINISHED = "!!! Congratulations: Shaun Scapades Conquered!!!";
     public static final String LABEL_GAME_PAUSED_TITLE = "Game Paused";
     public static final String LABEL_GAME_OVER_TITLE = "GAME OVER!!!";
     public static final String LABEL_MAIN_MENU_TITLE = "MAIN MENU";
