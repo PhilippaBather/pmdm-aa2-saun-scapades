@@ -232,6 +232,7 @@ public class SpriteManager implements Disposable {
     }
 
     public void handleParalysedShaun() {
+        resManager.playSound(SOUND_SHAUN_PARALYSED);
         player.resetState(SpriteState.PARALYSED);
     }
 
