@@ -73,6 +73,10 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         UIUtils.clearScreen();
 
+        if (hud.getWorldTimer() <= 0) {
+            ShaunScapades.setGameState(GameState.GAME_OVER);
+        }
+
         if (ShaunScapades.gameState == GameState.GAME_OVER) {
             resourceManager.stopMusic(MUSIC_COUNTRYSIDE);
             dispose();
