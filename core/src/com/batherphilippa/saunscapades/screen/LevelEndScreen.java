@@ -10,7 +10,7 @@ import com.kotcrab.vis.ui.widget.*;
 
 import static com.batherphilippa.saunscapades.screen.constants.UIConstants.*;
 
-public class LevelSplashScreen implements Screen {
+public class LevelEndScreen implements Screen {
 
     private final SaunScapades game;
     private final int score;
@@ -24,7 +24,7 @@ public class LevelSplashScreen implements Screen {
     private VisLabel scoreInfo;
     private VisLabel title;
 
-    public LevelSplashScreen(SaunScapades game) {
+    public LevelEndScreen(SaunScapades game) {
         this.game = game;
         this.score = SaunScapades.score;
     }
