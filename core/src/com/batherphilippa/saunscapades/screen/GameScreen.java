@@ -16,6 +16,7 @@ import com.batherphilippa.saunscapades.screen.scene.PauseBackground;
 import com.batherphilippa.saunscapades.screen.util.UIUtils;
 
 import static com.batherphilippa.saunscapades.manager.constants.SoundResources.MUSIC_COUNTRYSIDE;
+import static com.batherphilippa.saunscapades.manager.constants.SoundResources.MUSIC_SPACE;
 
 public class GameScreen implements Screen {
 
@@ -59,7 +60,11 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
         UIUtils.clearScreen();
-        resourceManager.playMusic(MUSIC_COUNTRYSIDE);
+        if (SaunScapades.currGameLevel == GameLevel.LEVEL_1) {
+            resourceManager.playMusic(MUSIC_COUNTRYSIDE);
+        } else {
+            resourceManager.playMusic(MUSIC_SPACE);
+        }
         optionBarStage = optionBar.getStage();
         pauseStage = pauseMenu.getStage();
         Gdx.input.setInputProcessor(new InputMultiplexer(optionBarStage, pauseStage));
@@ -69,7 +74,7 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         UIUtils.clearScreen();
 
-        if(SaunScapades.gameState == GameState.GAME_OVER) {
+        if (SaunScapades.gameState == GameState.GAME_OVER) {
             resourceManager.stopMusic(MUSIC_COUNTRYSIDE);
             dispose();
             game.setScreen(new GameOverScreen(game, hud.getScore()));

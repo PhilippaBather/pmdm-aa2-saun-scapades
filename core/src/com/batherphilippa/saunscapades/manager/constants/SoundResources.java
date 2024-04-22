@@ -5,6 +5,7 @@ public class SoundResources {
     // music
     public static final String MUSIC_COUNTRYSIDE = "countryside";
     public static final String MUSIC_LEVEL_END = "level_end";
+    public static final String MUSIC_SPACE = "space";
 
     // sounds
     public static final String SOUND_BRICK_BREAK = "brick_break";
