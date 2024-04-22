@@ -7,7 +7,7 @@ import com.batherphilippa.saunscapades.manager.ResourceManager;
 
 import static com.batherphilippa.saunscapades.listener.WorldCategoryBits.COIN_BIT;
 import static com.batherphilippa.saunscapades.listener.WorldCategoryBits.DESTROYED_BIT;
-import static com.batherphilippa.saunscapades.manager.constants.SoundResources.SOUND_COIN;
+import static com.batherphilippa.saunscapades.manager.constants.ResourcesConstants.SOUND_COIN;
 import static com.batherphilippa.saunscapades.manager.constants.TileLayers.GRAPHICS_ORNAMENTS;
 
 public class Coin extends TileObject {
