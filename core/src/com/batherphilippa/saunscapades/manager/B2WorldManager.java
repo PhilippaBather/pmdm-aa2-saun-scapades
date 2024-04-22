@@ -13,10 +13,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
-import com.batherphilippa.saunscapades.domain.sprite.AngrySheep;
-import com.batherphilippa.saunscapades.domain.sprite.Bomb;
-import com.batherphilippa.saunscapades.domain.sprite.Shirley;
-import com.batherphilippa.saunscapades.domain.sprite.TrappedSheep;
+import com.batherphilippa.saunscapades.domain.sprite.*;
 import com.batherphilippa.saunscapades.domain.tilemap.*;
 import com.batherphilippa.saunscapades.listener.WorldContactListener;
 import com.batherphilippa.saunscapades.screen.GameLevel;
@@ -112,15 +109,6 @@ public class B2WorldManager implements Disposable {
         return angrySheepArr;
     }
 
-    public Array<TrappedSheep> renderTrappedSheep(TextureRegion region, SpriteManager spriteManager) {
-        Array<TrappedSheep> trappedSheepArr = new Array<>();
-        for (RectangleMapObject object : map.getLayers().get(TRAPPED_SHEEP_TL).getObjects().getByType(RectangleMapObject.class)) {
-            Rectangle rect = object.getRectangle();
-            trappedSheepArr.add(new TrappedSheep(region, world, rect.getX(), rect.getY(), 9, spriteManager));
-        }
-        return trappedSheepArr;
-    }
-
     public Array<Bomb> renderBombs(TextureRegion region, SpriteManager spriteManager) {
         Array<Bomb> bombArr = new Array<>();
         for (RectangleMapObject object : map.getLayers().get(BOMBS_TL).getObjects().getByType(RectangleMapObject.class)) {
@@ -130,10 +118,27 @@ public class B2WorldManager implements Disposable {
         return bombArr;
     }
 
-    public Shirley rendLevelEndObject(TextureRegion region, SpriteManager spriteManager) {
+    public ShirleySheep renderLevelEndSheep(TextureRegion region, SpriteManager spriteManager) {
         Array<RectangleMapObject> objArray = map.getLayers().get(SHIRLEY_SHEEP_TL).getObjects().getByType(RectangleMapObject.class);
         Rectangle rect = objArray.get(0).getRectangle();
-        return new Shirley(region, world, rect.getX(), rect.getY(), 8, spriteManager);
+        return new ShirleySheep(region, world, rect.getX(), rect.getY(), 8, spriteManager);
+    }
+
+    public Array<FallingSheep> renderFallingSheep(TextureRegion region, SpriteManager spriteManager) {
+        Array<FallingSheep> fallingSheepArr = new Array<>();
+        for (RectangleMapObject object : map.getLayers().get(FALLING_SHEEP_TL).getObjects().getByType(RectangleMapObject.class)) {
+            Rectangle rect = object.getRectangle();
+            fallingSheepArr.add(new FallingSheep(region, world, rect.getX(), rect.getY(), 9, spriteManager));
+        }
+        return fallingSheepArr;
+    }
+    public Array<TrappedSheep> renderTrappedSheep(TextureRegion region, SpriteManager spriteManager) {
+        Array<TrappedSheep> trappedSheepArr = new Array<>();
+        for (RectangleMapObject object : map.getLayers().get(TRAPPED_SHEEP_TL).getObjects().getByType(RectangleMapObject.class)) {
+            Rectangle rect = object.getRectangle();
+            trappedSheepArr.add(new TrappedSheep(region, world, rect.getX(), rect.getY(), 9, spriteManager));
+        }
+        return trappedSheepArr;
     }
 
     public void renderTiledMap(Matrix4 combined) {
