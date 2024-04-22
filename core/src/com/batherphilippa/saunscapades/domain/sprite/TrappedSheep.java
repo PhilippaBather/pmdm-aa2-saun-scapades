@@ -6,9 +6,8 @@ import com.batherphilippa.saunscapades.manager.SpriteManager;
 
 import static com.batherphilippa.saunscapades.listener.WorldCategoryBits.TRAPPED_SHEEP_BIT;
 
-public class TrappedSheep extends Shirley{
+public class TrappedSheep extends ShirleySheep {
 
-    public TextureRegion sheepDead;
     public TrappedSheep(TextureRegion region, World world, float x, float y, float radius, SpriteManager spriteManager) {
         super(region, world, x, y, radius, spriteManager);
     }
@@ -18,7 +17,7 @@ public class TrappedSheep extends Shirley{
     }
 
     public void setKilled() {
-        sheepDead = spriteManager.getTextureRegion("shaun_electrocute", 0);
+        TextureRegion sheepDead = spriteManager.getTextureRegion("shaun_electrocute", 0);
         this.setRegion(sheepDead);
     }
 }
