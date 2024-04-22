@@ -3,6 +3,7 @@ package com.batherphilippa.saunscapades.manager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Timer;
@@ -10,19 +11,22 @@ import com.badlogic.gdx.utils.Timer;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.batherphilippa.saunscapades.manager.constants.SoundResources.*;
+import static com.batherphilippa.saunscapades.manager.constants.ResourcesConstants.*;
 
 public class ResourceManager implements Disposable {
 
     private final TextureAtlas atlas;
     private final Map<String, Music> musicMap;
     private final Map<String, Sound> soundMap;
+    private final Map<String, FileHandle> uiMap;
 
     public ResourceManager() {
         this.atlas = new TextureAtlas(Gdx.files.internal("atlas/shaun_friends_enemies_2.atlas"));
         this.musicMap = new HashMap<>();
         this.soundMap = new HashMap<>();
+        this.uiMap = new HashMap<>();
         loadSoundFX();
+        loadSplashImg();
     }
 
     private void loadSoundFX() {
@@ -45,6 +49,13 @@ public class ResourceManager implements Disposable {
         this.soundMap.put(SOUND_TELEPORT_DOWN, Gdx.audio.newSound(Gdx.files.internal("sound/sound/teleport-down.wav")));
     }
 
+    public void loadSplashImg() {
+        this.uiMap.put(IMAGE_SPLASH, Gdx.files.internal("image/shaun_scapades_splash_screen.jpg"));
+    }
+
+    public FileHandle getSplashImg(String img) {
+        return uiMap.get(img);
+    }
     public TextureAtlas.AtlasRegion loadRegion(String name, int index) {
         return atlas.findRegion(name, index);
     }
