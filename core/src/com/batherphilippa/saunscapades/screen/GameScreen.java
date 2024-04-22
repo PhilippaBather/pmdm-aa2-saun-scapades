@@ -77,13 +77,17 @@ public class GameScreen implements Screen {
         if (SaunScapades.gameState == GameState.GAME_OVER) {
             resourceManager.stopMusic(MUSIC_COUNTRYSIDE);
             dispose();
-            game.setScreen(new GameOverScreen(game, hud.getScore()));
+            game.setScreen(new GameOverScreen(game));
         }
 
-        if (SaunScapades.currGameLevel != currLevel) {
+        if( SaunScapades.gameState == GameState.FINISHED) {
             SaunScapades.score = hud.getScore();
             dispose();
-            game.setScreen(new LevelSplashScreen(game));
+            game.setScreen(new GameEndScreen(game));
+        } else if (SaunScapades.currGameLevel != currLevel) {
+            SaunScapades.score = hud.getScore();
+            dispose();
+            game.setScreen(new LevelEndScreen(game));
         } else if (!SaunScapades.getGameState().equals(GameState.PAUSED) && SaunScapades.gameState != GameState.GAME_OVER) {
 
             // render game map
