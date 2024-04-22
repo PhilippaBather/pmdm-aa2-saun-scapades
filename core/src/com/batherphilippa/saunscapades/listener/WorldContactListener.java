@@ -53,7 +53,7 @@ public class WorldContactListener implements ContactListener, Disposable {
                 }
                 spriteManager.playerHit(SpriteType.OBJECT, 2);
             }
-            case (ENEMY_BIT | OBJECT_BIT)-> {
+            case (ENEMY_BIT | OBJECT_BIT) -> {
                 if (fixA.getFilterData().categoryBits == ENEMY_BIT) {
                     ((AngrySheep) fixA.getUserData()).reverseMovement(true, false);
                 } else {
@@ -109,8 +109,19 @@ public class WorldContactListener implements ContactListener, Disposable {
                 }
                 spriteManager.handleSheepDeath();
             }
-            case (TRAPPED_SHEEP_BIT | GROUND_BIT), SHAUN_BIT -> {
-                spriteManager.handleSavedSheep();
+            case (TRAPPED_SHEEP_BIT | GROUND_BIT), SHAUN_BIT -> spriteManager.handleSavedSheep();
+            case (FALLING_SHEEP_BIT | SHAUN_HEAD_BIT) -> {
+                if (fixA.getFilterData().categoryBits == FALLING_SHEEP_BIT) {
+                    if (((FallingSheep) fixA.getUserData()).isHasLanded()) {
+                        spriteManager.handleParalysedShaun();
+                    }
+                    ((FallingSheep) fixA.getUserData()).setHasLanded(true);
+                } else {
+                    if (((FallingSheep) fixB.getUserData()).isHasLanded()) {
+                        spriteManager.handleParalysedShaun();
+                    }
+                    ((FallingSheep) fixB.getUserData()).setHasLanded(true);
+                }
             }
 
         }
