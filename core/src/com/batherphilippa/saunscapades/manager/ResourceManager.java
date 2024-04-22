@@ -28,6 +28,7 @@ public class ResourceManager implements Disposable {
     private void loadSoundFX() {
         this.musicMap.put(MUSIC_COUNTRYSIDE, Gdx.audio.newMusic(Gdx.files.internal("sound/music/countryside.wav")));
         this.musicMap.put(MUSIC_LEVEL_END, Gdx.audio.newMusic(Gdx.files.internal("sound/music/level_end.mp3")));
+        this.musicMap.put(MUSIC_SPACE, Gdx.audio.newMusic(Gdx.files.internal("sound/music/outerspace.wav")));
 
         this.soundMap.put(SOUND_BRICK_BREAK, Gdx.audio.newSound(Gdx.files.internal("sound/sound/brick_break.wav")));
         this.soundMap.put(SOUND_COIN, Gdx.audio.newSound(Gdx.files.internal("sound/sound/coin.wav")));
