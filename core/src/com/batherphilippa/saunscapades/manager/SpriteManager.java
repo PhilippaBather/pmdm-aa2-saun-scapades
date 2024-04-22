@@ -25,10 +25,11 @@ public class SpriteManager implements Disposable {
     private final SpriteBatch batch;
     private final Hud hud;
     private Shaun player;
-    private Shirley shirleySheep;
-    private Array<AngrySheep> angrySheepArray;
-    private Array<Bomb> bombArray;
-    private Array<TrappedSheep> trappedSheepArray;
+    private ShirleySheep shirleySheep;
+    private Array<Bomb> bombArr;
+    private Array<AngrySheep> angrySheepArr;
+    private Array<FallingSheep> fallingSheepArr;
+    private Array<TrappedSheep> trappedSheepArr;
 
     public SpriteManager(ResourceManager resManager, SpriteBatch batch, Hud hud, B2WorldManager b2WorldManager) {
         this.batch = batch;
@@ -44,12 +45,13 @@ public class SpriteManager implements Disposable {
      */
     private void init() {
         this.player = new Shaun(resManager.loadRegion("shaun_idle", -1), b2WorldManager.getWorld(), 32, 38, 8, this);
-        this.shirleySheep = b2WorldManager.rendLevelEndObject(resManager.loadRegion("shirley_end_level", -1), this);
-        this.angrySheepArray = b2WorldManager.renderAngrySheep(resManager.loadRegion("black_sheep_run", 1), this);
-        this.bombArray = b2WorldManager.renderBombs(resManager.loadRegion("bomb_idle", -1), this);
+        this.shirleySheep = b2WorldManager.renderLevelEndSheep(resManager.loadRegion("shirley_end_level", -1), this);
+        this.angrySheepArr = b2WorldManager.renderAngrySheep(resManager.loadRegion("black_sheep_run", 1), this);
+        this.bombArr = b2WorldManager.renderBombs(resManager.loadRegion("bomb_idle", -1), this);
 
         if (currGameLevel == GameLevel.LEVEL_2) {
-            this.trappedSheepArray = b2WorldManager.renderTrappedSheep(resManager.loadRegion("shirley_end_level", -1), this);
+            this.trappedSheepArr = b2WorldManager.renderTrappedSheep(resManager.loadRegion("shirley_end_level", -1), this);
+            this.fallingSheepArr = b2WorldManager.renderFallingSheep(resManager.loadRegion("timmy_idle", -1), this);
         }
     }
 
@@ -65,19 +67,24 @@ public class SpriteManager implements Disposable {
         this.player.update(dt);
         this.shirleySheep.update(dt);
 
-        for (AngrySheep angrySheep : angrySheepArray) {
+        for (AngrySheep angrySheep : angrySheepArr) {
             angrySheep.update(dt);
         }
 
-        for (Bomb bomb : bombArray) {
+        for (Bomb bomb : bombArr) {
             if (bomb.getX() < player.getX() + 224 / PPM) {
                 bomb.update(dt);
             }
         }
 
         if (currGameLevel == GameLevel.LEVEL_2){
-            for(TrappedSheep sheep: trappedSheepArray) {
+            for(TrappedSheep sheep: trappedSheepArr) {
                 sheep.update(dt);
+            }
+            for(FallingSheep sheep: fallingSheepArr) {
+                if (sheep.getX() < player.getX() + 7 / PPM) {
+                    sheep.update(dt);
+                }
             }
         }
 
@@ -103,15 +110,18 @@ public class SpriteManager implements Disposable {
         batch.begin();
         player.render(batch);
         shirleySheep.draw(batch);
-        for (AngrySheep angrySheep : angrySheepArray) {
+        for (AngrySheep angrySheep : angrySheepArr) {
             angrySheep.render(batch);
         }
-        for (Bomb bomb : bombArray) {
+        for (Bomb bomb : bombArr) {
             bomb.render(batch);
         }
 
         if (currGameLevel == GameLevel.LEVEL_2){
-            for(TrappedSheep sheep: trappedSheepArray) {
+            for(TrappedSheep sheep: trappedSheepArr) {
+                sheep.render(batch);
+            }
+            for(FallingSheep sheep: fallingSheepArr) {
                 sheep.render(batch);
             }
         }
@@ -119,6 +129,9 @@ public class SpriteManager implements Disposable {
         batch.end();
     }
 
+    public void updateScore(int points) {
+        hud.updateScore(points);
+    }
     public void enemyHit() {
         resManager.playSound(SOUND_ENEMY_DEATH);
         resManager.playSound(SOUND_SHAUN_CELEBRATION);
@@ -218,11 +231,17 @@ public class SpriteManager implements Disposable {
         Timer.instance().scheduleTask(task, 4);
     }
 
+    public void handleParalysedShaun() {
+        player.resetState(SpriteState.PARALYSED);
+    }
+
     @Override
     public void dispose() {
         batch.dispose();
-        angrySheepArray.clear();
-        bombArray.clear();
+        angrySheepArr.clear();
+        bombArr.clear();
+        fallingSheepArr.clear();
+        trappedSheepArr.clear();
         b2WorldManager.dispose();
         hud.dispose();
         resManager.dispose();
