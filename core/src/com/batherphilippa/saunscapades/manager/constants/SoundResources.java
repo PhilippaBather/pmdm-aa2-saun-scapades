@@ -15,6 +15,7 @@ public class SoundResources {
     public static final String SOUND_SHAUN_CELEBRATION = "shaun_celebration";
     public static final String SOUND_SHAUN_DEATH_NOO = "shaun_death_no";
     public static final String SOUND_SHAUN_JUMP = "shaun_jump";
+    public static final String SOUND_SHAUN_PARALYSED = "shaun_paralysed";
     public static final String SOUND_SHIRLEY_CELEBRATION = "shirley_celebration";
     public static final String SOUND_SHIRLEY_DEATH_NOO = "shirley_death_noo";
     public static final String SOUND_SPLASH = "splash";
