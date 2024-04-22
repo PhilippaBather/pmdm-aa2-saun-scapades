@@ -15,7 +15,7 @@ import com.batherphilippa.saunscapades.screen.scene.Hud;
 import com.batherphilippa.saunscapades.util.UserInput;
 
 import static com.batherphilippa.saunscapades.SaunScapades.*;
-import static com.batherphilippa.saunscapades.manager.constants.SoundResources.*;
+import static com.batherphilippa.saunscapades.manager.constants.ResourcesConstants.*;
 import static com.batherphilippa.saunscapades.util.Constants.PPM;
 
 public class SpriteManager implements Disposable {
