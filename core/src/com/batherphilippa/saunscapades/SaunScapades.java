@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.batherphilippa.saunscapades.manager.CameraManager;
 import com.batherphilippa.saunscapades.manager.ResourceManager;
 import com.batherphilippa.saunscapades.screen.GameLevel;
+import com.batherphilippa.saunscapades.screen.GameSplashScreen;
 import com.batherphilippa.saunscapades.screen.GameState;
 import com.batherphilippa.saunscapades.screen.MainMenuScreen;
 
@@ -25,7 +26,7 @@ public class SaunScapades extends Game {
         this.camManager = new CameraManager();
         this.resManager = new ResourceManager();
 
-        this.setScreen(new MainMenuScreen(this));
+        this.setScreen(new GameSplashScreen(this));
     }
 
     public CameraManager getCamManager() {
