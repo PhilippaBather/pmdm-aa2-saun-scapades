@@ -5,7 +5,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.batherphilippa.saunscapades.SaunScapades;
+import com.batherphilippa.saunscapades.ShaunScapades;
 import com.batherphilippa.saunscapades.manager.B2WorldManager;
 import com.batherphilippa.saunscapades.manager.CameraManager;
 import com.batherphilippa.saunscapades.manager.ResourceManager;
@@ -19,7 +19,7 @@ import static com.batherphilippa.saunscapades.manager.constants.ResourcesConstan
 
 public class GameScreen implements Screen {
 
-    private final SaunScapades game;
+    private final ShaunScapades game;
     private final GameLevel currLevel;
     private final SpriteBatch batch;
     private final B2WorldManager b2WorldManager;
@@ -35,9 +35,9 @@ public class GameScreen implements Screen {
     private Stage pauseStage;
 
 
-    public GameScreen(SaunScapades game) {
+    public GameScreen(ShaunScapades game) {
         this.game = game;
-        this.currLevel = SaunScapades.currGameLevel;
+        this.currLevel = ShaunScapades.currGameLevel;
         this.resourceManager = new ResourceManager();
 
         this.batch = new SpriteBatch();
@@ -59,7 +59,7 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
         UIUtils.clearScreen();
-        if (SaunScapades.currGameLevel == GameLevel.LEVEL_1) {
+        if (ShaunScapades.currGameLevel == GameLevel.LEVEL_1) {
             resourceManager.playMusic(MUSIC_COUNTRYSIDE, true);
         } else {
             resourceManager.playMusic(MUSIC_SPACE, true);
@@ -73,22 +73,22 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         UIUtils.clearScreen();
 
-        if (SaunScapades.gameState == GameState.GAME_OVER) {
+        if (ShaunScapades.gameState == GameState.GAME_OVER) {
             resourceManager.stopMusic(MUSIC_COUNTRYSIDE);
             dispose();
             game.setScreen(new GameOverScreen(game));
         }
 
-        if (SaunScapades.gameState == GameState.FINISHED) {
+        if (ShaunScapades.gameState == GameState.FINISHED) {
             resourceManager.stopMusic(MUSIC_SPACE);
-            SaunScapades.score = hud.getScore();
+            ShaunScapades.score = hud.getScore();
             dispose();
             game.setScreen(new GameEndScreen(game));
-        } else if (SaunScapades.currGameLevel != currLevel) {
-            SaunScapades.score = hud.getScore();
+        } else if (ShaunScapades.currGameLevel != currLevel) {
+            ShaunScapades.score = hud.getScore();
             dispose();
             game.setScreen(new LevelEndScreen(game));
-        } else if (!SaunScapades.getGameState().equals(GameState.PAUSED) && SaunScapades.gameState != GameState.GAME_OVER) {
+        } else if (!ShaunScapades.getGameState().equals(GameState.PAUSED) && ShaunScapades.gameState != GameState.GAME_OVER) {
 
             // render game map
             b2WorldManager.update(camManager.getGameCam());
@@ -128,12 +128,12 @@ public class GameScreen implements Screen {
 
     @Override
     public void pause() {
-        SaunScapades.setGameState(GameState.PAUSED);
+        ShaunScapades.setGameState(GameState.PAUSED);
     }
 
     @Override
     public void resume() {
-        SaunScapades.setGameState(GameState.RUNNING);
+        ShaunScapades.setGameState(GameState.RUNNING);
     }
 
     @Override

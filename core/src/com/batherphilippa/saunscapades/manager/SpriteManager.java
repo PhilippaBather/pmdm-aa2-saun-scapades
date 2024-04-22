@@ -7,14 +7,14 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Timer;
-import com.batherphilippa.saunscapades.SaunScapades;
+import com.batherphilippa.saunscapades.ShaunScapades;
 import com.batherphilippa.saunscapades.domain.sprite.*;
 import com.batherphilippa.saunscapades.screen.GameLevel;
 import com.batherphilippa.saunscapades.screen.GameState;
 import com.batherphilippa.saunscapades.screen.scene.Hud;
 import com.batherphilippa.saunscapades.util.UserInput;
 
-import static com.batherphilippa.saunscapades.SaunScapades.*;
+import static com.batherphilippa.saunscapades.ShaunScapades.*;
 import static com.batherphilippa.saunscapades.manager.constants.ResourcesConstants.*;
 import static com.batherphilippa.saunscapades.screen.constants.PointsConstants.*;
 import static com.batherphilippa.saunscapades.util.Constants.PPM;
@@ -186,7 +186,7 @@ public class SpriteManager implements Disposable {
 
     private void restartPlayer() {
 
-        if (SaunScapades.gameState != GameState.GAME_OVER) {
+        if (ShaunScapades.gameState != GameState.GAME_OVER) {
             resManager.playSound(SOUND_TELEPORT_DOWN);
             resManager.playMusic(MUSIC_COUNTRYSIDE, 8, true);
             if (hud.getEnergy() <= 0) {
@@ -227,10 +227,10 @@ public class SpriteManager implements Disposable {
             @Override
             public void run() {
                 resManager.stopMusic(MUSIC_LEVEL_END);
-                if (SaunScapades.currGameLevel == GameLevel.LEVEL_1) {
-                    SaunScapades.currGameLevel = GameLevel.LEVEL_2;
+                if (ShaunScapades.currGameLevel == GameLevel.LEVEL_1) {
+                    ShaunScapades.currGameLevel = GameLevel.LEVEL_2;
                 } else {
-                   SaunScapades.setGameState(GameState.FINISHED);
+                   ShaunScapades.setGameState(GameState.FINISHED);
                 }
             }
         };

@@ -3,7 +3,7 @@ package com.batherphilippa.saunscapades.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.batherphilippa.saunscapades.SaunScapades;
+import com.batherphilippa.saunscapades.ShaunScapades;
 import com.batherphilippa.saunscapades.manager.OptionManager;
 import com.batherphilippa.saunscapades.manager.ResourceManager;
 import com.batherphilippa.saunscapades.screen.util.UIUtils;
@@ -15,7 +15,7 @@ import static com.batherphilippa.saunscapades.manager.constants.ResourcesConstan
 import static com.batherphilippa.saunscapades.screen.constants.UIConstants.*;
 
 public class GameEndScreen implements Screen {
-    private final SaunScapades game;
+    private final ShaunScapades game;
     private final ResourceManager resManager;
     private final int score;
     private Stage stage;
@@ -26,10 +26,10 @@ public class GameEndScreen implements Screen {
     private VisTextButton playBtn;
     private VisTextButton saveBtn;
 
-    public GameEndScreen(SaunScapades game) {
+    public GameEndScreen(ShaunScapades game) {
         this.game = game;
         this.resManager = this.game.getResManager();
-        this.score = SaunScapades.score;
+        this.score = ShaunScapades.score;
     }
 
     @Override

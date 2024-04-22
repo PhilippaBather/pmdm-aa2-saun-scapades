@@ -6,24 +6,22 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.batherphilippa.saunscapades.SaunScapades;
+import com.batherphilippa.saunscapades.ShaunScapades;
 import com.batherphilippa.saunscapades.manager.ResourceManager;
 import com.batherphilippa.saunscapades.screen.util.UIUtils;
-
-import javax.swing.text.Utilities;
 
 import static com.batherphilippa.saunscapades.manager.constants.ResourcesConstants.IMAGE_SPLASH;
 
 public class GameSplashScreen implements Screen {
 
-    private final SaunScapades game;
+    private final ShaunScapades game;
     private final ResourceManager resManager;
     private final Stage stage;
     private final Image splashImg;
     private final Texture splashTexture;
     private boolean splashDone;
 
-    public GameSplashScreen(SaunScapades game) {
+    public GameSplashScreen(ShaunScapades game) {
         this.game = game;
         this.resManager = this.game.getResManager();
 
@@ -77,12 +75,12 @@ public class GameSplashScreen implements Screen {
 
     @Override
     public void pause() {
-        SaunScapades.setGameState(GameState.PAUSED);
+        ShaunScapades.setGameState(GameState.PAUSED);
     }
 
     @Override
     public void resume() {
-        SaunScapades.setGameState(GameState.RUNNING);
+        ShaunScapades.setGameState(GameState.RUNNING);
     }
 
     @Override

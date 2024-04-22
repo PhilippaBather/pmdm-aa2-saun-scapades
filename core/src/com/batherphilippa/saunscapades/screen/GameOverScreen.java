@@ -3,7 +3,7 @@ package com.batherphilippa.saunscapades.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.batherphilippa.saunscapades.SaunScapades;
+import com.batherphilippa.saunscapades.ShaunScapades;
 import com.batherphilippa.saunscapades.manager.OptionManager;
 import com.batherphilippa.saunscapades.manager.ResourceManager;
 import com.batherphilippa.saunscapades.screen.util.UIUtils;
@@ -15,7 +15,7 @@ import static com.batherphilippa.saunscapades.screen.constants.UIConstants.*;
 
 public class GameOverScreen implements Screen {
 
-    private final SaunScapades game;
+    private final ShaunScapades game;
     private final ResourceManager resManager;
     private Stage stage;
     private VisLabel titleLabel;
@@ -25,11 +25,11 @@ public class GameOverScreen implements Screen {
 
     private final int score;
 
-    public GameOverScreen(SaunScapades game) {
+    public GameOverScreen(ShaunScapades game) {
         this.game = game;
         this.resManager = this.game.getResManager();
 
-        this.score = SaunScapades.score;
+        this.score = ShaunScapades.score;
     }
 
     @Override
@@ -95,12 +95,12 @@ public class GameOverScreen implements Screen {
 
     @Override
     public void pause() {
-        SaunScapades.gameState = GameState.PAUSED;
+        ShaunScapades.gameState = GameState.PAUSED;
     }
 
     @Override
     public void resume() {
-        SaunScapades.gameState = GameState.RUNNING;
+        ShaunScapades.gameState = GameState.RUNNING;
     }
 
     @Override

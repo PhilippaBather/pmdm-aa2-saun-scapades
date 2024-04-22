@@ -2,7 +2,7 @@ package com.batherphilippa.saunscapades.screen.scene;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Disposable;
-import com.batherphilippa.saunscapades.SaunScapades;
+import com.batherphilippa.saunscapades.ShaunScapades;
 import com.batherphilippa.saunscapades.manager.OptionManager;
 import com.batherphilippa.saunscapades.screen.util.UIUtils;
 import com.kotcrab.vis.ui.widget.VisTable;
@@ -13,11 +13,11 @@ import static com.batherphilippa.saunscapades.screen.constants.UIConstants.LABEL
 
 public class PauseBackground implements Disposable {
 
-    private final SaunScapades game;
+    private final ShaunScapades game;
     private final Stage stage;
     private final VisTextButton resumBtn;
 
-    public PauseBackground(SaunScapades game) {
+    public PauseBackground(ShaunScapades game) {
         this.game = game;
 
         VisTable table = UIUtils.createTableObj();

@@ -3,7 +3,7 @@ package com.batherphilippa.saunscapades.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.batherphilippa.saunscapades.SaunScapades;
+import com.batherphilippa.saunscapades.ShaunScapades;
 import com.batherphilippa.saunscapades.manager.ConfigManager;
 import com.batherphilippa.saunscapades.manager.OptionManager;
 import com.batherphilippa.saunscapades.screen.util.UIUtils;
@@ -15,7 +15,7 @@ import static com.batherphilippa.saunscapades.screen.constants.UIConstants.*;
 
 public class ConfigScreen implements Screen {
 
-    private final SaunScapades game;
+    private final ShaunScapades game;
     private Stage stage;
     private VisLabel gameDiffLab;
     private VisLabel gameLengthLab;
@@ -26,7 +26,7 @@ public class ConfigScreen implements Screen {
     private VisTextButton mainMenuBtn;
     private VisTextButton playBtn;
 
-    public ConfigScreen(SaunScapades game) {
+    public ConfigScreen(ShaunScapades game) {
         this.game = game;
     }
 
@@ -119,7 +119,7 @@ public class ConfigScreen implements Screen {
 
     @Override
     public void pause() {
-        SaunScapades.gameState = GameState.PAUSED;
+        ShaunScapades.gameState = GameState.PAUSED;
     }
 
     @Override

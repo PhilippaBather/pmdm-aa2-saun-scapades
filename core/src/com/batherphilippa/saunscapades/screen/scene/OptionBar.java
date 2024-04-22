@@ -3,7 +3,7 @@ package com.batherphilippa.saunscapades.screen.scene;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Disposable;
-import com.batherphilippa.saunscapades.SaunScapades;
+import com.batherphilippa.saunscapades.ShaunScapades;
 import com.batherphilippa.saunscapades.manager.CameraManager;
 import com.batherphilippa.saunscapades.manager.OptionManager;
 import com.batherphilippa.saunscapades.screen.util.UIUtils;
@@ -14,7 +14,7 @@ import static com.batherphilippa.saunscapades.screen.constants.UIConstants.*;
 
 public class OptionBar implements Disposable {
 
-    private final SaunScapades game;
+    private final ShaunScapades game;
     private final SpriteBatch batch;
     private final Stage stage;
 
@@ -23,7 +23,7 @@ public class OptionBar implements Disposable {
     private VisTextButton pauseBtn;
     private VisTextButton exitBtn;
 
-    public OptionBar(SaunScapades game, SpriteBatch batch) {
+    public OptionBar(ShaunScapades game, SpriteBatch batch) {
         this.game = game;
         this.batch = batch;
         CameraManager camManager = this.game.getCamManager();
