@@ -11,5 +11,5 @@ public class TileLayers {
     public static final int SHIRLEY_SHEEP_TL = 9;
     public static final int BLOCKS_TL = 10;
     public static final int TRAPPED_SHEEP_TL = 11;
-    public static final int FLYING_SHEEP_TL = 12;
+    public static final int FALLING_SHEEP_TL = 12;
 }
