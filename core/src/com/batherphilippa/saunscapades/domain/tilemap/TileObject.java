@@ -50,8 +50,8 @@ public abstract class TileObject {
         fixture.setFilterData(filter);
     }
 
-    protected TiledMapTileLayer.Cell getCell() {
-        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(2); // graphic_ornaments layer
+    protected TiledMapTileLayer.Cell getCell(int layerLevel) {
+        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(layerLevel);
         // scale up as previously scaled down so looks identical to the tiled map
         // then divide by tile size (16) to get x/y value for cell's location
         return layer.getCell(

@@ -2,10 +2,8 @@ package com.batherphilippa.saunscapades.listener;
 
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Disposable;
-import com.batherphilippa.saunscapades.domain.sprite.AngrySheep;
-import com.batherphilippa.saunscapades.domain.sprite.Bomb;
-import com.batherphilippa.saunscapades.domain.sprite.SpriteState;
-import com.batherphilippa.saunscapades.domain.sprite.SpriteType;
+import com.batherphilippa.saunscapades.domain.sprite.*;
+import com.batherphilippa.saunscapades.domain.tilemap.Block;
 import com.batherphilippa.saunscapades.domain.tilemap.Coin;
 import com.batherphilippa.saunscapades.domain.tilemap.Water;
 import com.batherphilippa.saunscapades.manager.ResourceManager;
@@ -46,7 +44,6 @@ public class WorldContactListener implements ContactListener, Disposable {
                     ((Coin) fixB.getUserData()).onContact();
                 }
                 spriteManager.updateScore(250);
-                resManager.playSound("coin");
             }
             case (SHAUN_BIT | WATER_BIT) -> {
                 if (fixA.getFilterData().categoryBits == WATER_BIT) {
@@ -54,10 +51,9 @@ public class WorldContactListener implements ContactListener, Disposable {
                 } else {
                     ((Water) fixB.getUserData()).onContact();
                 }
-                resManager.playSound("splash");
                 spriteManager.playerHit(SpriteType.OBJECT, 2);
             }
-            case (ENEMY_BIT | OBJECT_BIT)-> {
+            case (ENEMY_BIT | OBJECT_BIT) -> {
                 if (fixA.getFilterData().categoryBits == ENEMY_BIT) {
                     ((AngrySheep) fixA.getUserData()).reverseMovement(true, false);
                 } else {
@@ -92,11 +88,43 @@ public class WorldContactListener implements ContactListener, Disposable {
                 }
                 spriteManager.playerHit(SpriteType.BOMB, 1);
             }
-            case (SHAUN_BIT | SHIRLEY_BIT) -> {
-                spriteManager.levelEndCelebration();
+            case (SHAUN_BIT | SHIRLEY_BIT) -> spriteManager.levelEndCelebration();
+            case (SHAUN_HEAD_BIT | BLOCK_BIT) -> {
+                if (fixA.getFilterData().categoryBits == BLOCK_BIT) {
+                    ((Block) fixA.getUserData()).onContact();
+                } else {
+                    ((Block) fixB.getUserData()).onContact();
+                }
             }
-        }
+            case (TRAPPED_SHEEP_BIT | BOMB_BIT) -> {
+                if (fixA.getFilterData().categoryBits == BOMB_BIT) {
+                    ((Bomb) fixA.getUserData()).setDetonated(true);
+                } else {
+                    ((Bomb) fixB.getUserData()).setDetonated(true);
+                }
+                if (fixA.getFilterData().categoryBits == TRAPPED_SHEEP_BIT) {
+                    ((TrappedSheep) fixA.getUserData()).setKilled();
+                } else {
+                    ((TrappedSheep) fixB.getUserData()).setKilled();
+                }
+                spriteManager.handleSheepDeath();
+            }
+            case (TRAPPED_SHEEP_BIT | GROUND_BIT), SHAUN_BIT -> spriteManager.handleSavedSheep();
+            case (FALLING_SHEEP_BIT | SHAUN_HEAD_BIT) -> {
+                if (fixA.getFilterData().categoryBits == FALLING_SHEEP_BIT) {
+                    if (((FallingSheep) fixA.getUserData()).isHasLanded()) {
+                        spriteManager.handleParalysedShaun();
+                    }
+                    ((FallingSheep) fixA.getUserData()).setHasLanded(true);
+                } else {
+                    if (((FallingSheep) fixB.getUserData()).isHasLanded()) {
+                        spriteManager.handleParalysedShaun();
+                    }
+                    ((FallingSheep) fixB.getUserData()).setHasLanded(true);
+                }
+            }
 
+        }
     }
 
     @Override

@@ -125,7 +125,7 @@
   <object id="300" x="2758" y="116.667"/>
   <object id="301" x="3052.67" y="164"/>
  </objectgroup>
- <objectgroup id="20" name="timmy_end_level">
-  <object id="302" x="3176.01" y="165.333"/>
+ <objectgroup id="20" name="shirley_level_end">
+  <object id="302" x="3190.01" y="162.666"/>
  </objectgroup>
 </map>

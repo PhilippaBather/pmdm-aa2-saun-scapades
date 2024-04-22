@@ -10,20 +10,17 @@ import com.batherphilippa.saunscapades.util.UserInput;
 import static com.batherphilippa.saunscapades.listener.WorldCategoryBits.SHIRLEY_BIT;
 import static com.batherphilippa.saunscapades.util.Constants.PPM;
 
-public class Shirley extends Character {
+public class ShirleySheep extends Character {
 
-    private TextureRegion shirleyIdle;
-
-    public Shirley(TextureRegion region, World world, float x, float y, float radius, SpriteManager spriteManager) {
+    public ShirleySheep(TextureRegion region, World world, float x, float y, float radius, SpriteManager spriteManager) {
         super(region, world, x, y, radius, spriteManager, SpriteType.SHIRLEY);
         setBounds(getX(), getY(), 16 / PPM, 16 / PPM);
 
-        shirleyIdle = region;
-        this.setRegion(shirleyIdle);
+        this.setRegion(region);
     }
 
     @Override
-    protected void render(SpriteBatch batch) {
+    public void render(SpriteBatch batch) {
         super.draw(batch);
 
     }

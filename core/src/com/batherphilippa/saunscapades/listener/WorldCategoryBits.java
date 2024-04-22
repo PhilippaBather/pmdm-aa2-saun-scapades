@@ -15,4 +15,8 @@ public class WorldCategoryBits {
     public static final short OBJECT_BIT = 64;
     public static final short BOMB_BIT = 128;
     public static final short SHIRLEY_BIT = 256;
+    public static final short BLOCK_BIT = 512;
+    public static final short SHAUN_HEAD_BIT = 1024;
+    public static final short TRAPPED_SHEEP_BIT = 2048;
+    public static final short FALLING_SHEEP_BIT = 4096;
 }

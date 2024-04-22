@@ -3,6 +3,7 @@ package com.batherphilippa.saunscapades;
 import com.badlogic.gdx.Game;
 import com.batherphilippa.saunscapades.manager.CameraManager;
 import com.batherphilippa.saunscapades.manager.ResourceManager;
+import com.batherphilippa.saunscapades.screen.GameLevel;
 import com.batherphilippa.saunscapades.screen.GameState;
 import com.batherphilippa.saunscapades.screen.MainMenuScreen;
 
@@ -10,10 +11,16 @@ public class SaunScapades extends Game {
     private CameraManager camManager;
     private ResourceManager resManager;
     public static GameState gameState;
+    public static GameLevel currGameLevel;
+    public static GameLevel prevGameLevel;
+    public static int score;
 
     @Override
     public void create() {
         gameState = GameState.RUNNING;
+        currGameLevel = GameLevel.LEVEL_1;
+        prevGameLevel = GameLevel.LEVEL_1;
+        score = 0;
 
         this.camManager = new CameraManager();
         this.resManager = new ResourceManager();
@@ -47,6 +54,6 @@ public class SaunScapades extends Game {
 
     @Override
     public void dispose() {
-        resManager.dispose();
+
     }
 }
