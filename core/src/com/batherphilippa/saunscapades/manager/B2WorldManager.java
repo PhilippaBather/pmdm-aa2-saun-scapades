@@ -20,7 +20,7 @@ import com.batherphilippa.saunscapades.screen.GameLevel;
 import com.batherphilippa.saunscapades.screen.GameScreen;
 import com.batherphilippa.saunscapades.screen.scene.Hud;
 
-import static com.batherphilippa.saunscapades.SaunScapades.currGameLevel;
+import static com.batherphilippa.saunscapades.ShaunScapades.currGameLevel;
 import static com.batherphilippa.saunscapades.manager.constants.TileLayers.*;
 import static com.batherphilippa.saunscapades.util.Constants.GRAVITY;
 import static com.batherphilippa.saunscapades.util.Constants.PPM;
