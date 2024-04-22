@@ -5,25 +5,24 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.batherphilippa.saunscapades.SaunScapades;
 import com.batherphilippa.saunscapades.manager.OptionManager;
-import com.batherphilippa.saunscapades.manager.ResourceManager;
 import com.batherphilippa.saunscapades.screen.util.UIUtils;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 
-public class GameOver implements Screen {
+import static com.batherphilippa.saunscapades.screen.constants.UIConstants.*;
+
+public class MainMenuScreen implements Screen {
 
     private final SaunScapades game;
-    private final ResourceManager resManager;
     private Stage stage;
     private VisLabel titleLabel;
+    private VisTextButton configBtn;
     private VisTextButton exitBtn;
-    private VisTextButton mainMenuBtn;
     private VisTextButton playBtn;
 
-    public GameOver(SaunScapades game) {
+    public MainMenuScreen(SaunScapades game) {
         this.game = game;
-        this.resManager = this.game.getResManager();
     }
 
     @Override
@@ -42,21 +41,19 @@ public class GameOver implements Screen {
         createTableStructure(infoTable, actionsTable);
 
         Gdx.input.setInputProcessor(stage);
-
-        resManager.playSound("game_over");
     }
 
     private void createComponents() {
-        this.titleLabel = new VisLabel("GAME OVER!!!");
-        this.exitBtn = new VisTextButton("EXIT");
-        this.mainMenuBtn = new VisTextButton("MAIN MENU");
-        this.playBtn = new VisTextButton("PLAY AGAIN");
+        this.titleLabel = new VisLabel(LABEL_MAIN_MENU_TITLE);
+        this.exitBtn = new VisTextButton(BTN_EXIT);
+        this.configBtn = new VisTextButton(BTN_CONFIG);
+        this.playBtn = new VisTextButton(BTN_PLAY);
     }
 
     private void setClickListeners() {
         OptionManager.handleExitClicked(exitBtn, this);
-        OptionManager.handleMainMenuClicked(mainMenuBtn, game, this); // screen game, menu type, sprite manager needed as param
-        OptionManager.handlePlayAgainClicked(playBtn, game, this);
+        OptionManager.handleConfigMenuClicked(configBtn, game, this); // screen game, menu type, sprite manager needed as param
+        OptionManager.handlePlayClicked(playBtn, game, this);
     }
 
     private void createTableStructure(VisTable infoTable, VisTable actionsTable) {
@@ -64,16 +61,13 @@ public class GameOver implements Screen {
         infoTable.setPosition(0, 70);
         infoTable.row();
         infoTable.add(titleLabel).center().width(50).height(40).pad(5);
-        infoTable.row();
-        infoTable.add("Points: " + game.getTotalPoints()).center().width(50).height(40).pad(5);
         // action button table
         actionsTable.setPosition(0, -200);
         actionsTable.row();
         actionsTable.add(playBtn).center().width(150).height(30).pad(5);
-        actionsTable.add(mainMenuBtn).center().width(150).height(30).pad(5);
+        actionsTable.add(configBtn).center().width(150).height(30).pad(5);
         actionsTable.add(exitBtn).center().width(150).height(30).pad(5);
     }
-
     @Override
     public void render(float delta) {
         UIUtils.clearScreen();
@@ -89,12 +83,12 @@ public class GameOver implements Screen {
 
     @Override
     public void pause() {
-        game.gameState = GameState.PAUSED;
+        SaunScapades.gameState = GameState.PAUSED;
     }
 
     @Override
     public void resume() {
-        game.gameState = GameState.RUNNING;
+        SaunScapades.gameState = GameState.RUNNING;
     }
 
     @Override

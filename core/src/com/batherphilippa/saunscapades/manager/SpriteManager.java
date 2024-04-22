@@ -25,10 +25,10 @@ public class SpriteManager implements Disposable {
     private Array<AngrySheep> angrySheepArray;
     private Array<Bomb> bombArray;
 
-    public SpriteManager(SaunScapades game, SpriteBatch batch, Hud hud) {
+    public SpriteManager(SaunScapades game, SpriteBatch batch, Hud hud, B2WorldManager b2WorldManager) {
         this.game = game;
         this.batch = batch;
-        this.b2WorldManager = this.game.getB2WorldManager();
+        this.b2WorldManager = b2WorldManager;
         this.resManager = this.game.getResManager();
         this.hud = hud;
 
@@ -99,20 +99,27 @@ public class SpriteManager implements Disposable {
                 restartPlayer();
             }
         };
-
         Timer.instance().scheduleTask(task, delay);
     }
 
     private void restartPlayer() {
-        if (!b2WorldManager.getWorld().isLocked() && player.isHasLostLife() && game.gameState != GameState.GAME_OVER) {
+
+        if (SaunScapades.gameState != GameState.GAME_OVER) {
             resManager.playSound("teleportdown");
-            b2WorldManager.getWorld().destroyBody(player.getB2Body());
-            player = null;
-            player = new Shaun(resManager.loadRegion("shaun_idle", -1), b2WorldManager.getWorld(), 32, 38, 8, this);
             resManager.playMusic("countryside", 2);
             if (hud.getEnergy() <= 0) {
                 hud.updateEnergy(4);
             }
+            resetPlayer();
+            hud.resetWorldTimer();
+        }
+    }
+
+    public void resetPlayer() {
+        if (!b2WorldManager.getWorld().isLocked() && player.isHasLostLife()) {
+            b2WorldManager.getWorld().destroyBody(player.getB2Body());
+            player = null;
+            player = new Shaun(resManager.loadRegion("shaun_idle", -1), b2WorldManager.getWorld(), 32, 38, 8, this);
         }
     }
 
@@ -126,6 +133,8 @@ public class SpriteManager implements Disposable {
         if (npc == SpriteType.ENEMY) {
             hud.updateEnergy(-2);
             if (hud.getEnergy() <= 0) {
+                resManager.stopMusic("countryside");
+                hud.stopTimer();
                 playerKilled(delay);
             }
         }
@@ -136,6 +145,12 @@ public class SpriteManager implements Disposable {
         }
 
         if (npc == SpriteType.BOMB || npc == SpriteType.OBJECT) {
+            resManager.stopMusic("countryside");
+            if (npc == SpriteType.OBJECT) {
+                resManager.playSound("sheep_death");
+                resManager.playSound("splash");
+            }
+            hud.stopTimer();
             playerKilled(delay);
         }
     }

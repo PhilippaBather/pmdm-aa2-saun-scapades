@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Disposable;
 import com.batherphilippa.saunscapades.SaunScapades;
 import com.batherphilippa.saunscapades.manager.CameraManager;
+import com.batherphilippa.saunscapades.manager.ConfigManager;
 import com.batherphilippa.saunscapades.screen.GameState;
 import com.batherphilippa.saunscapades.screen.util.UIUtils;
 import com.kotcrab.vis.ui.widget.VisLabel;
@@ -15,7 +16,6 @@ import com.kotcrab.vis.ui.widget.VisTable;
 
 public class Hud implements Disposable {
 
-    private final SaunScapades game;
     private final SpriteBatch batch;
 
     // tabla de HUD
@@ -43,12 +43,12 @@ public class Hud implements Disposable {
     private float timeCount;
     private int worldTimer;
 
-    public Hud(SaunScapades game, SpriteBatch batch) {
-        this.game = game;
-        this.batch = batch;
-        CameraManager camManager = this.game.getCamManager();
+    private boolean isTimerStopped;
 
-        initialiseHudValues();
+    public Hud(SpriteBatch batch, CameraManager camManager) {
+        this.batch = batch;
+
+        setInitialValues();
 
         VisTable table = UIUtils.createTableObj();
         defineTable(table);
@@ -57,13 +57,13 @@ public class Hud implements Disposable {
         this.stage.addActor(table);
     }
 
-    public void initialiseHudValues() {
-        this.energy = 4;
+    public void setInitialValues() {
+        this.energy = (int) ConfigManager.getGameEnergy();
         this.level = 1;
-        this.lives = 3;
+        this.lives = (int) ConfigManager.getGameLives();
         this.score = 0;
         this.timeCount = 0;
-        this.worldTimer = 180; // 3 minutos
+        this.worldTimer = (int) ConfigManager.getGameLength();
     }
 
     private void defineTable(VisTable table) {
@@ -113,7 +113,7 @@ public class Hud implements Disposable {
         lives += update;
         livesValueLabel.setText(String.format("%02d", lives));
         if (lives <= 0) {
-            game.setGameState(GameState.GAME_OVER);
+            SaunScapades.setGameState(GameState.GAME_OVER);
         }
     }
 
@@ -123,12 +123,23 @@ public class Hud implements Disposable {
     }
 
     public void updateTimer(float dt) {
-        timeCount += dt;
-        if(timeCount >= 1) { // 1 segundo
-            worldTimer--;
-            timerValueLabel.setText(String.format("%04d", worldTimer));
-            timeCount = 0;
+        if (!isTimerStopped) {
+            timeCount += dt;
+            if (timeCount >= 1) { // 1 segundo
+                worldTimer--;
+                timerValueLabel.setText(String.format("%04d", worldTimer));
+                timeCount = 0;
+            }
         }
+    }
+
+    public void resetWorldTimer() {
+        worldTimer = 181;
+        isTimerStopped = false;
+    }
+
+    public void stopTimer() {
+        isTimerStopped = true;
     }
 
     public void draw() {
@@ -139,7 +150,6 @@ public class Hud implements Disposable {
     @Override
     public void dispose() {
         batch.dispose();
-        game.dispose();
         stage.dispose();
     }
 }

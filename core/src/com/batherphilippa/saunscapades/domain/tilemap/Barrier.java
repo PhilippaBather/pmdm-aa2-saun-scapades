@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
-import com.batherphilippa.saunscapades.manager.ResourceManager;
 
 import static com.batherphilippa.saunscapades.listener.WorldCategoryBits.OBJECT_BIT;
 
@@ -22,7 +21,7 @@ public class Barrier extends TileObject {
     }
 
     @Override
-    public void onContact(ResourceManager resourceManager) {
+    public void onContact() {
         Gdx.app.log("Barrier", "Barrier collision");
     }
 

@@ -3,6 +3,7 @@ package com.batherphilippa.saunscapades.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.batherphilippa.saunscapades.SaunScapades;
 import com.batherphilippa.saunscapades.manager.B2WorldManager;
@@ -17,6 +18,7 @@ import com.batherphilippa.saunscapades.screen.util.UIUtils;
 public class GameScreen implements Screen {
 
     private final SaunScapades game;
+    private final SpriteBatch batch;
     private final B2WorldManager b2WorldManager;
     private final CameraManager camManager;
     private final ResourceManager resourceManager;
@@ -29,23 +31,31 @@ public class GameScreen implements Screen {
     private Stage optionBarStage;
     private Stage pauseStage;
 
+
     public GameScreen(SaunScapades game) {
         this.game = game;
-        this.b2WorldManager = this.game.getB2WorldManager();
-        this.camManager = this.game.getCamManager();
         this.resourceManager = this.game.getResManager();
-        this.spriteManager = this.game.getSpriteManager();
-        this.hud = this.game.getHud();
+
+        this.batch = new SpriteBatch();
+
+        this.camManager = new CameraManager();
+
+        this.hud = new Hud(this.batch, this.camManager);
+
+        this.b2WorldManager = new B2WorldManager(this, resourceManager, hud);
+        this.spriteManager = new SpriteManager(this.game, batch, hud, b2WorldManager);
         this.pauseMenu = new PauseBackground(this.game);
-        this.optionBar = new OptionBar(game, this.game.batch, this);
+        this.optionBar = new OptionBar(this.game, this.batch);
+    }
+
+    public SpriteManager getSpriteManager() {
+        return this.spriteManager;
     }
 
     @Override
     public void show() {
         UIUtils.clearScreen();
-
         resourceManager.playMusic("countryside");
-
         optionBarStage = optionBar.getStage();
         pauseStage = pauseMenu.getStage();
         Gdx.input.setInputProcessor(new InputMultiplexer(optionBarStage, pauseStage));
@@ -55,19 +65,20 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         UIUtils.clearScreen();
 
-        if(game.gameState == GameState.GAME_OVER) {
+        if(SaunScapades.gameState == GameState.GAME_OVER) {
             resourceManager.stopMusic("countryside");
-            game.setScreen(new GameOver(game));
+            dispose();
+            game.setScreen(new GameOverScreen(game, hud.getScore()));
         }
 
-        if (!game.getGameState().equals(GameState.PAUSED) && game.gameState != GameState.GAME_OVER) {
+        if (!SaunScapades.getGameState().equals(GameState.PAUSED) && SaunScapades.gameState != GameState.GAME_OVER) {
 
             // render game map
             b2WorldManager.update(camManager.getGameCam());
 
             // camera
             // place before sprite manager (to see sprite): tell game batch to recognise where camera is in game world and only render what the camera can see
-            game.batch.setProjectionMatrix(camManager.getGameCam().combined);
+            batch.setProjectionMatrix(camManager.getGameCam().combined);
             camManager.update(spriteManager.getPlayerPosition());
 
             // sprites
@@ -76,12 +87,12 @@ public class GameScreen implements Screen {
             spriteManager.draw();
 
             // hud
-            game.batch.setProjectionMatrix(camManager.getHudCam().combined);
+            batch.setProjectionMatrix(camManager.getHudCam().combined);
             hud.draw();
             hud.updateTimer(delta);
 
             // barra de opciones
-            game.batch.setProjectionMatrix(camManager.getOptionCam().combined);
+            batch.setProjectionMatrix(camManager.getOptionCam().combined);
             optionBarStage.act();
             optionBarStage.draw();
 
@@ -94,18 +105,18 @@ public class GameScreen implements Screen {
     public void resize(int width, int height) {
         // required to resize port to see tiled map
         camManager.resizeGamePort(width, height);
-        camManager.resizeHudPort(width, height);  // TODO - why do I need this for the btn click to work?
+        camManager.resizeHudPort(width, height);
         camManager.resizeOptionPort(width, height);
     }
 
     @Override
     public void pause() {
-        game.setGameState(GameState.PAUSED);
+        SaunScapades.setGameState(GameState.PAUSED);
     }
 
     @Override
     public void resume() {
-        game.setGameState(GameState.RUNNING);
+        SaunScapades.setGameState(GameState.RUNNING);
     }
 
     @Override
@@ -115,14 +126,8 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-        b2WorldManager.dispose();
         hud.dispose();
-        game.dispose();
-        optionBar.dispose();
-        pauseMenu.dispose();
         pauseStage.dispose();
         optionBarStage.dispose();
-        resourceManager.dispose();
-        spriteManager.dispose();
     }
 }

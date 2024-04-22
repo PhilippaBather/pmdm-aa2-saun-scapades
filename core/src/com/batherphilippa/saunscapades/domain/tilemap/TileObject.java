@@ -4,8 +4,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
-import com.batherphilippa.saunscapades.manager.ResourceManager;
-import com.batherphilippa.saunscapades.screen.scene.Hud;
 
 import static com.batherphilippa.saunscapades.util.Constants.PPM;
 
@@ -61,7 +59,7 @@ public abstract class TileObject {
                 (int) (body.getPosition().y * PPM / 16));
     }
 
-    public abstract void onContact(ResourceManager resourceManager);
+    public abstract void onContact();
 
 }
 
