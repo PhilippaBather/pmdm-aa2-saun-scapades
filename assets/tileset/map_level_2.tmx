@@ -199,7 +199,7 @@
   <object id="172" x="3675" y="119"/>
  </objectgroup>
  <objectgroup id="4" name="shirley_sheep">
-  <object id="80" x="3828" y="180"/>
+  <object id="80" x="3828" y="181"/>
  </objectgroup>
  <objectgroup id="7" name="blocks">
   <object id="71" x="209" y="387" width="1" height="1"/>
