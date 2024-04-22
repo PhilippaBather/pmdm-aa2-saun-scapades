@@ -1,5 +1,7 @@
 package com.batherphilippa.saunscapades.screen.scene;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Disposable;
@@ -40,9 +42,9 @@ public class OptionBar implements Disposable {
 
     private void defineTable(VisTable table) {
         table.bottom().left();
-        table.add(pauseBtn).height(15);
-        table.add(menuBtn).height(15);
-        table.add(exitBtn).height(15);
+        table.add(pauseBtn).center().height(10).width(50);
+        table.add(menuBtn).center().height(10).width(50);
+        table.add(exitBtn).center().height(10).width(50);
     }
 
     private void setTextButtons() {
