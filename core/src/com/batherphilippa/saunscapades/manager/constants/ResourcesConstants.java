@@ -24,4 +24,5 @@ public class ResourcesConstants {
     public static final String SOUND_SHIRLEY_DEATH_NOO = "shirley_death_noo";
     public static final String SOUND_SPLASH = "splash";
     public static final String SOUND_TELEPORT_DOWN = "teleport_down";
+    public static final String SOUND_TIMMY_TRAMPOLINE = "timmy_trampoline";
 }
