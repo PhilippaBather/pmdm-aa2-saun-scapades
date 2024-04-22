@@ -36,6 +36,7 @@ public class ResourceManager implements Disposable {
         this.soundMap.put(SOUND_GAME_OVER, Gdx.audio.newSound(Gdx.files.internal("sound/sound/game_over.wav")));
         this.soundMap.put(SOUND_SHAUN_CELEBRATION, Gdx.audio.newSound(Gdx.files.internal("sound/sound/shaun-celebration.wav")));
         this.soundMap.put(SOUND_SHAUN_DEATH_NOO, Gdx.audio.newSound(Gdx.files.internal("sound/sound/shaun-death-noo.wav")));
+        this.soundMap.put(SOUND_SHAUN_PARALYSED, Gdx.audio.newSound(Gdx.files.internal("sound/sound/shaun-paralysed.wav")));
         this.soundMap.put(SOUND_SHAUN_JUMP, Gdx.audio.newSound(Gdx.files.internal("sound/sound/shaun-jump.wav")));
         this.soundMap.put(SOUND_SHIRLEY_CELEBRATION, Gdx.audio.newSound(Gdx.files.internal("sound/sound/shirley-celebration.wav")));
         this.soundMap.put(SOUND_SHIRLEY_DEATH_NOO, Gdx.audio.newSound(Gdx.files.internal("sound/sound/shirley-death-noo.wav")));
