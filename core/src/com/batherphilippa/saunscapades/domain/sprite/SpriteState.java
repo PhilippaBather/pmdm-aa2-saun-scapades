@@ -6,5 +6,6 @@ public enum SpriteState {
     FALLING,
     JUMPING,
     MOVING,
+    PARALYSED,
     VICTORY
 }
