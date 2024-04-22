@@ -15,13 +15,13 @@ import com.batherphilippa.saunscapades.screen.scene.OptionBar;
 import com.batherphilippa.saunscapades.screen.scene.PauseBackground;
 import com.batherphilippa.saunscapades.screen.util.UIUtils;
 
-import static com.batherphilippa.saunscapades.manager.constants.SoundResources.MUSIC_COUNTRYSIDE;
-import static com.batherphilippa.saunscapades.manager.constants.SoundResources.MUSIC_SPACE;
+import static com.batherphilippa.saunscapades.manager.constants.ResourcesConstants.MUSIC_COUNTRYSIDE;
+import static com.batherphilippa.saunscapades.manager.constants.ResourcesConstants.MUSIC_SPACE;
 
 public class GameScreen implements Screen {
 
     private final SaunScapades game;
-    private GameLevel currLevel;
+    private final GameLevel currLevel;
     private final SpriteBatch batch;
     private final B2WorldManager b2WorldManager;
     private final CameraManager camManager;

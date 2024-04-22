@@ -1,6 +1,8 @@
 package com.batherphilippa.saunscapades.manager.constants;
 
-public class SoundResources {
+public class ResourcesConstants {
+    // images
+    public static final String IMAGE_SPLASH = "splash_image";
 
     // music
     public static final String MUSIC_COUNTRYSIDE = "countryside";

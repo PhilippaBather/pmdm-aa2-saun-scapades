@@ -7,7 +7,7 @@ import com.batherphilippa.saunscapades.manager.ResourceManager;
 
 import static com.batherphilippa.saunscapades.listener.WorldCategoryBits.BLOCK_BIT;
 import static com.batherphilippa.saunscapades.listener.WorldCategoryBits.DESTROYED_BIT;
-import static com.batherphilippa.saunscapades.manager.constants.SoundResources.SOUND_BRICK_BREAK;
+import static com.batherphilippa.saunscapades.manager.constants.ResourcesConstants.SOUND_BRICK_BREAK;
 
 public class Block extends TileObject {
     private final ResourceManager resManager;

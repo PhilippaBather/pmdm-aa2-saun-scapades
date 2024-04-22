@@ -96,7 +96,7 @@
  <objectgroup id="8" name="barrier">
   <object id="206" x="-3" y="-21" width="3" height="228"/>
   <object id="207" x="3839" y="-20" width="8" height="223"/>
-  <object id="208" x="0" y="-20" width="3850" height="2"/>
+  <object id="208" x="3" y="-27" width="3850" height="2"/>
   <object id="211" x="896" y="174" width="17" height="16"/>
   <object id="212" x="1234" y="175" width="13" height="17"/>
   <object id="213" x="1281" y="176" width="15" height="18"/>
@@ -358,25 +358,25 @@
   <object id="182" x="967" y="134"/>
  </objectgroup>
  <objectgroup id="10" name="falling_sheep">
-  <object id="359" x="72" y="5"/>
-  <object id="362" x="361" y="6"/>
-  <object id="363" x="457" y="6"/>
-  <object id="364" x="522" y="6"/>
-  <object id="365" x="761" y="8"/>
-  <object id="366" x="842" y="6"/>
-  <object id="368" x="1063" y="5"/>
-  <object id="369" x="1175" y="7"/>
-  <object id="370" x="1225" y="8"/>
-  <object id="371" x="1449" y="8"/>
-  <object id="372" x="1514" y="7"/>
-  <object id="373" x="1638" y="7"/>
-  <object id="374" x="1770" y="6"/>
-  <object id="375" x="1863" y="7"/>
-  <object id="376" x="1944" y="6"/>
-  <object id="377" x="2953" y="9"/>
-  <object id="378" x="2778" y="7"/>
-  <object id="379" x="3288" y="8"/>
-  <object id="380" x="3596" y="9"/>
-  <object id="381" x="3753" y="10"/>
+  <object id="359" x="70" y="-12"/>
+  <object id="362" x="373" y="-11"/>
+  <object id="363" x="456" y="-12"/>
+  <object id="364" x="518" y="-12"/>
+  <object id="365" x="759" y="-11"/>
+  <object id="366" x="839" y="-12"/>
+  <object id="368" x="1063" y="-11"/>
+  <object id="369" x="1175" y="-10"/>
+  <object id="370" x="1222" y="-10"/>
+  <object id="371" x="1449" y="-12"/>
+  <object id="372" x="1514" y="-12"/>
+  <object id="373" x="1638" y="-12"/>
+  <object id="374" x="1770" y="-11"/>
+  <object id="375" x="1863" y="-11"/>
+  <object id="376" x="1943" y="-11"/>
+  <object id="377" x="2952" y="-12"/>
+  <object id="378" x="2777" y="-12"/>
+  <object id="379" x="3287" y="-11"/>
+  <object id="380" x="3592" y="-12"/>
+  <object id="381" x="3752" y="-11"/>
  </objectgroup>
 </map>

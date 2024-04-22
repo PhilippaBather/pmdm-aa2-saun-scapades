@@ -6,7 +6,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.batherphilippa.saunscapades.manager.ResourceManager;
 
 import static com.batherphilippa.saunscapades.listener.WorldCategoryBits.WATER_BIT;
-import static com.batherphilippa.saunscapades.manager.constants.SoundResources.SOUND_SPLASH;
+import static com.batherphilippa.saunscapades.manager.constants.ResourcesConstants.SOUND_SPLASH;
 
 public class Water extends TileObject {
     private final ResourceManager resManager;
