@@ -5,21 +5,22 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.batherphilippa.saunscapades.SaunScapades;
 import com.batherphilippa.saunscapades.manager.OptionManager;
+import com.batherphilippa.saunscapades.manager.ResourceManager;
 import com.batherphilippa.saunscapades.screen.util.UIUtils;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 
+import static com.batherphilippa.saunscapades.manager.constants.ResourcesConstants.MUSIC_GAME_FINISHED;
 import static com.batherphilippa.saunscapades.screen.constants.UIConstants.*;
 
 public class GameEndScreen implements Screen {
     private final SaunScapades game;
+    private final ResourceManager resManager;
     private final int score;
-    //    private final int sheepSaved;  // TODO
     private Stage stage;
     private VisLabel title;
     private VisLabel scoreInfo;
-    //    private VisLabel sheepSaved;
     private VisTextButton exitBtn;
     private VisTextButton menuBtn;
     private VisTextButton playBtn;
@@ -27,6 +28,7 @@ public class GameEndScreen implements Screen {
 
     public GameEndScreen(SaunScapades game) {
         this.game = game;
+        this.resManager = this.game.getResManager();
         this.score = SaunScapades.score;
     }
 
@@ -43,6 +45,8 @@ public class GameEndScreen implements Screen {
         createComponents();
         setClickListeners();
         createTableStructure(infoTable, actionTable);
+
+        resManager.playMusic(MUSIC_GAME_FINISHED, false);
 
         Gdx.input.setInputProcessor(stage);
     }
@@ -73,8 +77,6 @@ public class GameEndScreen implements Screen {
         infoTable.addSeparator();
         infoTable.row();
         infoTable.add(scoreInfo).center().height(40).pad(5);
-//        infoTable.row();
-//        infoTable.add(sheepSaved).center().height(40).pad(5);
         infoTable.row();
         infoTable.addSeparator();
 
