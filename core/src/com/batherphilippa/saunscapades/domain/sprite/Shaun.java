@@ -162,6 +162,10 @@ public class Shaun extends Character {
         }
     }
 
+    public void launchShaun() {
+        b2Body.applyLinearImpulse(new Vector2(0, 5f), b2Body.getWorldCenter(), true);
+    }
+
     @Override
     public void dispose() {
     }

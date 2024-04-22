@@ -128,6 +128,7 @@ public class SpriteManager implements Disposable {
         }
 
         if (npc == SpriteType.BOMB) {
+            this.player.launchShaun();
             resManager.playSound("explosion");
         }
 
