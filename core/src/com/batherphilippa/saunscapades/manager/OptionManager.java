@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.batherphilippa.saunscapades.SaunScapades;
+import com.batherphilippa.saunscapades.ShaunScapades;
 import com.batherphilippa.saunscapades.screen.ConfigScreen;
 import com.batherphilippa.saunscapades.screen.GameScreen;
 import com.batherphilippa.saunscapades.screen.GameState;
@@ -13,7 +13,7 @@ import com.kotcrab.vis.ui.widget.VisTextButton;
 
 public class OptionManager {
 
-    public static void handleConfigMenuClicked(VisTextButton btn, SaunScapades game, Screen screen) {
+    public static void handleConfigMenuClicked(VisTextButton btn, ShaunScapades game, Screen screen) {
         btn.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 screen.dispose();
@@ -35,10 +35,10 @@ public class OptionManager {
         });
     }
 
-    public static void handleMainMenuClicked(VisTextButton btn, SaunScapades game, Screen screen) {
+    public static void handleMainMenuClicked(VisTextButton btn, ShaunScapades game, Screen screen) {
         btn.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                SaunScapades.setGameState(GameState.RUNNING);
+                ShaunScapades.setGameState(GameState.RUNNING);
                 if (screen != null) {
                     screen.dispose();
                 }
@@ -51,7 +51,7 @@ public class OptionManager {
     public static void handlePauseClicked(VisTextButton btn) {
         btn.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                SaunScapades.setGameState(GameState.PAUSED);
+                ShaunScapades.setGameState(GameState.PAUSED);
             }
         });
     }
@@ -59,12 +59,12 @@ public class OptionManager {
     public static void handleUnPauseClicked(VisTextButton btn) {
         btn.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                SaunScapades.setGameState(GameState.RUNNING);
+                ShaunScapades.setGameState(GameState.RUNNING);
             }
         });
     }
 
-    public static void handlePlayClicked(VisTextButton btn, SaunScapades game, Screen screen) {
+    public static void handlePlayClicked(VisTextButton btn, ShaunScapades game, Screen screen) {
         btn.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 screen.dispose();
@@ -74,7 +74,7 @@ public class OptionManager {
         });
     }
 
-    public static void handlePlayNewLevelClicked(VisTextButton btn, SaunScapades game, Screen screen) {
+    public static void handlePlayNewLevelClicked(VisTextButton btn, ShaunScapades game, Screen screen) {
         btn.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 screen.dispose();
@@ -83,7 +83,7 @@ public class OptionManager {
         });
     }
 
-    public static void handleSaveClicked(VisTextButton btn, SaunScapades game, Screen screen) {
+    public static void handleSaveClicked(VisTextButton btn, ShaunScapades game, Screen screen) {
         btn.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 Gdx.app.log("Btn click", "handleSaveClicked");

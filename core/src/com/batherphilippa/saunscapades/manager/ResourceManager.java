@@ -33,6 +33,7 @@ public class ResourceManager implements Disposable {
         this.musicMap.put(MUSIC_COUNTRYSIDE, Gdx.audio.newMusic(Gdx.files.internal("sound/music/countryside.wav")));
         this.musicMap.put(MUSIC_LEVEL_END, Gdx.audio.newMusic(Gdx.files.internal("sound/music/level_end.mp3")));
         this.musicMap.put(MUSIC_SPACE, Gdx.audio.newMusic(Gdx.files.internal("sound/music/outerspace.wav")));
+        this.musicMap.put(MUSIC_GAME_FINISHED, Gdx.audio.newMusic(Gdx.files.internal("sound/music/369252__funwithsound__victory-celebration-movie-score.wav")));
 
         this.soundMap.put(SOUND_BRICK_BREAK, Gdx.audio.newSound(Gdx.files.internal("sound/sound/brick_break.wav")));
         this.soundMap.put(SOUND_COIN, Gdx.audio.newSound(Gdx.files.internal("sound/sound/coin.wav")));
@@ -56,20 +57,21 @@ public class ResourceManager implements Disposable {
     public FileHandle getSplashImg(String img) {
         return uiMap.get(img);
     }
+
     public TextureAtlas.AtlasRegion loadRegion(String name, int index) {
         return atlas.findRegion(name, index);
     }
 
-    public void playMusic(String name) {
-        this.musicMap.get(name).setLooping(true);
+    public void playMusic(String name, boolean looping) {
+        this.musicMap.get(name).setLooping(looping);
         this.musicMap.get(name).play();
     }
 
-    public void playMusic(String name, int delay) {
+    public void playMusic(String name, int delay, boolean looping) {
         Timer.Task task = new Timer.Task() {
             @Override
             public void run() {
-                playMusic(name);
+                playMusic(name, true);
             }
         };
 
@@ -87,7 +89,7 @@ public class ResourceManager implements Disposable {
             }
         };
 
-        Timer.instance().scheduleTask(task, delay);
+            Timer.instance().scheduleTask(task, delay);
     }
 
     public void stopMusic(String name) {

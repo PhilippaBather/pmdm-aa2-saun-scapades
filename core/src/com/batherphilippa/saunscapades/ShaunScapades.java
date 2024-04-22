@@ -3,12 +3,9 @@ package com.batherphilippa.saunscapades;
 import com.badlogic.gdx.Game;
 import com.batherphilippa.saunscapades.manager.CameraManager;
 import com.batherphilippa.saunscapades.manager.ResourceManager;
-import com.batherphilippa.saunscapades.screen.GameLevel;
-import com.batherphilippa.saunscapades.screen.GameSplashScreen;
-import com.batherphilippa.saunscapades.screen.GameState;
-import com.batherphilippa.saunscapades.screen.MainMenuScreen;
+import com.batherphilippa.saunscapades.screen.*;
 
-public class SaunScapades extends Game {
+public class ShaunScapades extends Game {
     private CameraManager camManager;
     private ResourceManager resManager;
     public static GameState gameState;
@@ -41,7 +38,7 @@ public class SaunScapades extends Game {
     }
 
     public static void setGameState(GameState gameState) {
-        SaunScapades.gameState = gameState;
+        ShaunScapades.gameState = gameState;
     }
 
     public void reset() {

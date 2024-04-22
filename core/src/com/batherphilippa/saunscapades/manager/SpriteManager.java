@@ -7,15 +7,16 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Timer;
-import com.batherphilippa.saunscapades.SaunScapades;
+import com.batherphilippa.saunscapades.ShaunScapades;
 import com.batherphilippa.saunscapades.domain.sprite.*;
 import com.batherphilippa.saunscapades.screen.GameLevel;
 import com.batherphilippa.saunscapades.screen.GameState;
 import com.batherphilippa.saunscapades.screen.scene.Hud;
 import com.batherphilippa.saunscapades.util.UserInput;
 
-import static com.batherphilippa.saunscapades.SaunScapades.*;
+import static com.batherphilippa.saunscapades.ShaunScapades.*;
 import static com.batherphilippa.saunscapades.manager.constants.ResourcesConstants.*;
+import static com.batherphilippa.saunscapades.screen.constants.PointsConstants.*;
 import static com.batherphilippa.saunscapades.util.Constants.PPM;
 
 public class SpriteManager implements Disposable {
@@ -77,11 +78,11 @@ public class SpriteManager implements Disposable {
             }
         }
 
-        if (currGameLevel == GameLevel.LEVEL_2){
-            for(TrappedSheep sheep: trappedSheepArr) {
+        if (currGameLevel == GameLevel.LEVEL_2) {
+            for (TrappedSheep sheep : trappedSheepArr) {
                 sheep.update(dt);
             }
-            for(FallingSheep sheep: fallingSheepArr) {
+            for (FallingSheep sheep : fallingSheepArr) {
                 if (sheep.getX() < player.getX() + 7 / PPM) {
                     sheep.update(dt);
                 }
@@ -117,11 +118,11 @@ public class SpriteManager implements Disposable {
             bomb.render(batch);
         }
 
-        if (currGameLevel == GameLevel.LEVEL_2){
-            for(TrappedSheep sheep: trappedSheepArr) {
+        if (currGameLevel == GameLevel.LEVEL_2) {
+            for (TrappedSheep sheep : trappedSheepArr) {
                 sheep.render(batch);
             }
-            for(FallingSheep sheep: fallingSheepArr) {
+            for (FallingSheep sheep : fallingSheepArr) {
                 sheep.render(batch);
             }
         }
@@ -132,10 +133,11 @@ public class SpriteManager implements Disposable {
     public void updateScore(int points) {
         hud.updateScore(points);
     }
+
     public void enemyHit() {
         resManager.playSound(SOUND_ENEMY_DEATH);
         resManager.playSound(SOUND_SHAUN_CELEBRATION);
-        hud.updateScore(500);
+        hud.updateScore(POINTS_ENEMY_KILLED);
     }
 
     public void playerHit(SpriteType npc, int delay) {
@@ -184,9 +186,9 @@ public class SpriteManager implements Disposable {
 
     private void restartPlayer() {
 
-        if (SaunScapades.gameState != GameState.GAME_OVER) {
+        if (ShaunScapades.gameState != GameState.GAME_OVER) {
             resManager.playSound(SOUND_TELEPORT_DOWN);
-            resManager.playMusic(MUSIC_COUNTRYSIDE, 8);
+            resManager.playMusic(MUSIC_COUNTRYSIDE, 8, true);
             if (hud.getEnergy() <= 0) {
                 hud.updateEnergy(4);
             }
@@ -207,25 +209,29 @@ public class SpriteManager implements Disposable {
         resManager.playSound(SOUND_SHIRLEY_DEATH_NOO);
         resManager.playSound(SOUND_SHAUN_DEATH_NOO);
         resManager.playSound(SOUND_EXPLOSION, 1);
-        hud.updateScore(-500);
+        hud.updateScore(POINTS_SHEEP_DEATH);
     }
 
     public void handleSavedSheep() {
         resManager.playSound(SOUND_SHIRLEY_CELEBRATION);
         resManager.playSound(SOUND_SHAUN_CELEBRATION, 1);
-        hud.updateScore(500);
+        hud.updateScore(POINTS_SHEEP_SAVED);
     }
 
     public void levelEndCelebration() {
         player.resetState(SpriteState.VICTORY);
         resManager.stopMusic(MUSIC_COUNTRYSIDE);
-        resManager.playMusic(MUSIC_LEVEL_END);
-        hud.updateScore(1000);
+        resManager.playMusic(MUSIC_LEVEL_END, true);
+        hud.updateScore(POINTS_LEVEL_VICTORY);
         Timer.Task task = new Timer.Task() {
             @Override
             public void run() {
                 resManager.stopMusic(MUSIC_LEVEL_END);
-                SaunScapades.currGameLevel = GameLevel.LEVEL_2;
+                if (ShaunScapades.currGameLevel == GameLevel.LEVEL_1) {
+                    ShaunScapades.currGameLevel = GameLevel.LEVEL_2;
+                } else {
+                   ShaunScapades.setGameState(GameState.FINISHED);
+                }
             }
         };
         Timer.instance().scheduleTask(task, 4);

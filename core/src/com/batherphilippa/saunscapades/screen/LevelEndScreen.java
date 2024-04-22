@@ -3,16 +3,16 @@ package com.batherphilippa.saunscapades.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.batherphilippa.saunscapades.SaunScapades;
+import com.batherphilippa.saunscapades.ShaunScapades;
 import com.batherphilippa.saunscapades.manager.OptionManager;
 import com.batherphilippa.saunscapades.screen.util.UIUtils;
 import com.kotcrab.vis.ui.widget.*;
 
 import static com.batherphilippa.saunscapades.screen.constants.UIConstants.*;
 
-public class LevelSplashScreen implements Screen {
+public class LevelEndScreen implements Screen {
 
-    private final SaunScapades game;
+    private final ShaunScapades game;
     private final int score;
     private Stage stage;
     private VisTextButton exitBtn;
@@ -24,9 +24,9 @@ public class LevelSplashScreen implements Screen {
     private VisLabel scoreInfo;
     private VisLabel title;
 
-    public LevelSplashScreen(SaunScapades game) {
+    public LevelEndScreen(ShaunScapades game) {
         this.game = game;
-        this.score = SaunScapades.score;
+        this.score = ShaunScapades.score;
     }
 
     @Override
@@ -105,12 +105,12 @@ public class LevelSplashScreen implements Screen {
 
     @Override
     public void pause() {
-        SaunScapades.setGameState(GameState.PAUSED);
+        ShaunScapades.setGameState(GameState.PAUSED);
     }
 
     @Override
     public void resume() {
-        SaunScapades.setGameState(GameState.RUNNING);
+        ShaunScapades.setGameState(GameState.RUNNING);
     }
 
     @Override

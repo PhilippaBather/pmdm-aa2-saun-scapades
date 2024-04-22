@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
-import com.batherphilippa.saunscapades.SaunScapades;
+import com.batherphilippa.saunscapades.ShaunScapades;
 import com.batherphilippa.saunscapades.manager.SpriteManager;
 import com.batherphilippa.saunscapades.screen.GameLevel;
 import com.batherphilippa.saunscapades.util.UserInput;
@@ -41,7 +41,7 @@ public class Bomb extends Character implements Disposable {
         this.isDetonated = false;
         this.isDestroyed = false;
 
-        if (SaunScapades.currGameLevel == GameLevel.LEVEL_2) {
+        if (ShaunScapades.currGameLevel == GameLevel.LEVEL_2) {
             this.timeCount = 0;
             this.detonationTime = 10;
         }
@@ -58,7 +58,7 @@ public class Bomb extends Character implements Disposable {
     public void update(float delta) {
         b2Body.setActive(true);
 
-        if (SaunScapades.currGameLevel == GameLevel.LEVEL_2) {
+        if (ShaunScapades.currGameLevel == GameLevel.LEVEL_2) {
             levelTwoUpdates(delta);
         }
 

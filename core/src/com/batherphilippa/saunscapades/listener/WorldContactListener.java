@@ -12,6 +12,7 @@ import com.batherphilippa.saunscapades.screen.GameScreen;
 import com.batherphilippa.saunscapades.screen.scene.Hud;
 
 import static com.batherphilippa.saunscapades.listener.WorldCategoryBits.*;
+import static com.batherphilippa.saunscapades.screen.constants.PointsConstants.POINTS_COIN;
 
 public class WorldContactListener implements ContactListener, Disposable {
 
@@ -43,7 +44,7 @@ public class WorldContactListener implements ContactListener, Disposable {
                 } else {
                     ((Coin) fixB.getUserData()).onContact();
                 }
-                spriteManager.updateScore(250);
+                spriteManager.updateScore(POINTS_COIN);
             }
             case (SHAUN_BIT | WATER_BIT) -> {
                 if (fixA.getFilterData().categoryBits == WATER_BIT) {

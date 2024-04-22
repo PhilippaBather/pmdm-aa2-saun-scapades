@@ -6,6 +6,7 @@ public class ResourcesConstants {
 
     // music
     public static final String MUSIC_COUNTRYSIDE = "countryside";
+    public static final String MUSIC_GAME_FINISHED = "game_finished";
     public static final String MUSIC_LEVEL_END = "level_end";
     public static final String MUSIC_SPACE = "space";
 
