@@ -20,7 +20,6 @@ public abstract class Character extends Sprite implements Disposable {
     protected TextureRegion region;
     protected SpriteManager spriteManager;
     protected SpriteType spriteType;
-
     public Character(TextureRegion region, World world, float x, float y, float radius, SpriteManager spriteManager, SpriteType spriteType) {
         this.world = world;
         this.region = region;
@@ -70,10 +69,10 @@ public abstract class Character extends Sprite implements Disposable {
     private void createFilterCollisions(FixtureDef fixDef) {
         if (spriteType == SpriteType.PLAYER) {
             // con lo que shaun puede chocar
-            fixDef.filter.maskBits = GROUND_BIT | COIN_BIT | WATER_BIT | ENEMY_BIT | ENEMY_HEAD_BIT | OBJECT_BIT | BOMB_BIT | SHIRLEY_BIT | BLOCK_BIT; // shaun
+            fixDef.filter.maskBits = GROUND_BIT | COIN_BIT | WATER_BIT | ENEMY_BIT | ENEMY_HEAD_BIT | OBJECT_BIT | BOMB_BIT | SHIRLEY_BIT | BLOCK_BIT | FALLING_SHEEP_BIT; // shaun
         } else {
-            // con lo que un enemigo puede chocar
-            fixDef.filter.maskBits = GROUND_BIT | SHAUN_BIT | COIN_BIT | ENEMY_BIT | OBJECT_BIT | BOMB_BIT | BLOCK_BIT | TRAPPED_SHEEP_BIT;
+            // con lo que un enemigo o otra oveja pueden chocar
+            fixDef.filter.maskBits = GROUND_BIT | SHAUN_BIT | SHAUN_HEAD_BIT | COIN_BIT | ENEMY_BIT | OBJECT_BIT | BOMB_BIT | BLOCK_BIT | TRAPPED_SHEEP_BIT;
         }
     }
 
