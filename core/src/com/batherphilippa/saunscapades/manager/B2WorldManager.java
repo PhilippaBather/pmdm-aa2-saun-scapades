@@ -26,20 +26,18 @@ import static com.batherphilippa.saunscapades.util.Constants.GRAVITY;
 import static com.batherphilippa.saunscapades.util.Constants.PPM;
 
 public class B2WorldManager implements Disposable {
-    private final GameScreen game;
     private final ResourceManager resManager;
     private final World world;
-    private TiledMap map;
+    private final TiledMap map;
     private final OrthogonalTiledMapRenderer renderer; // renders map to screen
 
     private final Box2DDebugRenderer b2dr;
 
     public B2WorldManager(GameScreen gameScreen, ResourceManager resManager, Hud hud) {
-        this.game = gameScreen;
         this.resManager = resManager;
 
         this.world = new World(new Vector2(0, GRAVITY), true);
-        this.world.setContactListener(new WorldContactListener(resManager, hud, this.game)); // para identificar colisiones
+        this.world.setContactListener(new WorldContactListener(resManager, hud, gameScreen)); // para identificar colisiones
 
         // inicializar la mapa y cargar el primer nivel automáticamente
         this.map = loadMap();
