@@ -57,7 +57,7 @@ public class Hud implements Disposable {
         this.stage.addActor(table);
     }
 
-    private void initialiseHudValues() {
+    public void initialiseHudValues() {
         this.energy = 4;
         this.level = 1;
         this.lives = 3;
@@ -110,7 +110,7 @@ public class Hud implements Disposable {
     }
 
     public void updateLives(int update) {
-        this.lives += update;
+        lives += update;
         livesValueLabel.setText(String.format("%02d", lives));
         if (lives <= 0) {
             game.setGameState(GameState.GAME_OVER);
@@ -118,7 +118,7 @@ public class Hud implements Disposable {
     }
 
     public void updateScore(int value) {
-        this.score += value;
+        score += value;
         scoreValueLabel.setText(String.format("%04d", score));
     }
 

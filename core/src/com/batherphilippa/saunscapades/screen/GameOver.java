@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.batherphilippa.saunscapades.SaunScapades;
 import com.batherphilippa.saunscapades.manager.OptionManager;
+import com.batherphilippa.saunscapades.manager.ResourceManager;
 import com.batherphilippa.saunscapades.screen.util.UIUtils;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
@@ -13,6 +14,7 @@ import com.kotcrab.vis.ui.widget.VisTextButton;
 public class GameOver implements Screen {
 
     private final SaunScapades game;
+    private final ResourceManager resManager;
     private Stage stage;
     private VisLabel titleLabel;
     private VisTextButton exitBtn;
@@ -21,6 +23,7 @@ public class GameOver implements Screen {
 
     public GameOver(SaunScapades game) {
         this.game = game;
+        this.resManager = this.game.getResManager();
     }
 
     @Override
@@ -39,6 +42,8 @@ public class GameOver implements Screen {
         createTableStructure(infoTable, actionsTable);
 
         Gdx.input.setInputProcessor(stage);
+
+        resManager.playSound("game_over");
     }
 
     private void createComponents() {
