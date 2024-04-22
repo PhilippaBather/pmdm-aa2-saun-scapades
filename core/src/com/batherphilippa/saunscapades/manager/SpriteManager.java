@@ -14,7 +14,7 @@ import com.batherphilippa.saunscapades.screen.GameState;
 import com.batherphilippa.saunscapades.screen.scene.Hud;
 import com.batherphilippa.saunscapades.util.UserInput;
 
-import static com.batherphilippa.saunscapades.ShaunScapades.*;
+import static com.batherphilippa.saunscapades.ShaunScapades.currGameLevel;
 import static com.batherphilippa.saunscapades.manager.constants.ResourcesConstants.*;
 import static com.batherphilippa.saunscapades.screen.constants.PointsConstants.*;
 import static com.batherphilippa.saunscapades.util.Constants.PPM;
@@ -170,8 +170,10 @@ public class SpriteManager implements Disposable {
 
     private void playerKilled(int delay) {
         this.player.resetState(SpriteState.DEAD);
-        schedulePlayerRestart(delay);
         this.hud.updateLives(-1);
+        if (ShaunScapades.getGameState() != GameState.GAME_OVER) {
+            schedulePlayerRestart(delay);
+        }
     }
 
     public void schedulePlayerRestart(int delay) {
@@ -188,7 +190,7 @@ public class SpriteManager implements Disposable {
 
         if (ShaunScapades.gameState != GameState.GAME_OVER) {
             resManager.playSound(SOUND_TELEPORT_DOWN);
-            resManager.playMusic(MUSIC_COUNTRYSIDE, 8, true);
+            resManager.playMusic(MUSIC_COUNTRYSIDE, 4, true);
             if (hud.getEnergy() <= 0) {
                 hud.updateEnergy(4);
             }
@@ -230,7 +232,7 @@ public class SpriteManager implements Disposable {
                 if (ShaunScapades.currGameLevel == GameLevel.LEVEL_1) {
                     ShaunScapades.currGameLevel = GameLevel.LEVEL_2;
                 } else {
-                   ShaunScapades.setGameState(GameState.FINISHED);
+                    ShaunScapades.setGameState(GameState.FINISHED);
                 }
             }
         };
