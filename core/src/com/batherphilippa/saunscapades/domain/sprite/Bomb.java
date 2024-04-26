@@ -30,7 +30,7 @@ public class Bomb extends Character implements Disposable {
         setBounds(getX(), getY(), 16 / PPM, 16 / PPM);
         this.bombIdle = region;
         this.setRegion(this.bombIdle);
-        this.bombBlast = setAnimationFrames("explosion", 1, 2, 0.3f);
+        this.bombBlast = setAnimationFrames("explosion", 1, 3, 0.1f);
 
         initValues();
         b2Body.setActive(false);
