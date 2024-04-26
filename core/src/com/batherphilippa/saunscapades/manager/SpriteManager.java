@@ -134,7 +134,7 @@ public class SpriteManager implements Disposable {
         hud.updateScore(points);
     }
 
-    public void enemyHit() {
+     public void enemyKilled() {
         resManager.playSound(SOUND_ENEMY_DEATH);
         resManager.playSound(SOUND_SHAUN_CELEBRATION);
         hud.updateScore(POINTS_ENEMY_KILLED);
@@ -165,6 +165,12 @@ public class SpriteManager implements Disposable {
             hud.stopTimer();
             playerKilled(delay);
         }
+    }
+
+    public void allyHit() {
+        resManager.playSound(SOUND_EXPLOSION);
+        resManager.playSound(SOUND_SHIRLEY_DEATH_NOO);
+        resManager.playSound(SOUND_FALLING_SHEEP_DEATH);
     }
 
     public void handleEnemyHitByBomb() {
