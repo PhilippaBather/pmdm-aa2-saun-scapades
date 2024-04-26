@@ -79,7 +79,7 @@ public class WorldContactListener implements ContactListener, Disposable {
                 } else {
                     ((AngrySheep) fixB.getUserData()).resetState(SpriteState.DEAD);
                 }
-                spriteManager.enemyHit();
+                spriteManager.enemyKilled();
             }
             case (BOMB_BIT | SHAUN_BIT) -> {
                 if (fixA.getFilterData().categoryBits == BOMB_BIT) {
@@ -134,6 +134,16 @@ public class WorldContactListener implements ContactListener, Disposable {
                     ((AngrySheep) fixA.getUserData()).resetState(SpriteState.DEAD);
                 }
                 spriteManager.handleEnemyHitByBomb();
+            }
+            case (BOMB_BIT | FALLING_SHEEP_BIT) -> {
+                if (fixA.getFilterData().categoryBits == BOMB_BIT) {
+                    ((Bomb) fixA.getUserData()).resetState(SpriteState.DEAD);
+                    ((FallingSheep) fixB.getUserData()).resetState(SpriteState.DEAD);
+                } else {
+                    ((Bomb) fixB.getUserData()).resetState(SpriteState.DEAD);
+                    ((FallingSheep) fixA.getUserData()).resetState(SpriteState.DEAD);
+                }
+                spriteManager.allyHit();
             }
         }
     }
