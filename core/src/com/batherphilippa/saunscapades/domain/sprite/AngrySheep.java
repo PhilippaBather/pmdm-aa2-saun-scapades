@@ -42,10 +42,6 @@ public class AngrySheep extends Character {
         this.stateTimer = 0;
     }
 
-    public boolean isDead() {
-        return isDead;
-    }
-
     /**
      * Reverse velocity in the axis
      *
