@@ -125,6 +125,16 @@ public class WorldContactListener implements ContactListener, Disposable {
                 }
             }
             case (FALLING_SHEEP_BIT | GROUND_BIT), TRAPPED_SHEEP_BIT, OBJECT_BIT -> spriteManager.handleFallingSheep();
+            case (BOMB_BIT | ENEMY_BIT) -> {
+                if (fixA.getFilterData().categoryBits == BOMB_BIT) {
+                    ((Bomb) fixA.getUserData()).resetState(SpriteState.DEAD);
+                    ((AngrySheep) fixB.getUserData()).resetState(SpriteState.DEAD);
+                } else {
+                    ((Bomb) fixB.getUserData()).resetState(SpriteState.DEAD);
+                    ((AngrySheep) fixA.getUserData()).resetState(SpriteState.DEAD);
+                }
+                spriteManager.handleEnemyHitByBomb();
+            }
         }
     }
 
