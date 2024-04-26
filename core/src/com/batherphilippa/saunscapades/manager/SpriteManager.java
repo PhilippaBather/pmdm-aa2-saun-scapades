@@ -83,7 +83,7 @@ public class SpriteManager implements Disposable {
                 sheep.update(dt);
             }
             for (FallingSheep sheep : fallingSheepArr) {
-                if (sheep.getX() < player.getX() + 7 / PPM) {
+                if (sheep.getX() < player.getX() + 10 / PPM) {
                     sheep.update(dt);
                 }
             }
@@ -165,6 +165,12 @@ public class SpriteManager implements Disposable {
             hud.stopTimer();
             playerKilled(delay);
         }
+    }
+
+    public void handleEnemyHitByBomb() {
+        resManager.playSound(SOUND_EXPLOSION);
+        resManager.playSound(SOUND_SHAUN_CELEBRATION);
+        resManager.playSound(SOUND_ENEMY_DEATH);
     }
 
 
