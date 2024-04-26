@@ -7,22 +7,20 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.batherphilippa.saunscapades.manager.SpriteManager;
 import com.batherphilippa.saunscapades.util.UserInput;
 
-import static com.batherphilippa.saunscapades.listener.WorldCategoryBits.SHIRLEY_BIT;
+import static com.batherphilippa.saunscapades.listener.WorldCategoryBits.BALLOON_BIT;
 import static com.batherphilippa.saunscapades.util.Constants.PPM;
 
-public class ShirleySheep extends Character {
+public class Balloons extends Character {
 
-    public ShirleySheep(TextureRegion region, World world, float x, float y, float radius, SpriteManager spriteManager) {
+    public Balloons(TextureRegion region, World world, float x, float y, float radius, SpriteManager spriteManager) {
         super(region, world, x, y, radius, spriteManager, SpriteType.SHIRLEY);
         setBounds(getX(), getY(), 16 / PPM, 16 / PPM);
-
-        this.setRegion(region);
+        setRegion(region);
     }
 
     @Override
-    public void render(SpriteBatch batch) {
+    protected void render(SpriteBatch batch) {
         super.draw(batch);
-
     }
 
     @Override
@@ -47,7 +45,7 @@ public class ShirleySheep extends Character {
 
     @Override
     public short getCategoryBit() {
-        return SHIRLEY_BIT;
+        return BALLOON_BIT;
     }
 
     @Override

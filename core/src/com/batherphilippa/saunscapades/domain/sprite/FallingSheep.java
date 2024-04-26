@@ -9,7 +9,7 @@ import com.batherphilippa.saunscapades.manager.SpriteManager;
 import static com.batherphilippa.saunscapades.domain.sprite.SpriteState.*;
 import static com.batherphilippa.saunscapades.listener.WorldCategoryBits.FALLING_SHEEP_BIT;
 
-public class FallingSheep extends ShirleySheep {
+public class FallingSheep extends Balloons {
 
     final private TextureRegion groundedSheep;
     private final Animation<TextureRegion> fallingSheep;
@@ -25,18 +25,20 @@ public class FallingSheep extends ShirleySheep {
         super(region, world, x, y, radius, spriteManager);
         setRegion(region);
 
-        this.currState = IDLE;
         this.groundedSheep = spriteManager.getTextureRegion("timmy_idle", -1);
         this.fallingSheep = setAnimationFrames("timmy_victory", 1, 14, 0.005f);
         this.deadSheep = setAnimationFrames("timmy_electrocute", 0, 7, 0.5f);
 
+        init();
+    }
+
+    private void init() {
         this.stateTimer = 0;
         this.currState = SpriteState.IDLE;
         this.prevState = SpriteState.IDLE;
         this.hasLanded = false;
         this.isDead = false;
         this.isDestroyed = false;
-
         this.b2Body.setActive(false);
     }
 

@@ -88,7 +88,7 @@ public class AngrySheep extends Character {
     @Override
     public void update(float delta) {
         this.stateTimer += delta;
-        setRegion(getFrame(delta));
+        setRegion(getFrame());
         if (!isDead) {
             b2Body.setLinearVelocity(movement);
             this.setPosition((b2Body.getPosition().x - getWidth() / 2), b2Body.getPosition().y - getHeight() / 2);
@@ -99,7 +99,7 @@ public class AngrySheep extends Character {
         }
     }
 
-    private TextureRegion getFrame(float delta) {
+    private TextureRegion getFrame() {
         TextureRegion region = getTextureRegion();
         if ((b2Body.getLinearVelocity().x > 0 || !isDirRight) && !region.isFlipX()) {
             region.flip(true, false);
