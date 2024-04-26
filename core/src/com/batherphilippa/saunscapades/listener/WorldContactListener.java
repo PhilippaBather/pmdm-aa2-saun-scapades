@@ -89,7 +89,7 @@ public class WorldContactListener implements ContactListener, Disposable {
                 }
                 spriteManager.playerHit(SpriteType.BOMB, 1);
             }
-            case (SHAUN_BIT | SHIRLEY_BIT) -> spriteManager.levelEndCelebration();
+            case (SHAUN_BIT | BALLOON_BIT) -> spriteManager.levelEndCelebration();
             case (SHAUN_HEAD_BIT | BLOCK_BIT) -> {
                 if (fixA.getFilterData().categoryBits == BLOCK_BIT) {
                     ((Block) fixA.getUserData()).onContact();
@@ -104,9 +104,9 @@ public class WorldContactListener implements ContactListener, Disposable {
                     ((Bomb) fixB.getUserData()).setDetonated(true);
                 }
                 if (fixA.getFilterData().categoryBits == TRAPPED_SHEEP_BIT) {
-                    ((TrappedSheep) fixA.getUserData()).setKilled();
+                    ((TrappedSheep) fixA.getUserData()).resetState(SpriteState.DEAD);
                 } else {
-                    ((TrappedSheep) fixB.getUserData()).setKilled();
+                    ((TrappedSheep) fixB.getUserData()).resetState(SpriteState.DEAD);
                 }
                 spriteManager.handleSheepDeath();
             }
