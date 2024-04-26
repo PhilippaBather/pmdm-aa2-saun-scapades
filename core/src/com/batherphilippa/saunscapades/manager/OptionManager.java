@@ -5,10 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.batherphilippa.saunscapades.ShaunScapades;
-import com.batherphilippa.saunscapades.screen.ConfigScreen;
-import com.batherphilippa.saunscapades.screen.GameScreen;
-import com.batherphilippa.saunscapades.screen.GameState;
-import com.batherphilippa.saunscapades.screen.MainMenuScreen;
+import com.batherphilippa.saunscapades.screen.*;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 
 public class OptionManager {
@@ -68,7 +65,8 @@ public class OptionManager {
         btn.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 screen.dispose();
-                game.setScreen(new GameScreen(game));
+                ShaunScapades.currGameLevel = GameLevel.LEVEL_1;
+                game.setScreen(new LevelOneInfoSplashScreen(game));
                 game.reset();
             }
         });
