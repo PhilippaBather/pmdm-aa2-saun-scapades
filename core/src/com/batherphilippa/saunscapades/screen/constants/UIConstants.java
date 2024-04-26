@@ -20,7 +20,7 @@ public class UIConstants {
     public static final String LABEL_GAME_OVER_TITLE = "GAME OVER!!!";
     public static final String LABEL_LEVEL_1_INFO_TITLE = "Level 1 Mission";
     public static final String LABEL_LEVEL_1_INFO_1 = "Navigate across the countryside to find Shirley sheep waiting ever patiently.";
-    public static final String LABEL_LEVEL_1_INFO_2 = "Avoid the angry sheep: sap your energy they shall.";
+    public static final String LABEL_LEVEL_1_INFO_2 = "Avoid the angry sheep: sap your energy they will.";
     public static final String LABEL_LEVEL_1_INFO_3 = "Collect gold coins - every sheep needs them.";
     public static final String LABEL_LEVEL_1_INFO_4 = "Fall in the sea at your peril.";
     public static final String LABEL_LEVEL_1_INFO_5 = "Beware of the bombs for they will take your life.";
