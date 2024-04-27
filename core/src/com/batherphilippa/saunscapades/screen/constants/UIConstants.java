@@ -27,8 +27,10 @@ public class UIConstants {
     public static final String LABEL_MAIN_MENU_TITLE = "MAIN MENU";
     public static final String LABEL_OPTIONS_MENU_TITLE = "SELECT CONFIGURATION OPTIONS";
     public static final String LABEL_MISSION_2 = "Mission 2";
-    public static final String TEXT_AREA_LEVEL_2_INFO = "Save the trapped Shirley sheep from the bombs.";
-    public static final String TEXT_AREA_LEVEL_2_AVOID = "Avoid falling Timmy sheep.";
+    public static final String LABEL_LEVEL_2_INFO_1 = "Navigate across the wasteland to find the balloons.";
+    public static final String LABEL_LEVEL_2_INFO_2 = "Save the trapped Shirley sheep from the bombs.";
+    public static final String LABEL_LEVEL_2_INFO_3 = "Failure to do so will incur her death and - rightly so - loss of points.";
+    public static final String LABEL_LEVEL_2_INFO_4 = "Avoid falling Timmy sheep for he will, unwittingly, temporarily paralyse you.";
     public static final String TEXT_FIELD_LEVEL_END = "Congratulations: Level Conquered!";
     public static final String TEXT_FIELD_SCORE = "SCORE: %s";
 }
