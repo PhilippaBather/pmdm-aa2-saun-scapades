@@ -30,7 +30,7 @@ public class UIConstants {
     public static final String LABEL_LEVEL_2_INFO_1 = "Navigate across the wasteland to find the balloons.";
     public static final String LABEL_LEVEL_2_INFO_2 = "Save the trapped Shirley sheep from the bombs.";
     public static final String LABEL_LEVEL_2_INFO_3 = "Failure to do so will incur their death and - rightly so - loss of points.";
-    public static final String LABEL_LEVEL_2_INFO_4 = "Avoid falling Timmy sheep for they will, unwittingly, temporarily paralyse you.";
+    public static final String LABEL_LEVEL_2_INFO_4 = "Avoid the Kamikaze sheep for they will temporarily paralyse you.";
     public static final String TEXT_FIELD_LEVEL_END = "Congratulations: Level Conquered!";
     public static final String TEXT_FIELD_SCORE = "SCORE: %s";
 }

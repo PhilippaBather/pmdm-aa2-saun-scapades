@@ -18,7 +18,7 @@
    eJztmG0KwjAMhvdneDz1CuoFVAQPoCJ4ABU/UA/gxwUG6sVMUXCU1ra2ndl8Hwgbg7bJm6RblyQAgLKRae4BqDpyvaP+y4tN7pDf4oDWoExkhit4A00AMIM+saebJkmPrJ/+2hPgCuo8LkLfEfXFmGyi6I+q61+vxV9jR7ruyQ6p+b9ADL1Nc9quKbRqkDUDaFaE7i580mBOeVuQLaX++DYGeRznHmsxyxMHdPkSWrXJOgrNXHuQg+6+damLQTVv/hmH2G1ZBfBVNccgkAZDRlqKONdkm8CabRnF6IJN7ajOLrpxHN8jxwC5Uc0xzT2bOa7hMzYmIs4T2fnlky6fNu+SvGYXRjG6IOdd9a0sn13k2LlzJV9vZPfAPvvsj1XYW8ET3dnl3/HZH6uwt4JwPABDSEK5
   </data>
  </layer>
- <objectgroup id="13" name="ground" visible="0">
+ <objectgroup id="13" name="ground">
   <object id="154" x="0" y="157" width="207" height="50"/>
   <object id="155" x="286" y="198" width="113" height="9"/>
   <object id="156" x="253" y="117" width="141" height="22"/>
@@ -55,7 +55,7 @@
   <object id="321" x="-3.33333" y="-5.33333" width="2.66667" height="212"/>
   <object id="322" x="3198.67" y="-8.66667" width="0.666667" height="218"/>
  </objectgroup>
- <objectgroup id="16" name="coins" visible="0">
+ <objectgroup id="16" name="coins">
   <object id="224" x="262" y="72"/>
   <object id="225" x="295" y="72"/>
   <object id="226" x="327" y="72"/>
@@ -95,7 +95,7 @@
   <object id="273" x="2807" y="107"/>
   <object id="274" x="358" y="72"/>
  </objectgroup>
- <objectgroup id="17" name="water" visible="0">
+ <objectgroup id="17" name="water">
   <object id="276" x="208" y="206" width="76" height="1"/>
   <object id="277" x="400" y="204" width="88" height="4"/>
   <object id="278" x="2109" y="205" width="634" height="3"/>
@@ -113,7 +113,7 @@
   <object id="315" x="1816" y="168"/>
   <object id="319" x="2888.67" y="167.333"/>
  </objectgroup>
- <objectgroup id="19" name="bombs" visible="0">
+ <objectgroup id="19" name="bombs">
   <object id="292" x="341.334" y="108.667"/>
   <object id="294" x="886" y="114.667"/>
   <object id="295" x="1233.34" y="115.333"/>
@@ -124,7 +124,7 @@
   <object id="300" x="2758" y="116.667"/>
   <object id="301" x="3052.67" y="164"/>
  </objectgroup>
- <objectgroup id="20" name="shirley_level_end" visible="0">
+ <objectgroup id="20" name="balloon_level_end">
   <object id="302" x="3190.01" y="162.666"/>
  </objectgroup>
 </map>

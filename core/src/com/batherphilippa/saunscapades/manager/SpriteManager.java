@@ -30,7 +30,7 @@ public class SpriteManager implements Disposable {
     private Balloons balloons;
     private Array<Bomb> bombArr;
     private Array<AngrySheep> angrySheepArr;
-    private Array<FallingSheep> fallingSheepArr;
+    private Array<KamizakeSheep> kamizakeSheepArr;
     private Array<TrappedSheep> trappedSheepArr;
 
     public SpriteManager(ResourceManager resManager, SpriteBatch batch, Hud hud, B2WorldManager b2WorldManager) {
@@ -53,7 +53,7 @@ public class SpriteManager implements Disposable {
 
         if (currGameLevel == GameLevel.LEVEL_2) {
             this.trappedSheepArr = b2WorldManager.renderTrappedSheep(resManager.loadRegion("shirley_end_level", -1), this);
-            this.fallingSheepArr = b2WorldManager.renderFallingSheep(resManager.loadRegion("timmy_idle", -1), this);
+            this.kamizakeSheepArr = b2WorldManager.renderFallingSheep(resManager.loadRegion("timmy_idle", -1), this);
         }
     }
 
@@ -83,7 +83,7 @@ public class SpriteManager implements Disposable {
             for (TrappedSheep sheep : trappedSheepArr) {
                 sheep.update(dt);
             }
-            for (FallingSheep sheep : fallingSheepArr) {
+            for (KamizakeSheep sheep : kamizakeSheepArr) {
                 if (sheep.getX() < player.getX() + 10 / PPM) {
                     sheep.update(dt);
                 }
@@ -123,7 +123,7 @@ public class SpriteManager implements Disposable {
             for (TrappedSheep sheep : trappedSheepArr) {
                 sheep.render(batch);
             }
-            for (FallingSheep sheep : fallingSheepArr) {
+            for (KamizakeSheep sheep : kamizakeSheepArr) {
                 sheep.render(batch);
             }
         }
@@ -226,13 +226,13 @@ public class SpriteManager implements Disposable {
     public void handleSheepDeath() {
         resManager.playSound(SOUND_SHIRLEY_DEATH_NOO);
         resManager.playSound(SOUND_SHAUN_DEATH_NOO);
-        resManager.playSound(SOUND_EXPLOSION, 1);
+        resManager.playSound(SOUND_EXPLOSION);
         hud.updateScore(POINTS_SHEEP_DEATH);
     }
 
     public void handleSavedSheep() {
         resManager.playSound(SOUND_SHIRLEY_CELEBRATION);
-        resManager.playSound(SOUND_SHAUN_CELEBRATION, 1);
+        resManager.playSound(SOUND_SHAUN_CELEBRATION);
         hud.updateScore(POINTS_SHEEP_SAVED);
     }
 
@@ -271,7 +271,7 @@ public class SpriteManager implements Disposable {
         batch.dispose();
         angrySheepArr.clear();
         bombArr.clear();
-        fallingSheepArr.clear();
+        kamizakeSheepArr.clear();
         trappedSheepArr.clear();
         b2WorldManager.dispose();
         hud.dispose();

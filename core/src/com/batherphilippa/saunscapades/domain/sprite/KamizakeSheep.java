@@ -7,9 +7,9 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.batherphilippa.saunscapades.manager.SpriteManager;
 
 import static com.batherphilippa.saunscapades.domain.sprite.SpriteState.*;
-import static com.batherphilippa.saunscapades.listener.WorldCategoryBits.FALLING_SHEEP_BIT;
+import static com.batherphilippa.saunscapades.listener.WorldCategoryBits.KAMIKAZE_SHEEP_BIT;
 
-public class FallingSheep extends Balloons {
+public class KamizakeSheep extends Balloons {
 
     final private TextureRegion groundedSheep;
     private final Animation<TextureRegion> fallingSheep;
@@ -21,7 +21,7 @@ public class FallingSheep extends Balloons {
     private boolean isDestroyed;
     private float stateTimer;
 
-    public FallingSheep(TextureRegion region, World world, float x, float y, float radius, SpriteManager spriteManager) {
+    public KamizakeSheep(TextureRegion region, World world, float x, float y, float radius, SpriteManager spriteManager) {
         super(region, world, x, y, radius, spriteManager);
         setRegion(region);
 
@@ -44,7 +44,7 @@ public class FallingSheep extends Balloons {
 
     @Override
     public short getCategoryBit() {
-        return FALLING_SHEEP_BIT;
+        return KAMIKAZE_SHEEP_BIT;
     }
 
     public boolean isHasLanded() {
