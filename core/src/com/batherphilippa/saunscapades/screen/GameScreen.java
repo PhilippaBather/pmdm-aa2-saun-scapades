@@ -78,6 +78,7 @@ public class GameScreen implements Screen {
         }
 
         if (ShaunScapades.gameState == GameState.GAME_OVER) {
+            ShaunScapades.score = hud.getScore();
             dispose();
             game.setScreen(new GameOverScreen(game));
         }

@@ -128,6 +128,7 @@ public class Hud implements Disposable {
     public void updateScore(int value) {
         score += value;
         scoreValueLabel.setText(String.format("%04d", score));
+
     }
 
     public void updateTimer(float dt) {
