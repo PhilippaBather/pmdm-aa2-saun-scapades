@@ -9,12 +9,12 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.batherphilippa.saunscapades.manager.SpriteManager;
-import com.batherphilippa.saunscapades.util.UserInput;
+import com.batherphilippa.saunscapades.screen.util.UserInput;
 
 import static com.batherphilippa.saunscapades.domain.sprite.SpriteType.PLAYER;
 import static com.batherphilippa.saunscapades.listener.WorldCategoryBits.SHAUN_BIT;
 import static com.batherphilippa.saunscapades.listener.WorldCategoryBits.SHAUN_HEAD_BIT;
-import static com.batherphilippa.saunscapades.util.Constants.PPM;
+import static com.batherphilippa.saunscapades.screen.constants.AppConstants.PPM;
 
 public class Shaun extends Character {
 
@@ -36,16 +36,16 @@ public class Shaun extends Character {
     public Shaun(TextureAtlas.AtlasRegion region, World world, float x, float y, float radius, SpriteManager spriteManager) {
         super(region, world, x, y, radius, spriteManager, PLAYER);
 
-        this.shaunIdle = region;
-
-        // establecer el tamaño de la textura
+        // establece el tamaño de la textura
         this.setBounds(getX(), getY(), 16 / PPM, 16 / PPM);
 
-        // asociar la región de textura con el sprite
+        // asocia la región de textura con el sprite
+        this.shaunIdle = region;
         this.setRegion(shaunIdle);
 
         setInitialState();
 
+        // establece las regiones y animaciónes
         shaunJump = spriteManager.getTextureRegion("shaun_jump_up", 4);
         shaunDead = spriteManager.getTextureRegion("shaun_electrocute", 0);
         shaunMove = setAnimationFrames("shaun_walk", 0, 7, 0.1f);
@@ -56,6 +56,9 @@ public class Shaun extends Character {
 
     }
 
+    /**
+     * Establece los valores iniciales.
+     */
     private void setInitialState() {
         currState = SpriteState.IDLE;
         prevState = SpriteState.IDLE;
@@ -65,6 +68,10 @@ public class Shaun extends Character {
         paralysedDuration = 2;
     }
 
+    /**
+     * Re-establece el estado del jugador
+     * @param state - estado
+     */
     @Override
     public void resetState(SpriteState state) {
         if (state == SpriteState.DEAD) {
@@ -78,6 +85,10 @@ public class Shaun extends Character {
         }
     }
 
+    /**
+     * Crea una definición del 'fixture' en la cabeza del objeto.
+     * @param fixDef - fixture definition
+     */
     public void createHead(FixtureDef fixDef) {
         PolygonShape head = new PolygonShape();
         Vector2[] vertices = new Vector2[4];
@@ -87,9 +98,13 @@ public class Shaun extends Character {
         vertices[3] = new Vector2(5, 6).scl(1 / PPM);
         head.set(vertices);
         fixDef.shape = head;
-        // 'bounciness'
+
+        // 'bounciness' - el grado de rebote
         fixDef.restitution = 0.5f;
+
+        // aplica un bit de categoría
         fixDef.filter.categoryBits = SHAUN_HEAD_BIT;
+
         // tener acceso al objeto desde el 'collision handler'
         b2Body.createFixture(fixDef).setUserData(this);
     }
@@ -125,10 +140,16 @@ public class Shaun extends Character {
         setRegion(getFrame(dt));
     }
 
+    /**
+     * Devuevle la región de la textura para el fotograma de la animación
+     * @param dt - delta time
+     * @return la región de la textura
+     */
     private TextureRegion getFrame(float dt) {
         currState = getSpritePositionState();
         TextureRegion region = getTextureRegion();
 
+        // cambia la dirección del B2Body depende de su moviemiento por el eje 'x'
         if ((b2Body.getLinearVelocity().x < 0 || !isDirRight) && !region.isFlipX()) {
             region.flip(true, false);
             isDirRight = false;
@@ -166,9 +187,13 @@ public class Shaun extends Character {
         }
     }
 
-    private void setParalysedCountDown(float delta) {
+    /**
+     * Establece el temporazidor para la cantidad del tiempo que el jugador está paralizado.
+     * @param dt - delta time
+     */
+    private void setParalysedCountDown(float dt) {
         if (isParalysed) {
-            timeCount += delta;
+            timeCount += dt;
             if (timeCount >= 1) { // 1 segundo
                 paralysedDuration--;
                 timeCount = 0;
@@ -176,6 +201,10 @@ public class Shaun extends Character {
         }
     }
 
+    /**
+     * Devuelve la región de la textura según el estado.
+     * @return
+     */
     private TextureRegion getTextureRegion() {
         return switch (currState) {
             case MOVING -> shaunMove.getKeyFrame(stateTimer, true);
@@ -194,10 +223,6 @@ public class Shaun extends Character {
     public void move(UserInput input) {
         if (!isParalysed) {
             switch (input) {
-                // use a force = gradual increase/decrease in speed or use an impulse, which is an immediate change
-                // 0 on x as jumping up; get world centre is where on the body you want to apply the force
-                // if off centre, they'll be a torque to the body, which would change the angle
-                // wake object: yes (if body is asleep)
                 case UP -> this.getB2Body().applyLinearImpulse(new Vector2(0, 4f),
                         this.getB2Body().getWorldCenter(), true);
                 case RIGHT -> this.getB2Body().applyLinearImpulse(new Vector2(0.1f, 0),
@@ -208,11 +233,13 @@ public class Shaun extends Character {
         }
     }
 
+    /**
+     * Lanza el jugador en el aire si ha tocado una bomba detonando.
+     */
     public void launchShaun() {
         b2Body.applyLinearImpulse(new Vector2(0, 5f), b2Body.getWorldCenter(), true);
     }
 
     @Override
-    public void dispose() {
-    }
+    public void dispose() {}
 }

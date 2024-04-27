@@ -1,13 +1,15 @@
 package com.batherphilippa.saunscapades.manager;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import static com.batherphilippa.saunscapades.util.Constants.*;
+import static com.batherphilippa.saunscapades.screen.constants.AppConstants.*;
 
+/**
+ * CameraManeger - la clase que maneja las cameras del juego.
+ */
 public class CameraManager {
 
     private final OrthographicCamera gameCam;
@@ -28,7 +30,7 @@ public class CameraManager {
     }
 
     private void setCameraPosition() {
-        // set position in the middle fo the screen
+        // establece la posición en el medio de la pantalla
         gameCam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
     }
 
@@ -65,9 +67,8 @@ public class CameraManager {
 
 
     public void update(float x) {
-        getGameCam().position.x = x; // player.getB2Body().getPosition().x;
+        getGameCam().position.x = x;
         getGameCam().update();
-
         this.gameCam.update();
     }
 }

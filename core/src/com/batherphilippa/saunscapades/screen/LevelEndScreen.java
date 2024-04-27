@@ -10,6 +10,9 @@ import com.kotcrab.vis.ui.widget.*;
 
 import static com.batherphilippa.saunscapades.screen.constants.UIConstants.*;
 
+/**
+ * LevelEndScreen - define la pantalla cuando un nivel termina; implementa Screen.
+ */
 public class LevelEndScreen implements Screen {
 
     private final ShaunScapades game;

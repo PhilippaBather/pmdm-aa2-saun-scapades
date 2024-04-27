@@ -1,5 +1,8 @@
 package com.batherphilippa.saunscapades.manager.constants;
 
+/**
+ * Los constantes de los recursos.
+ */
 public class ResourcesConstants {
     // images
     public static final String IMAGE_SPLASH = "splash_image";

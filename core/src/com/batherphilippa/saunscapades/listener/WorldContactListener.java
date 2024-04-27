@@ -14,6 +14,9 @@ import com.batherphilippa.saunscapades.screen.scene.Hud;
 import static com.batherphilippa.saunscapades.listener.WorldCategoryBits.*;
 import static com.batherphilippa.saunscapades.screen.constants.PointsConstants.POINTS_COIN;
 
+/**
+ * WorldContactListener - el listener para manejar los choques de B2 Bodies; implementa ContactListener y Disposable
+ */
 public class WorldContactListener implements ContactListener, Disposable {
 
     private final GameScreen gameScreen;
@@ -34,7 +37,7 @@ public class WorldContactListener implements ContactListener, Disposable {
         Fixture fixA = contact.getFixtureA();
         Fixture fixB = contact.getFixtureB();
 
-        // use bitwise operation OR to get the collision definition
+        // utilza la operación bitwise OR para obtener la definición del choque
         int collisionDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
 
         switch (collisionDef) {
@@ -113,15 +116,15 @@ public class WorldContactListener implements ContactListener, Disposable {
             case (TRAPPED_SHEEP_BIT | GROUND_BIT), SHAUN_BIT -> spriteManager.handleSavedSheep();
             case (KAMIKAZE_SHEEP_BIT | SHAUN_HEAD_BIT) -> {
                 if (fixA.getFilterData().categoryBits == KAMIKAZE_SHEEP_BIT) {
-                    if (((KamizakeSheep) fixA.getUserData()).isHasLanded()) {
+                    if (((KamikazeSheep) fixA.getUserData()).isHasLanded()) {
                         spriteManager.handleParalysedShaun();
                     }
-                    ((KamizakeSheep) fixA.getUserData()).setHasLanded(true);
+                    ((KamikazeSheep) fixA.getUserData()).setHasLanded(true);
                 } else {
-                    if (((KamizakeSheep) fixB.getUserData()).isHasLanded()) {
+                    if (((KamikazeSheep) fixB.getUserData()).isHasLanded()) {
                         spriteManager.handleParalysedShaun();
                     }
-                    ((KamizakeSheep) fixB.getUserData()).setHasLanded(true);
+                    ((KamikazeSheep) fixB.getUserData()).setHasLanded(true);
                 }
             }
             case (KAMIKAZE_SHEEP_BIT | GROUND_BIT), TRAPPED_SHEEP_BIT, OBJECT_BIT -> spriteManager.handleFallingSheep();
@@ -138,10 +141,10 @@ public class WorldContactListener implements ContactListener, Disposable {
             case (BOMB_BIT | KAMIKAZE_SHEEP_BIT) -> {
                 if (fixA.getFilterData().categoryBits == BOMB_BIT) {
                     ((Bomb) fixA.getUserData()).resetState(SpriteState.DEAD);
-                    ((KamizakeSheep) fixB.getUserData()).resetState(SpriteState.DEAD);
+                    ((KamikazeSheep) fixB.getUserData()).resetState(SpriteState.DEAD);
                 } else {
                     ((Bomb) fixB.getUserData()).resetState(SpriteState.DEAD);
-                    ((KamizakeSheep) fixA.getUserData()).resetState(SpriteState.DEAD);
+                    ((KamikazeSheep) fixA.getUserData()).resetState(SpriteState.DEAD);
                 }
                 spriteManager.allyHit();
             }

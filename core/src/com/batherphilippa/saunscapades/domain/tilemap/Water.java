@@ -8,6 +8,9 @@ import com.batherphilippa.saunscapades.manager.ResourceManager;
 import static com.batherphilippa.saunscapades.listener.WorldCategoryBits.WATER_BIT;
 import static com.batherphilippa.saunscapades.manager.constants.ResourcesConstants.SOUND_SPLASH;
 
+/**
+ * Block - define un objeto de agua de tipo Tile; extiende TileObject.
+ */
 public class Water extends TileObject {
     private final ResourceManager resManager;
     public Water(World world, TiledMap map, Rectangle bounds, ResourceManager resManager) {

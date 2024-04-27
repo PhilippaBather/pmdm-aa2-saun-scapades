@@ -4,18 +4,24 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Disposable;
 import com.batherphilippa.saunscapades.manager.SpriteManager;
-import com.batherphilippa.saunscapades.util.UserInput;
+import com.batherphilippa.saunscapades.screen.util.UserInput;
 
 import static com.batherphilippa.saunscapades.listener.WorldCategoryBits.BALLOON_BIT;
-import static com.batherphilippa.saunscapades.util.Constants.PPM;
+import static com.batherphilippa.saunscapades.screen.constants.AppConstants.PPM;
 
-public class Balloons extends Character {
+/**
+ * Balloons - la clase define el objeto que representa el find de un nivel; extiende Character.
+ */
+public class Balloons extends Character implements Disposable {
 
     public Balloons(TextureRegion region, World world, float x, float y, float radius, SpriteManager spriteManager) {
-        super(region, world, x, y, radius, spriteManager, SpriteType.SHIRLEY);
-        setBounds(getX(), getY(), 16 / PPM, 16 / PPM);
-        setRegion(region);
+        super(region, world, x, y, radius, spriteManager, SpriteType.BALLOON);
+        // establece el tamaño de la textura
+        this.setBounds(getX(), getY(), 16 / PPM, 16 / PPM);
+        // asocia la región de textura con el sprite
+        this.setRegion(region);
     }
 
     @Override

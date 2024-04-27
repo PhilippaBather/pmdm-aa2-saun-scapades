@@ -1,5 +1,8 @@
 package com.batherphilippa.saunscapades.screen.constants;
 
+/**
+ * ConfigConstants - los constantes de la configuración.
+ */
 public class ConfigConstants {
 
     public static final int GAME_LENGTH_SHORT = 180; // 3 minutes

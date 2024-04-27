@@ -1,5 +1,8 @@
 package com.batherphilippa.saunscapades.manager.constants;
 
+/**
+ * Los niveles del TiledMap.
+ */
 public class TileLayers {
     public static final int GRAPHICS_ORNAMENTS = 2;
     public static final int GROUND_TL = 3;

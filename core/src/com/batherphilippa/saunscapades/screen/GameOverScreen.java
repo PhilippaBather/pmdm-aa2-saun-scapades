@@ -13,6 +13,9 @@ import com.kotcrab.vis.ui.widget.VisTextButton;
 
 import static com.batherphilippa.saunscapades.screen.constants.UIConstants.*;
 
+/**
+ * GameOverScreen - define la pantalla cuando el juego se pierde.
+ */
 public class GameOverScreen implements Screen {
 
     private final ShaunScapades game;
@@ -62,7 +65,7 @@ public class GameOverScreen implements Screen {
 
     private void setClickListeners() {
         OptionManager.handleExitClicked(exitBtn, this);
-        OptionManager.handleMainMenuClicked(mainMenuBtn, game, this); // screen game, menu type, sprite manager needed as param
+        OptionManager.handleMainMenuClicked(mainMenuBtn, game, this);
         OptionManager.handlePlayClicked(playBtn, game, this);
     }
 

@@ -13,6 +13,9 @@ import com.kotcrab.vis.ui.widget.*;
 import static com.batherphilippa.saunscapades.screen.constants.ConfigConstants.*;
 import static com.batherphilippa.saunscapades.screen.constants.UIConstants.*;
 
+/**
+ * ConfigScreen - define la pantalla de configuración; implementa Screen.
+ */
 public class ConfigScreen implements Screen {
 
     private final ShaunScapades game;

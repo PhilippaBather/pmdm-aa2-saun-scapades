@@ -14,6 +14,9 @@ import com.kotcrab.vis.ui.widget.VisTextButton;
 import static com.batherphilippa.saunscapades.manager.constants.ResourcesConstants.MUSIC_GAME_FINISHED;
 import static com.batherphilippa.saunscapades.screen.constants.UIConstants.*;
 
+/**
+ * GameEndScreen - define la pantalla que termina el juego; implementa Screen.
+ */
 public class GameEndScreen implements Screen {
     private final ShaunScapades game;
     private final ResourceManager resManager;

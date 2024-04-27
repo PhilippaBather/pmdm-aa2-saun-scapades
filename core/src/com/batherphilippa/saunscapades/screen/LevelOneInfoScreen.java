@@ -10,7 +10,10 @@ import com.kotcrab.vis.ui.widget.VisTable;
 
 import static com.batherphilippa.saunscapades.screen.constants.UIConstants.*;
 
-public class LevelOneInfoSplashScreen implements Screen {
+/**
+ * LevelOneInfoScreen - define la pantalla contiendo información sobre el primer nivel; implementa Screen.
+ */
+public class LevelOneInfoScreen implements Screen {
 
     private final ShaunScapades game;
     private Stage stage;
@@ -22,7 +25,7 @@ public class LevelOneInfoSplashScreen implements Screen {
     private VisLabel infoLabel4;
     private VisLabel infoLabel5;
 
-    public LevelOneInfoSplashScreen(ShaunScapades game) {
+    public LevelOneInfoScreen(ShaunScapades game) {
         this.game = game;
         this.splashDone = false;
 
@@ -40,6 +43,7 @@ public class LevelOneInfoSplashScreen implements Screen {
         createComponents();
         createTableStructure(table);
 
+        // mete con un fundido la pantalla y establece un retraso de 10f
         stage.addAction(Actions.sequence(Actions.alpha(0),
                 Actions.fadeIn(1.5f),
                 Actions.delay(10f),

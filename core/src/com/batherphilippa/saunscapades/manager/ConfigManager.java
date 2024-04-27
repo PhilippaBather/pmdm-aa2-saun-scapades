@@ -6,9 +6,12 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.kotcrab.vis.ui.widget.VisList;
 
-import static com.batherphilippa.saunscapades.GameConstants.APP_NAME;
 import static com.batherphilippa.saunscapades.screen.constants.ConfigConstants.*;
+import static com.batherphilippa.saunscapades.screen.constants.AppConstants.APP_NAME;
 
+/**
+ * ConfigManager - la clase responsable de guardar y devolver las preferencias selecionadas en la pantalla de configuración.
+ */
 public class ConfigManager {
 
     private static final Preferences prefs = Gdx.app.getPreferences(APP_NAME);
