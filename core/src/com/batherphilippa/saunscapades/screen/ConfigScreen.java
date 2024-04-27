@@ -70,6 +70,7 @@ public class ConfigScreen implements Screen {
 
     private void setPreferences() {
         gameLengthList.setSelected(ConfigManager.getGameLengthOption());
+        gameDiffList.setSelected(ConfigManager.getGameDiffOption());
     }
 
     private void setClickListeners() {
