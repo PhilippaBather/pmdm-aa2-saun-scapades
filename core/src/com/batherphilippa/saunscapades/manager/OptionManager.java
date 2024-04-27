@@ -35,10 +35,7 @@ public class OptionManager {
     public static void handleMainMenuClicked(VisTextButton btn, ShaunScapades game, Screen screen) {
         btn.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                ShaunScapades.setGameState(GameState.RUNNING);
-                if (screen != null) {
-                    screen.dispose();
-                }
+                screen.dispose();
                 game.setScreen(new MainMenuScreen(game));
 
             }
@@ -66,8 +63,8 @@ public class OptionManager {
             public void clicked(InputEvent event, float x, float y) {
                 screen.dispose();
                 ShaunScapades.currGameLevel = GameLevel.LEVEL_1;
-                game.setScreen(new LevelOneInfoSplashScreen(game));
                 game.reset();
+                game.setScreen(new LevelOneInfoSplashScreen(game));
             }
         });
     }

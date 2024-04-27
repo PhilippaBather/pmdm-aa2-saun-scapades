@@ -30,6 +30,7 @@ public class GameOverScreen implements Screen {
         this.resManager = this.game.getResManager();
 
         this.score = ShaunScapades.score;
+        ShaunScapades.score = 0;
     }
 
     @Override

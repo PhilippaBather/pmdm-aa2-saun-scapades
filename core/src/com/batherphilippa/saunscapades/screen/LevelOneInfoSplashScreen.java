@@ -42,7 +42,7 @@ public class LevelOneInfoSplashScreen implements Screen {
 
         stage.addAction(Actions.sequence(Actions.alpha(0),
                 Actions.fadeIn(1.5f),
-                Actions.delay(12f),
+                Actions.delay(10f),
                 Actions.run(new Runnable() {
                     @Override
                     public void run() {

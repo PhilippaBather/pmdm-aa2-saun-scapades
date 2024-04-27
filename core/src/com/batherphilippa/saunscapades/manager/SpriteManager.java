@@ -15,6 +15,7 @@ import com.batherphilippa.saunscapades.screen.scene.Hud;
 import com.batherphilippa.saunscapades.util.UserInput;
 
 import static com.batherphilippa.saunscapades.ShaunScapades.currGameLevel;
+import static com.batherphilippa.saunscapades.ShaunScapades.setGameState;
 import static com.batherphilippa.saunscapades.manager.constants.ResourcesConstants.*;
 import static com.batherphilippa.saunscapades.screen.constants.PointsConstants.*;
 import static com.batherphilippa.saunscapades.util.Constants.PPM;
@@ -134,7 +135,7 @@ public class SpriteManager implements Disposable {
         hud.updateScore(points);
     }
 
-     public void enemyKilled() {
+    public void enemyKilled() {
         resManager.playSound(SOUND_ENEMY_DEATH);
         resManager.playSound(SOUND_SHAUN_CELEBRATION);
         hud.updateScore(POINTS_ENEMY_KILLED);
@@ -143,28 +144,32 @@ public class SpriteManager implements Disposable {
     public void playerHit(SpriteType npc, int delay) {
         resManager.playSound(SOUND_SHAUN_DEATH_NOO);
 
-        if (npc == SpriteType.ENEMY) {
-            hud.updateEnergy(-2);
-            if (hud.getEnergy() <= 0) {
-                resManager.stopMusic(MUSIC_COUNTRYSIDE);
-                hud.stopTimer();
-                playerKilled(delay);
-            }
+        switch (npc) {
+            case ENEMY -> handleEnemyHit(delay);
+            case BOMB -> handleBombHit(delay);
+            case OBJECT -> handleObjectHit(delay);
         }
+    }
 
-        if (npc == SpriteType.BOMB) {
-            player.launchShaun();
-            resManager.playSound(SOUND_EXPLOSION);
-        }
-
-        if (npc == SpriteType.BOMB || npc == SpriteType.OBJECT) {
-            resManager.stopMusic(MUSIC_COUNTRYSIDE);
-            if (npc == SpriteType.OBJECT) {
-                resManager.playSound(SOUND_SHAUN_DEATH_NOO);
-            }
+    private void handleEnemyHit(int delay) {
+        hud.updateEnergy(-2);
+        if (hud.getEnergy() <= 0) {
             hud.stopTimer();
             playerKilled(delay);
         }
+    }
+
+    private void handleBombHit(int delay) {
+        player.launchShaun();
+        resManager.playSound(SOUND_EXPLOSION);
+        handleObjectHit(delay);
+    }
+
+    private void handleObjectHit(int delay) {
+        String music = currGameLevel == GameLevel.LEVEL_1 ? MUSIC_COUNTRYSIDE : MUSIC_SPACE;
+        resManager.stopMusic(music);
+        hud.stopTimer();
+        playerKilled(delay);
     }
 
     public void allyHit() {
@@ -179,11 +184,15 @@ public class SpriteManager implements Disposable {
         resManager.playSound(SOUND_ENEMY_DEATH);
     }
 
-
     private void playerKilled(int delay) {
-        this.player.resetState(SpriteState.DEAD);
-        this.hud.updateLives(-1);
+        player.resetState(SpriteState.DEAD);
+        hud.updateLives(-1);
+
+        setGameState(hud.getLives() <= 0 ? GameState.GAME_OVER : GameState.RUNNING);
+
         if (ShaunScapades.getGameState() != GameState.GAME_OVER) {
+            String music = currGameLevel == GameLevel.LEVEL_1 ? MUSIC_COUNTRYSIDE : MUSIC_SPACE;
+            resManager.playMusic(music, true);
             schedulePlayerRestart(delay);
         }
     }
@@ -199,16 +208,11 @@ public class SpriteManager implements Disposable {
     }
 
     private void restartPlayer() {
-
-        if (ShaunScapades.gameState != GameState.GAME_OVER) {
-            resManager.playSound(SOUND_TELEPORT_DOWN);
-            resManager.playMusic(MUSIC_COUNTRYSIDE, 4, true);
-            if (hud.getEnergy() <= 0) {
-                hud.updateEnergy(4);
-            }
-            resetPlayer();
-            hud.resetWorldTimer();
+        if (hud.getEnergy() <= 0) {
+            hud.updateEnergy(4);
         }
+        resetPlayer();
+        hud.resetWorldTimer();
     }
 
     public void resetPlayer() {
@@ -234,7 +238,8 @@ public class SpriteManager implements Disposable {
 
     public void levelEndCelebration() {
         player.resetState(SpriteState.VICTORY);
-        resManager.stopMusic(MUSIC_COUNTRYSIDE);
+        String music = currGameLevel == GameLevel.LEVEL_1 ? MUSIC_COUNTRYSIDE : MUSIC_SPACE;
+        resManager.stopMusic(music);
         resManager.playMusic(MUSIC_LEVEL_END, true);
         hud.updateScore(POINTS_LEVEL_VICTORY);
         Timer.Task task = new Timer.Task() {
@@ -254,6 +259,7 @@ public class SpriteManager implements Disposable {
     public void handleFallingSheep() {
         resManager.playSound(SOUND_TIMMY_TRAMPOLINE);
     }
+
     public void handleParalysedShaun() {
         handleFallingSheep();
         resManager.playSound(SOUND_SHAUN_PARALYSED);

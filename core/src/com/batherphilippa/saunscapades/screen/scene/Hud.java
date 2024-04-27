@@ -108,6 +108,10 @@ public class Hud implements Disposable {
         return worldTimer;
     }
 
+    public int getLives() {
+        return lives;
+    }
+
     public void updateEnergy(int update) {
         this.energy += update;
         energyValueLabel.setText(String.format("%02d", energy));
@@ -124,6 +128,7 @@ public class Hud implements Disposable {
     public void updateScore(int value) {
         score += value;
         scoreValueLabel.setText(String.format("%04d", score));
+
     }
 
     public void updateTimer(float dt) {

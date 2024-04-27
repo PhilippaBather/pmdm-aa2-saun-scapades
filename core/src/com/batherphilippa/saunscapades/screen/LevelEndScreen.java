@@ -19,8 +19,10 @@ public class LevelEndScreen implements Screen {
     private VisTextButton playBtn;
     private VisTextButton saveBtn;
     private VisLabel missionTitle;
-    private VisLabel nextLevelAvoid;
-    private VisLabel nextLevelInfo;
+    private VisLabel nextLevelInfo1;
+    private VisLabel nextLevelInfo2;
+    private VisLabel nextLevelInfo3;
+    private VisLabel nextLevelInfo4;
     private VisLabel scoreInfo;
     private VisLabel title;
 
@@ -50,8 +52,10 @@ public class LevelEndScreen implements Screen {
         this.title = new VisLabel(TEXT_FIELD_LEVEL_END);
         this.scoreInfo = new VisLabel(String.format(TEXT_FIELD_SCORE, score));
         this.missionTitle = new VisLabel(LABEL_MISSION_2);
-        this.nextLevelInfo = new VisLabel(TEXT_AREA_LEVEL_2_INFO);
-        this.nextLevelAvoid = new VisLabel(TEXT_AREA_LEVEL_2_AVOID);
+        this.nextLevelInfo1 = new VisLabel(LABEL_LEVEL_2_INFO_1);
+        this.nextLevelInfo2 = new VisLabel(LABEL_LEVEL_2_INFO_2);
+        this.nextLevelInfo3 = new VisLabel(LABEL_LEVEL_2_INFO_3);
+        this.nextLevelInfo4 = new VisLabel(LABEL_LEVEL_2_INFO_4);
         this.playBtn = new VisTextButton(BTN_PLAY);
         this.saveBtn = new VisTextButton(BTN_SAVE);
         this.exitBtn = new VisTextButton(BTN_EXIT);
@@ -77,9 +81,13 @@ public class LevelEndScreen implements Screen {
         table.row();
         table.add(missionTitle).center().height(40).pad(5);
         table.row();
-        table.add(nextLevelInfo).center().height(50).pad(5);
+        table.add(nextLevelInfo1).center().height(50).pad(5);
         table.row();
-        table.add(nextLevelAvoid).center().height(50).pad(5);
+        table.add(nextLevelInfo2).center().height(50).pad(5);
+        table.row();
+        table.add(nextLevelInfo3).center().height(50).pad(5);
+        table.row();
+        table.add(nextLevelInfo4).center().height(50).pad(5);
 
         // action button table
         actionsTable.setPosition(0, -200);

@@ -48,7 +48,6 @@ public class ResourceManager implements Disposable {
         this.soundMap.put(SOUND_SHIRLEY_CELEBRATION, Gdx.audio.newSound(Gdx.files.internal("sound/sound/shirley-celebration.wav")));
         this.soundMap.put(SOUND_SHIRLEY_DEATH_NOO, Gdx.audio.newSound(Gdx.files.internal("sound/sound/shirley-death-noo.wav")));
         this.soundMap.put(SOUND_SPLASH, Gdx.audio.newSound(Gdx.files.internal("sound/sound/splash.wav")));
-        this.soundMap.put(SOUND_TELEPORT_DOWN, Gdx.audio.newSound(Gdx.files.internal("sound/sound/teleport-down.wav")));
         this.soundMap.put(SOUND_TIMMY_TRAMPOLINE, Gdx.audio.newSound(Gdx.files.internal("sound/sound/timmy-trampoline.wav")));
     }
 
@@ -69,16 +68,6 @@ public class ResourceManager implements Disposable {
         this.musicMap.get(name).play();
     }
 
-    public void playMusic(String name, int delay, boolean looping) {
-        Timer.Task task = new Timer.Task() {
-            @Override
-            public void run() {
-                playMusic(name, true);
-            }
-        };
-
-        Timer.instance().scheduleTask(task, delay);
-    }
     public void playSound(String name) {
         this.soundMap.get(name).play();
     }
