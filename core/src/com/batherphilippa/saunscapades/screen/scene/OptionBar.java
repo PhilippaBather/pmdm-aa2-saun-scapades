@@ -3,19 +3,25 @@ package com.batherphilippa.saunscapades.screen.scene;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Disposable;
-import com.batherphilippa.saunscapades.SaunScapades;
+import com.batherphilippa.saunscapades.ShaunScapades;
 import com.batherphilippa.saunscapades.manager.CameraManager;
 import com.batherphilippa.saunscapades.manager.OptionManager;
+import com.batherphilippa.saunscapades.screen.GameScreen;
 import com.batherphilippa.saunscapades.screen.util.UIUtils;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 
 import static com.batherphilippa.saunscapades.screen.constants.UIConstants.*;
 
+/**
+ * OptionBar - define la barra de opciones en la pantalla de juego: pause ('pausa'), main menu ('menú principal`) y
+ * exit.
+ */
 public class OptionBar implements Disposable {
 
-    private final SaunScapades game;
+    private final ShaunScapades game;
     private final SpriteBatch batch;
+    private final GameScreen gameScreen;
     private final Stage stage;
 
     // opciones de la tabla
@@ -23,9 +29,10 @@ public class OptionBar implements Disposable {
     private VisTextButton pauseBtn;
     private VisTextButton exitBtn;
 
-    public OptionBar(SaunScapades game, SpriteBatch batch) {
+    public OptionBar(ShaunScapades game, SpriteBatch batch, GameScreen gameScreen) {
         this.game = game;
         this.batch = batch;
+        this.gameScreen = gameScreen;
         CameraManager camManager = this.game.getCamManager();
 
         VisTable table = UIUtils.createTableObj();
@@ -40,9 +47,9 @@ public class OptionBar implements Disposable {
 
     private void defineTable(VisTable table) {
         table.bottom().left();
-        table.add(pauseBtn).height(15);
-        table.add(menuBtn).height(15);
-        table.add(exitBtn).height(15);
+        table.add(pauseBtn).center().height(10).width(50);
+        table.add(menuBtn).center().height(10).width(50);
+        table.add(exitBtn).center().height(10).width(50);
     }
 
     private void setTextButtons() {
@@ -53,8 +60,8 @@ public class OptionBar implements Disposable {
 
     private void addClickListeners() {
         OptionManager.handlePauseClicked(pauseBtn);
-        OptionManager.handleExitClicked(exitBtn, null);
-        OptionManager.handleMainMenuClicked(menuBtn, game, null);
+        OptionManager.handleExitClicked(exitBtn, gameScreen);
+        OptionManager.handleMainMenuClicked(menuBtn, game, gameScreen);
     }
 
     public Stage getStage() {

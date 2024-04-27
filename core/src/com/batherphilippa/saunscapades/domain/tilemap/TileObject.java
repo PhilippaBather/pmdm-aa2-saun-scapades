@@ -5,8 +5,11 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
 
-import static com.batherphilippa.saunscapades.util.Constants.PPM;
+import static com.batherphilippa.saunscapades.screen.constants.AppConstants.PPM;
 
+/**
+ * TileObject - define un objeto de azulejo en el TiledMap.
+ */
 public abstract class TileObject {
 
     protected World world;
@@ -23,6 +26,9 @@ public abstract class TileObject {
         createBody();
     }
 
+    /**
+     * Crea el B2Body.
+     */
     private void createBody() {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
@@ -44,16 +50,25 @@ public abstract class TileObject {
         shape.dispose();
     }
 
+    /**
+     * Establece el bit de categoría.
+     * @param filterBit
+     */
     protected void setCategoryFilter(short filterBit) {
         Filter filter = new Filter();
         filter.categoryBits = filterBit;
         fixture.setFilterData(filter);
     }
 
+    /**
+     * Devuelve la celda de la mapa asociado con el objeto.
+     * @param layerLevel - el nivel de la mapa
+     * @return
+     */
     protected TiledMapTileLayer.Cell getCell(int layerLevel) {
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(layerLevel);
-        // scale up as previously scaled down so looks identical to the tiled map
-        // then divide by tile size (16) to get x/y value for cell's location
+        // aumenta a escala como se redujo anteriormente para que parezca idéntico al TiledMap
+        //luego divida por el tamaño del mosaico (16) para obtener el valor x/y para la ubicación de la celda
         return layer.getCell(
                 (int) (body.getPosition().x * PPM / 16),
                 (int) (body.getPosition().y * PPM / 16));

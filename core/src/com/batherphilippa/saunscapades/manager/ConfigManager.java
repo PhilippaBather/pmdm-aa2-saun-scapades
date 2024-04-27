@@ -6,9 +6,12 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.kotcrab.vis.ui.widget.VisList;
 
-import static com.batherphilippa.saunscapades.GameConstants.APP_NAME;
 import static com.batherphilippa.saunscapades.screen.constants.ConfigConstants.*;
+import static com.batherphilippa.saunscapades.screen.constants.AppConstants.APP_NAME;
 
+/**
+ * ConfigManager - la clase responsable de guardar y devolver las preferencias selecionadas en la pantalla de configuración.
+ */
 public class ConfigManager {
 
     private static final Preferences prefs = Gdx.app.getPreferences(APP_NAME);
@@ -52,28 +55,42 @@ public class ConfigManager {
                     default ->
                             throw new IllegalStateException("Unexpected value: " + gameDiffList.getSelectedIndex());
                 };
+                prefs.flush();
             }
         });
     }
 
+    public static String getGameDiffOption() {
+        String selected = getGameDifficulty();
+        return switch(selected) {
+            case "medium" -> GAME_MEDIUM;
+            case "hard" -> GAME_HARD;
+            default -> GAME_EASY;
+        };
+    }
+
     private static void setGameEasyPref() {
+        prefs.putString("game_diff", "easy");
         prefs.putFloat("game_lives", 5);
         prefs.putFloat("game_energy", 6);
         prefs.flush();
     }
 
     private static void setGameMediumPref() {
+        prefs.putString("game_diff", "medium");
         prefs.putFloat("game_lives", 3);
         prefs.putFloat("game_energy", 4);
         prefs.flush();
     }
 
     private static void setGameHardPref() {
+        prefs.putString("game_diff", "hard");
         prefs.putFloat("game_lives", 1);
         prefs.putFloat("game_energy", 2);
         prefs.flush();
     }
 
+    public static String getGameDifficulty() { return prefs.getString("game_diff");};
     public static float getGameLives() {
         return prefs.getFloat("game_lives");
     }

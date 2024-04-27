@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Disposable;
-import com.batherphilippa.saunscapades.SaunScapades;
+import com.batherphilippa.saunscapades.ShaunScapades;
 import com.batherphilippa.saunscapades.manager.CameraManager;
 import com.batherphilippa.saunscapades.manager.ConfigManager;
 import com.batherphilippa.saunscapades.screen.GameState;
@@ -14,6 +14,9 @@ import com.batherphilippa.saunscapades.screen.util.UIUtils;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 
+/**
+ * Hud - define el HUD que contiene información sobre la punctuación, energía, nivel actual, vidas y el temporazidor.
+ */
 public class Hud implements Disposable {
 
     private final SpriteBatch batch;
@@ -59,9 +62,9 @@ public class Hud implements Disposable {
 
     public void setInitialValues() {
         this.energy = (int) ConfigManager.getGameEnergy();
-        this.level = SaunScapades.currGameLevel.getLevel();
+        this.level = ShaunScapades.currGameLevel.getLevel();
         this.lives = (int) ConfigManager.getGameLives();
-        this.score = SaunScapades.score;
+        this.score = ShaunScapades.score;
         this.timeCount = 0;
         this.worldTimer = (int) ConfigManager.getGameLength();
     }
@@ -104,6 +107,14 @@ public class Hud implements Disposable {
         return energy;
     }
 
+    public int getWorldTimer() {
+        return worldTimer;
+    }
+
+    public int getLives() {
+        return lives;
+    }
+
     public void updateEnergy(int update) {
         this.energy += update;
         energyValueLabel.setText(String.format("%02d", energy));
@@ -113,13 +124,14 @@ public class Hud implements Disposable {
         lives += update;
         livesValueLabel.setText(String.format("%02d", lives));
         if (lives <= 0) {
-            SaunScapades.setGameState(GameState.GAME_OVER);
+            ShaunScapades.setGameState(GameState.GAME_OVER);
         }
     }
 
     public void updateScore(int value) {
         score += value;
         scoreValueLabel.setText(String.format("%04d", score));
+
     }
 
     public void updateTimer(float dt) {

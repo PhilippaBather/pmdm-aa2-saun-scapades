@@ -3,7 +3,7 @@ package com.batherphilippa.saunscapades.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.batherphilippa.saunscapades.SaunScapades;
+import com.batherphilippa.saunscapades.ShaunScapades;
 import com.batherphilippa.saunscapades.manager.OptionManager;
 import com.batherphilippa.saunscapades.screen.util.UIUtils;
 import com.kotcrab.vis.ui.widget.VisLabel;
@@ -12,16 +12,19 @@ import com.kotcrab.vis.ui.widget.VisTextButton;
 
 import static com.batherphilippa.saunscapades.screen.constants.UIConstants.*;
 
+/**
+ * MainMenuScreen - define la pantalla del menú principal; implementa Screen.
+ */
 public class MainMenuScreen implements Screen {
 
-    private final SaunScapades game;
+    private final ShaunScapades game;
     private Stage stage;
     private VisLabel titleLabel;
     private VisTextButton configBtn;
     private VisTextButton exitBtn;
     private VisTextButton playBtn;
 
-    public MainMenuScreen(SaunScapades game) {
+    public MainMenuScreen(ShaunScapades game) {
         this.game = game;
     }
 
@@ -83,12 +86,12 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void pause() {
-        SaunScapades.gameState = GameState.PAUSED;
+        ShaunScapades.gameState = GameState.PAUSED;
     }
 
     @Override
     public void resume() {
-        SaunScapades.gameState = GameState.RUNNING;
+        ShaunScapades.gameState = GameState.RUNNING;
     }
 
     @Override
