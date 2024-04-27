@@ -49,7 +49,7 @@ public class GameScreen implements Screen {
         this.b2WorldManager = new B2WorldManager(this, resourceManager, hud);
         this.spriteManager = new SpriteManager(resourceManager, batch, hud, b2WorldManager);
         this.pauseMenu = new PauseBackground(this.game);
-        this.optionBar = new OptionBar(this.game, this.batch);
+        this.optionBar = new OptionBar(this.game, this.batch, this);
     }
 
     public SpriteManager getSpriteManager() {
@@ -78,7 +78,6 @@ public class GameScreen implements Screen {
         }
 
         if (ShaunScapades.gameState == GameState.GAME_OVER) {
-            resourceManager.stopMusic(MUSIC_COUNTRYSIDE);
             dispose();
             game.setScreen(new GameOverScreen(game));
         }
@@ -142,7 +141,8 @@ public class GameScreen implements Screen {
 
     @Override
     public void hide() {
-
+        String music = currLevel == GameLevel.LEVEL_1 ? MUSIC_COUNTRYSIDE : MUSIC_SPACE;
+        resourceManager.stopMusic(music);
     }
 
     @Override
