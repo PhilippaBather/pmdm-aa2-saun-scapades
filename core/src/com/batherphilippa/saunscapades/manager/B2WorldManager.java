@@ -116,10 +116,10 @@ public class B2WorldManager implements Disposable {
         return bombArr;
     }
 
-    public ShirleySheep renderLevelEndSheep(TextureRegion region, SpriteManager spriteManager) {
+    public Balloons renderLevelEndSheep(TextureRegion region, SpriteManager spriteManager) {
         Array<RectangleMapObject> objArray = map.getLayers().get(SHIRLEY_SHEEP_TL).getObjects().getByType(RectangleMapObject.class);
         Rectangle rect = objArray.get(0).getRectangle();
-        return new ShirleySheep(region, world, rect.getX(), rect.getY(), 8, spriteManager);
+        return new Balloons(region, world, rect.getX(), rect.getY(), 8, spriteManager);
     }
 
     public Array<FallingSheep> renderFallingSheep(TextureRegion region, SpriteManager spriteManager) {

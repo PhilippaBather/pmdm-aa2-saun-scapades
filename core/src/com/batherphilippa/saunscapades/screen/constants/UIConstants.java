@@ -3,7 +3,6 @@ package com.batherphilippa.saunscapades.screen.constants;
 public class UIConstants {
 
     public static final String BTN_CONFIG = "CONFIGURATIONS";
-//    public static final String BTN_CONT = "CONTINUE";
     public static final String BTN_EXIT = "EXIT";
     public static final String BTN_MAIN_MENU = "MAIN MENU";
     public static final String BTN_MENU = "MENU";
@@ -28,7 +27,7 @@ public class UIConstants {
     public static final String LABEL_MAIN_MENU_TITLE = "MAIN MENU";
     public static final String LABEL_OPTIONS_MENU_TITLE = "SELECT CONFIGURATION OPTIONS";
     public static final String LABEL_MISSION_2 = "Mission 2";
-    public static final String TEXT_AREA_LEVEL_2_INFO = "Save as many ShirleySheep sheep from the bombs.";
+    public static final String TEXT_AREA_LEVEL_2_INFO = "Save the trapped Shirley sheep from the bombs.";
     public static final String TEXT_AREA_LEVEL_2_AVOID = "Avoid falling Timmy sheep.";
     public static final String TEXT_FIELD_LEVEL_END = "Congratulations: Level Conquered!";
     public static final String TEXT_FIELD_SCORE = "SCORE: %s";

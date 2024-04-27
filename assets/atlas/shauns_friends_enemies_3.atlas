@@ -1,0 +1,484 @@
+
+shauns_friends_enemies_3.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+balloons
+  rotate: false
+  xy: 1, 542
+  size: 358, 481
+  orig: 358, 481
+  offset: 0, 0
+  index: -1
+shirley_electrocute
+  rotate: false
+  xy: 1, 248
+  size: 391, 292
+  orig: 391, 292
+  offset: 0, 0
+  index: 2
+shirley_electrocute
+  rotate: false
+  xy: 1, 248
+  size: 391, 292
+  orig: 391, 292
+  offset: 0, 0
+  index: 3
+shirley_electrocute
+  rotate: false
+  xy: 361, 738
+  size: 372, 285
+  orig: 372, 285
+  offset: 0, 0
+  index: 6
+shirley_electrocute
+  rotate: false
+  xy: 361, 738
+  size: 372, 285
+  orig: 372, 285
+  offset: 0, 0
+  index: 7
+timmy_electrocute
+  rotate: false
+  xy: 361, 550
+  size: 248, 186
+  orig: 248, 186
+  offset: 0, 0
+  index: 2
+timmy_electrocute
+  rotate: false
+  xy: 361, 550
+  size: 248, 186
+  orig: 248, 186
+  offset: 0, 0
+  index: 3
+shirley_electrocute
+  rotate: false
+  xy: 394, 271
+  size: 392, 277
+  orig: 392, 277
+  offset: 0, 0
+  index: 4
+shirley_electrocute
+  rotate: false
+  xy: 394, 271
+  size: 392, 277
+  orig: 392, 277
+  offset: 0, 0
+  index: 5
+shaun_walk
+  rotate: false
+  xy: 611, 556
+  size: 252, 180
+  orig: 252, 180
+  offset: 0, 0
+  index: 3
+shaun_electrocute
+  rotate: false
+  xy: 394, 9
+  size: 340, 260
+  orig: 340, 260
+  offset: 0, 0
+  index: 2
+shaun_electrocute
+  rotate: false
+  xy: 394, 9
+  size: 340, 260
+  orig: 340, 260
+  offset: 0, 0
+  index: 3
+shaun_electrocute
+  rotate: false
+  xy: 1, 1
+  size: 329, 245
+  orig: 329, 245
+  offset: 0, 0
+  index: 0
+shaun_electrocute
+  rotate: false
+  xy: 1, 1
+  size: 329, 245
+  orig: 329, 245
+  offset: 0, 0
+  index: 1
+shaun_walk
+  rotate: false
+  xy: 736, 89
+  size: 251, 180
+  orig: 251, 180
+  offset: 0, 0
+  index: 7
+timmy_electrocute
+  rotate: false
+  xy: 788, 351
+  size: 234, 203
+  orig: 234, 203
+  offset: 0, 0
+  index: 0
+timmy_electrocute
+  rotate: false
+  xy: 788, 351
+  size: 234, 203
+  orig: 234, 203
+  offset: 0, 0
+  index: 1
+black_sheep_dead
+  rotate: false
+  xy: 788, 278
+  size: 102, 71
+  orig: 102, 71
+  offset: 0, 0
+  index: 1
+black_sheep_dead
+  rotate: false
+  xy: 892, 278
+  size: 102, 71
+  orig: 102, 71
+  offset: 0, 0
+  index: 2
+blacks_sheep_hit
+  rotate: false
+  xy: 736, 8
+  size: 98, 79
+  orig: 98, 79
+  offset: 0, 0
+  index: -1
+black_sheep_dead
+  rotate: false
+  xy: 836, 16
+  size: 102, 71
+  orig: 102, 71
+  offset: 0, 0
+  index: 3
+shaun_walk
+  rotate: false
+  xy: 735, 851
+  size: 249, 172
+  orig: 249, 172
+  offset: 0, 0
+  index: 4
+bomb_idle
+  rotate: false
+  xy: 735, 742
+  size: 110, 107
+  orig: 110, 107
+  offset: 0, 0
+  index: -1
+timmy_idle
+  rotate: false
+  xy: 847, 744
+  size: 147, 105
+  orig: 147, 105
+  offset: 0, 0
+  index: -1
+timmy_victory
+  rotate: false
+  xy: 865, 616
+  size: 151, 126
+  orig: 151, 126
+  offset: 0, 0
+  index: 12
+
+shauns_friends_enemies_32.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+shirley_electrocute
+  rotate: false
+  xy: 1, 747
+  size: 381, 276
+  orig: 381, 276
+  offset: 0, 0
+  index: 0
+shirley_electrocute
+  rotate: false
+  xy: 1, 747
+  size: 381, 276
+  orig: 381, 276
+  offset: 0, 0
+  index: 1
+shaun_electrocute
+  rotate: false
+  xy: 384, 777
+  size: 336, 246
+  orig: 336, 246
+  offset: 0, 0
+  index: 4
+shaun_electrocute
+  rotate: false
+  xy: 384, 777
+  size: 336, 246
+  orig: 336, 246
+  offset: 0, 0
+  index: 5
+shaun_walk
+  rotate: false
+  xy: 722, 851
+  size: 248, 172
+  orig: 248, 172
+  offset: 0, 0
+  index: 0
+shaun_walk
+  rotate: false
+  xy: 722, 669
+  size: 245, 180
+  orig: 245, 180
+  offset: 0, 0
+  index: 2
+shaun_walk
+  rotate: false
+  xy: 384, 595
+  size: 245, 180
+  orig: 245, 180
+  offset: 0, 0
+  index: 6
+shaun_walk
+  rotate: false
+  xy: 1, 573
+  size: 244, 172
+  orig: 244, 172
+  offset: 0, 0
+  index: 5
+timmy_victory
+  rotate: false
+  xy: 247, 598
+  size: 130, 147
+  orig: 130, 147
+  offset: 0, 0
+  index: 11
+timmy_victory
+  rotate: false
+  xy: 247, 475
+  size: 129, 121
+  orig: 129, 121
+  offset: 0, 0
+  index: 6
+shaun_idle
+  rotate: false
+  xy: 1, 401
+  size: 243, 170
+  orig: 243, 170
+  offset: 0, 0
+  index: -1
+shaun_walk
+  rotate: false
+  xy: 631, 495
+  size: 242, 172
+  orig: 242, 172
+  offset: 0, 0
+  index: 1
+timmy_victory
+  rotate: false
+  xy: 875, 565
+  size: 148, 102
+  orig: 148, 102
+  offset: 0, 0
+  index: 14
+timmy_victory
+  rotate: false
+  xy: 875, 462
+  size: 147, 101
+  orig: 147, 101
+  offset: 0, 0
+  index: 1
+timmy_electrocute
+  rotate: false
+  xy: 378, 388
+  size: 226, 205
+  orig: 226, 205
+  offset: 0, 0
+  index: 4
+timmy_electrocute
+  rotate: false
+  xy: 378, 388
+  size: 226, 205
+  orig: 226, 205
+  offset: 0, 0
+  index: 5
+shaun_victory
+  rotate: false
+  xy: 246, 297
+  size: 128, 176
+  orig: 128, 176
+  offset: 0, 0
+  index: 3
+shaun_victory
+  rotate: false
+  xy: 246, 297
+  size: 128, 176
+  orig: 128, 176
+  offset: 0, 0
+  index: 4
+shaun_jump_up
+  rotate: false
+  xy: 1, 222
+  size: 223, 177
+  orig: 223, 177
+  offset: 0, 0
+  index: 4
+timmy_electrocute
+  rotate: false
+  xy: 1, 1
+  size: 207, 219
+  orig: 207, 219
+  offset: 0, 0
+  index: 6
+timmy_electrocute
+  rotate: false
+  xy: 1, 1
+  size: 207, 219
+  orig: 207, 219
+  offset: 0, 0
+  index: 7
+shirley_end_level
+  rotate: false
+  xy: 210, 14
+  size: 194, 206
+  orig: 194, 206
+  offset: 0, 0
+  index: -1
+timmy_victory
+  rotate: false
+  xy: 376, 235
+  size: 105, 151
+  orig: 105, 151
+  offset: 0, 0
+  index: 10
+shaun_victory
+  rotate: false
+  xy: 406, 60
+  size: 182, 173
+  orig: 182, 173
+  offset: 0, 0
+  index: 1
+shaun_victory
+  rotate: false
+  xy: 406, 60
+  size: 182, 173
+  orig: 182, 173
+  offset: 0, 0
+  index: 2
+timmy_victory
+  rotate: false
+  xy: 483, 238
+  size: 102, 148
+  orig: 102, 148
+  offset: 0, 0
+  index: 5
+timmy_victory
+  rotate: false
+  xy: 587, 253
+  size: 100, 133
+  orig: 100, 133
+  offset: 0, 0
+  index: 4
+explosion
+  rotate: false
+  xy: 606, 388
+  size: 115, 105
+  orig: 115, 105
+  offset: 0, 0
+  index: 2
+timmy_victory
+  rotate: false
+  xy: 723, 400
+  size: 150, 93
+  orig: 150, 93
+  offset: 0, 0
+  index: 2
+timmy_victory
+  rotate: false
+  xy: 875, 346
+  size: 144, 114
+  orig: 144, 114
+  offset: 0, 0
+  index: 3
+shaun_victory
+  rotate: false
+  xy: 689, 213
+  size: 179, 173
+  orig: 179, 173
+  offset: 0, 0
+  index: 5
+shaun_victory
+  rotate: false
+  xy: 689, 213
+  size: 179, 173
+  orig: 179, 173
+  offset: 0, 0
+  index: 6
+timmy_victory
+  rotate: false
+  xy: 870, 231
+  size: 151, 113
+  orig: 151, 113
+  offset: 0, 0
+  index: 13
+timmy_victory
+  rotate: false
+  xy: 870, 127
+  size: 125, 102
+  orig: 125, 102
+  offset: 0, 0
+  index: 7
+timmy_victory
+  rotate: false
+  xy: 590, 11
+  size: 124, 114
+  orig: 124, 114
+  offset: 0, 0
+  index: 8
+explosion
+  rotate: false
+  xy: 716, 13
+  size: 114, 112
+  orig: 114, 112
+  offset: 0, 0
+  index: 1
+explosion
+  rotate: false
+  xy: 832, 20
+  size: 115, 105
+  orig: 115, 105
+  offset: 0, 0
+  index: 3
+
+shauns_friends_enemies_33.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+timmy_victory
+  rotate: false
+  xy: 1, 1
+  size: 107, 125
+  orig: 107, 125
+  offset: 0, 0
+  index: 9
+black_sheep_run
+  rotate: false
+  xy: 110, 26
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: 1
+black_sheep_run
+  rotate: false
+  xy: 212, 37
+  size: 108, 89
+  orig: 108, 89
+  offset: 0, 0
+  index: 2
+black_sheep_run
+  rotate: false
+  xy: 212, 37
+  size: 108, 89
+  orig: 108, 89
+  offset: 0, 0
+  index: 4
+black_sheep_run
+  rotate: false
+  xy: 322, 37
+  size: 108, 89
+  orig: 108, 89
+  offset: 0, 0
+  index: 3

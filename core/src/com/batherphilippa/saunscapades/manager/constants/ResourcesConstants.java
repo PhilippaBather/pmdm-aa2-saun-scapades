@@ -15,6 +15,7 @@ public class ResourcesConstants {
     public static final String SOUND_COIN = "coin";
     public static final String SOUND_ENEMY_DEATH = "enemy_death";
     public static final String SOUND_EXPLOSION = "explosion";
+    public static final String SOUND_FALLING_SHEEP_DEATH = "falling_sheep_death";
     public static final String SOUND_GAME_OVER = "game_over";
     public static final String SOUND_SHAUN_CELEBRATION = "shaun_celebration";
     public static final String SOUND_SHAUN_DEATH_NOO = "shaun_death_no";

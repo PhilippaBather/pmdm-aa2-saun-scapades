@@ -79,7 +79,7 @@ public class WorldContactListener implements ContactListener, Disposable {
                 } else {
                     ((AngrySheep) fixB.getUserData()).resetState(SpriteState.DEAD);
                 }
-                spriteManager.enemyHit();
+                spriteManager.enemyKilled();
             }
             case (BOMB_BIT | SHAUN_BIT) -> {
                 if (fixA.getFilterData().categoryBits == BOMB_BIT) {
@@ -89,7 +89,7 @@ public class WorldContactListener implements ContactListener, Disposable {
                 }
                 spriteManager.playerHit(SpriteType.BOMB, 1);
             }
-            case (SHAUN_BIT | SHIRLEY_BIT) -> spriteManager.levelEndCelebration();
+            case (SHAUN_BIT | BALLOON_BIT) -> spriteManager.levelEndCelebration();
             case (SHAUN_HEAD_BIT | BLOCK_BIT) -> {
                 if (fixA.getFilterData().categoryBits == BLOCK_BIT) {
                     ((Block) fixA.getUserData()).onContact();
@@ -104,9 +104,9 @@ public class WorldContactListener implements ContactListener, Disposable {
                     ((Bomb) fixB.getUserData()).setDetonated(true);
                 }
                 if (fixA.getFilterData().categoryBits == TRAPPED_SHEEP_BIT) {
-                    ((TrappedSheep) fixA.getUserData()).setKilled();
+                    ((TrappedSheep) fixA.getUserData()).resetState(SpriteState.DEAD);
                 } else {
-                    ((TrappedSheep) fixB.getUserData()).setKilled();
+                    ((TrappedSheep) fixB.getUserData()).resetState(SpriteState.DEAD);
                 }
                 spriteManager.handleSheepDeath();
             }
@@ -125,6 +125,26 @@ public class WorldContactListener implements ContactListener, Disposable {
                 }
             }
             case (FALLING_SHEEP_BIT | GROUND_BIT), TRAPPED_SHEEP_BIT, OBJECT_BIT -> spriteManager.handleFallingSheep();
+            case (BOMB_BIT | ENEMY_BIT) -> {
+                if (fixA.getFilterData().categoryBits == BOMB_BIT) {
+                    ((Bomb) fixA.getUserData()).resetState(SpriteState.DEAD);
+                    ((AngrySheep) fixB.getUserData()).resetState(SpriteState.DEAD);
+                } else {
+                    ((Bomb) fixB.getUserData()).resetState(SpriteState.DEAD);
+                    ((AngrySheep) fixA.getUserData()).resetState(SpriteState.DEAD);
+                }
+                spriteManager.handleEnemyHitByBomb();
+            }
+            case (BOMB_BIT | FALLING_SHEEP_BIT) -> {
+                if (fixA.getFilterData().categoryBits == BOMB_BIT) {
+                    ((Bomb) fixA.getUserData()).resetState(SpriteState.DEAD);
+                    ((FallingSheep) fixB.getUserData()).resetState(SpriteState.DEAD);
+                } else {
+                    ((Bomb) fixB.getUserData()).resetState(SpriteState.DEAD);
+                    ((FallingSheep) fixA.getUserData()).resetState(SpriteState.DEAD);
+                }
+                spriteManager.allyHit();
+            }
         }
     }
 

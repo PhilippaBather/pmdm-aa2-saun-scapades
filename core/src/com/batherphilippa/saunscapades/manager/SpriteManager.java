@@ -26,7 +26,7 @@ public class SpriteManager implements Disposable {
     private final SpriteBatch batch;
     private final Hud hud;
     private Shaun player;
-    private ShirleySheep shirleySheep;
+    private Balloons balloons;
     private Array<Bomb> bombArr;
     private Array<AngrySheep> angrySheepArr;
     private Array<FallingSheep> fallingSheepArr;
@@ -46,7 +46,7 @@ public class SpriteManager implements Disposable {
      */
     private void init() {
         this.player = new Shaun(resManager.loadRegion("shaun_idle", -1), b2WorldManager.getWorld(), 32, 38, 8, this);
-        this.shirleySheep = b2WorldManager.renderLevelEndSheep(resManager.loadRegion("shirley_end_level", -1), this);
+        this.balloons = b2WorldManager.renderLevelEndSheep(resManager.loadRegion("balloons", -1), this);
         this.angrySheepArr = b2WorldManager.renderAngrySheep(resManager.loadRegion("black_sheep_run", 1), this);
         this.bombArr = b2WorldManager.renderBombs(resManager.loadRegion("bomb_idle", -1), this);
 
@@ -66,7 +66,7 @@ public class SpriteManager implements Disposable {
 
     public void update(float dt) {
         this.player.update(dt);
-        this.shirleySheep.update(dt);
+        this.balloons.update(dt);
 
         for (AngrySheep angrySheep : angrySheepArr) {
             angrySheep.update(dt);
@@ -83,7 +83,7 @@ public class SpriteManager implements Disposable {
                 sheep.update(dt);
             }
             for (FallingSheep sheep : fallingSheepArr) {
-                if (sheep.getX() < player.getX() + 7 / PPM) {
+                if (sheep.getX() < player.getX() + 10 / PPM) {
                     sheep.update(dt);
                 }
             }
@@ -110,7 +110,7 @@ public class SpriteManager implements Disposable {
 
         batch.begin();
         player.render(batch);
-        shirleySheep.draw(batch);
+        balloons.draw(batch);
         for (AngrySheep angrySheep : angrySheepArr) {
             angrySheep.render(batch);
         }
@@ -134,7 +134,7 @@ public class SpriteManager implements Disposable {
         hud.updateScore(points);
     }
 
-    public void enemyHit() {
+     public void enemyKilled() {
         resManager.playSound(SOUND_ENEMY_DEATH);
         resManager.playSound(SOUND_SHAUN_CELEBRATION);
         hud.updateScore(POINTS_ENEMY_KILLED);
@@ -165,6 +165,18 @@ public class SpriteManager implements Disposable {
             hud.stopTimer();
             playerKilled(delay);
         }
+    }
+
+    public void allyHit() {
+        resManager.playSound(SOUND_EXPLOSION);
+        resManager.playSound(SOUND_SHIRLEY_DEATH_NOO);
+        resManager.playSound(SOUND_FALLING_SHEEP_DEATH);
+    }
+
+    public void handleEnemyHitByBomb() {
+        resManager.playSound(SOUND_EXPLOSION);
+        resManager.playSound(SOUND_SHAUN_CELEBRATION);
+        resManager.playSound(SOUND_ENEMY_DEATH);
     }
 
 
@@ -259,7 +271,7 @@ public class SpriteManager implements Disposable {
         hud.dispose();
         resManager.dispose();
         player.dispose();
-        shirleySheep.dispose();
+        balloons.dispose();
     }
 
 }
