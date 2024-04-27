@@ -9,7 +9,6 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
@@ -31,7 +30,7 @@ public class B2WorldManager implements Disposable {
     private final TiledMap map;
     private final OrthogonalTiledMapRenderer renderer; // renders map to screen
 
-    private final Box2DDebugRenderer b2dr;
+//    private final Box2DDebugRenderer b2dr;
 
     public B2WorldManager(GameScreen gameScreen, ResourceManager resManager, Hud hud) {
         this.resManager = resManager;
@@ -43,7 +42,7 @@ public class B2WorldManager implements Disposable {
         this.map = loadMap();
 
         this.renderer = new OrthogonalTiledMapRenderer(map, 1 / PPM);
-        this.b2dr = new Box2DDebugRenderer();
+//        this.b2dr = new Box2DDebugRenderer();
 
         renderInteractiveObjects();
         renderUninterativeObjcts();
@@ -122,11 +121,11 @@ public class B2WorldManager implements Disposable {
         return new Balloons(region, world, rect.getX(), rect.getY(), 8, spriteManager);
     }
 
-    public Array<FallingSheep> renderFallingSheep(TextureRegion region, SpriteManager spriteManager) {
-        Array<FallingSheep> fallingSheepArr = new Array<>();
+    public Array<KamizakeSheep> renderFallingSheep(TextureRegion region, SpriteManager spriteManager) {
+        Array<KamizakeSheep> fallingSheepArr = new Array<>();
         for (RectangleMapObject object : map.getLayers().get(FALLING_SHEEP_TL).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = object.getRectangle();
-            fallingSheepArr.add(new FallingSheep(region, world, rect.getX(), rect.getY(), 9, spriteManager));
+            fallingSheepArr.add(new KamizakeSheep(region, world, rect.getX(), rect.getY(), 9, spriteManager));
         }
         return fallingSheepArr;
     }
@@ -142,7 +141,7 @@ public class B2WorldManager implements Disposable {
     public void renderTiledMap(Matrix4 combined) {
         renderer.render();
         // render our Box2DDebugLines; camera.combined = projection matrix for the game
-        b2dr.render(world, combined);
+//        b2dr.render(world, combined);
     }
 
     public void update(OrthographicCamera camera) {
@@ -160,7 +159,7 @@ public class B2WorldManager implements Disposable {
 
     @Override
     public void dispose() {
-        b2dr.dispose();
+//        b2dr.dispose();
         map.dispose();
         renderer.dispose();
         world.dispose();
