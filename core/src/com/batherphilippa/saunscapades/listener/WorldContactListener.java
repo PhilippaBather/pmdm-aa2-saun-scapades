@@ -124,7 +124,7 @@ public class WorldContactListener implements ContactListener, Disposable {
                     ((FallingSheep) fixB.getUserData()).setHasLanded(true);
                 }
             }
-
+            case (FALLING_SHEEP_BIT | GROUND_BIT), TRAPPED_SHEEP_BIT, OBJECT_BIT -> spriteManager.handleFallingSheep();
         }
     }
 

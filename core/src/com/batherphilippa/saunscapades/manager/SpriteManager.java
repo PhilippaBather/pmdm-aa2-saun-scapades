@@ -239,7 +239,11 @@ public class SpriteManager implements Disposable {
         Timer.instance().scheduleTask(task, 4);
     }
 
+    public void handleFallingSheep() {
+        resManager.playSound(SOUND_TIMMY_TRAMPOLINE);
+    }
     public void handleParalysedShaun() {
+        handleFallingSheep();
         resManager.playSound(SOUND_SHAUN_PARALYSED);
         player.resetState(SpriteState.PARALYSED);
     }
@@ -257,4 +261,5 @@ public class SpriteManager implements Disposable {
         player.dispose();
         shirleySheep.dispose();
     }
+
 }

@@ -48,6 +48,7 @@ public class ResourceManager implements Disposable {
         this.soundMap.put(SOUND_SHIRLEY_DEATH_NOO, Gdx.audio.newSound(Gdx.files.internal("sound/sound/shirley-death-noo.wav")));
         this.soundMap.put(SOUND_SPLASH, Gdx.audio.newSound(Gdx.files.internal("sound/sound/splash.wav")));
         this.soundMap.put(SOUND_TELEPORT_DOWN, Gdx.audio.newSound(Gdx.files.internal("sound/sound/teleport-down.wav")));
+        this.soundMap.put(SOUND_TIMMY_TRAMPOLINE, Gdx.audio.newSound(Gdx.files.internal("sound/sound/timmy-trampoline.wav")));
     }
 
     public void loadSplashImg() {
