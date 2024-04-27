@@ -111,20 +111,20 @@ public class WorldContactListener implements ContactListener, Disposable {
                 spriteManager.handleSheepDeath();
             }
             case (TRAPPED_SHEEP_BIT | GROUND_BIT), SHAUN_BIT -> spriteManager.handleSavedSheep();
-            case (FALLING_SHEEP_BIT | SHAUN_HEAD_BIT) -> {
-                if (fixA.getFilterData().categoryBits == FALLING_SHEEP_BIT) {
-                    if (((FallingSheep) fixA.getUserData()).isHasLanded()) {
+            case (KAMIKAZE_SHEEP_BIT | SHAUN_HEAD_BIT) -> {
+                if (fixA.getFilterData().categoryBits == KAMIKAZE_SHEEP_BIT) {
+                    if (((KamizakeSheep) fixA.getUserData()).isHasLanded()) {
                         spriteManager.handleParalysedShaun();
                     }
-                    ((FallingSheep) fixA.getUserData()).setHasLanded(true);
+                    ((KamizakeSheep) fixA.getUserData()).setHasLanded(true);
                 } else {
-                    if (((FallingSheep) fixB.getUserData()).isHasLanded()) {
+                    if (((KamizakeSheep) fixB.getUserData()).isHasLanded()) {
                         spriteManager.handleParalysedShaun();
                     }
-                    ((FallingSheep) fixB.getUserData()).setHasLanded(true);
+                    ((KamizakeSheep) fixB.getUserData()).setHasLanded(true);
                 }
             }
-            case (FALLING_SHEEP_BIT | GROUND_BIT), TRAPPED_SHEEP_BIT, OBJECT_BIT -> spriteManager.handleFallingSheep();
+            case (KAMIKAZE_SHEEP_BIT | GROUND_BIT), TRAPPED_SHEEP_BIT, OBJECT_BIT -> spriteManager.handleFallingSheep();
             case (BOMB_BIT | ENEMY_BIT) -> {
                 if (fixA.getFilterData().categoryBits == BOMB_BIT) {
                     ((Bomb) fixA.getUserData()).resetState(SpriteState.DEAD);
@@ -135,13 +135,13 @@ public class WorldContactListener implements ContactListener, Disposable {
                 }
                 spriteManager.handleEnemyHitByBomb();
             }
-            case (BOMB_BIT | FALLING_SHEEP_BIT) -> {
+            case (BOMB_BIT | KAMIKAZE_SHEEP_BIT) -> {
                 if (fixA.getFilterData().categoryBits == BOMB_BIT) {
                     ((Bomb) fixA.getUserData()).resetState(SpriteState.DEAD);
-                    ((FallingSheep) fixB.getUserData()).resetState(SpriteState.DEAD);
+                    ((KamizakeSheep) fixB.getUserData()).resetState(SpriteState.DEAD);
                 } else {
                     ((Bomb) fixB.getUserData()).resetState(SpriteState.DEAD);
-                    ((FallingSheep) fixA.getUserData()).resetState(SpriteState.DEAD);
+                    ((KamizakeSheep) fixA.getUserData()).resetState(SpriteState.DEAD);
                 }
                 spriteManager.allyHit();
             }
