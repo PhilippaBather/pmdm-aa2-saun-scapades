@@ -3,7 +3,7 @@ package com.batherphilippa.saunscapades.screen.constants;
 public class UIConstants {
 
     public static final String BTN_CONFIG = "CONFIGURATIONS";
-    public static final String BTN_CONT = "CONTINUE";
+//    public static final String BTN_CONT = "CONTINUE";
     public static final String BTN_EXIT = "EXIT";
     public static final String BTN_MAIN_MENU = "MAIN MENU";
     public static final String BTN_MENU = "MENU";
@@ -18,6 +18,13 @@ public class UIConstants {
     public static final String LABEL_GAME_FINISHED = "!!! Congratulations: Shaun Scapades Conquered!!!";
     public static final String LABEL_GAME_PAUSED_TITLE = "Game Paused";
     public static final String LABEL_GAME_OVER_TITLE = "GAME OVER!!!";
+    public static final String LABEL_LEVEL_1_INFO_TITLE = "Level 1 Mission";
+    public static final String LABEL_LEVEL_1_INFO_1 = "Navigate across the countryside to find Shirley sheep waiting ever patiently.";
+    public static final String LABEL_LEVEL_1_INFO_2 = "Avoid the angry sheep: sap your energy they will.";
+    public static final String LABEL_LEVEL_1_INFO_3 = "Collect gold coins - every sheep needs them.";
+    public static final String LABEL_LEVEL_1_INFO_4 = "Fall in the sea at your peril.";
+    public static final String LABEL_LEVEL_1_INFO_5 = "Beware of the bombs for they will take your life.";
+
     public static final String LABEL_MAIN_MENU_TITLE = "MAIN MENU";
     public static final String LABEL_OPTIONS_MENU_TITLE = "SELECT CONFIGURATION OPTIONS";
     public static final String LABEL_MISSION_2 = "Mission 2";
