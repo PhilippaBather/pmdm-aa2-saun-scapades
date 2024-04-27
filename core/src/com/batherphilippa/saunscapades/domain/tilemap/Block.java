@@ -9,6 +9,9 @@ import static com.batherphilippa.saunscapades.listener.WorldCategoryBits.BLOCK_B
 import static com.batherphilippa.saunscapades.listener.WorldCategoryBits.DESTROYED_BIT;
 import static com.batherphilippa.saunscapades.manager.constants.ResourcesConstants.SOUND_BRICK_BREAK;
 
+/**
+ * Block - define un objeto de bloque de tipo Tile; ; extiende TileObject.
+ */
 public class Block extends TileObject {
     private final ResourceManager resManager;
 
@@ -25,9 +28,8 @@ public class Block extends TileObject {
 
     @Override
     public void onContact() {
-        // prevent future collisions
+        // cambia el bit para prevenir choques de futuro
         setCategoryFilter(DESTROYED_BIT);
-        // remove coin tile from the map
         getCell(1).setTile(null);  // graphics layer
         resManager.playSound(SOUND_BRICK_BREAK);
     }

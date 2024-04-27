@@ -1,7 +1,5 @@
 package com.batherphilippa.saunscapades.screen.scene;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Disposable;
@@ -15,6 +13,10 @@ import com.kotcrab.vis.ui.widget.VisTextButton;
 
 import static com.batherphilippa.saunscapades.screen.constants.UIConstants.*;
 
+/**
+ * OptionBar - define la barra de opciones en la pantalla de juego: pause ('pausa'), main menu ('menú principal`) y
+ * exit.
+ */
 public class OptionBar implements Disposable {
 
     private final ShaunScapades game;

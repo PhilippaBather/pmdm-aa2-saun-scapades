@@ -12,10 +12,12 @@ import com.batherphilippa.saunscapades.screen.util.UIUtils;
 
 import static com.batherphilippa.saunscapades.manager.constants.ResourcesConstants.IMAGE_SPLASH;
 
+/**
+ * GameSplashScreen - define la pantalla de 'Splash' que introduce el juego; implementa Screen.
+ */
 public class GameSplashScreen implements Screen {
 
     private final ShaunScapades game;
-    private final ResourceManager resManager;
     private final Stage stage;
     private final Image splashImg;
     private final Texture splashTexture;
@@ -23,7 +25,7 @@ public class GameSplashScreen implements Screen {
 
     public GameSplashScreen(ShaunScapades game) {
         this.game = game;
-        this.resManager = this.game.getResManager();
+        ResourceManager resManager = this.game.getResManager();
 
         this.splashTexture = new Texture(resManager.getSplashImg(IMAGE_SPLASH));
         this.splashImg = new Image(this.splashTexture);
@@ -40,6 +42,7 @@ public class GameSplashScreen implements Screen {
         table.setFillParent(true);
         table.center();
 
+        // mete con un fundido la pantalla y establece un retraso de 2.5f
         splashImg.addAction(Actions.sequence(Actions.alpha(0),
                 Actions.fadeIn(1.5f),
                 Actions.delay(2.5f),

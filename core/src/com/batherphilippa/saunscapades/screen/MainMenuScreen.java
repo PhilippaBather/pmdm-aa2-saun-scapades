@@ -12,6 +12,9 @@ import com.kotcrab.vis.ui.widget.VisTextButton;
 
 import static com.batherphilippa.saunscapades.screen.constants.UIConstants.*;
 
+/**
+ * MainMenuScreen - define la pantalla del menú principal; implementa Screen.
+ */
 public class MainMenuScreen implements Screen {
 
     private final ShaunScapades game;

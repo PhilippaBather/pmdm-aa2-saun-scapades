@@ -8,6 +8,9 @@ import com.batherphilippa.saunscapades.ShaunScapades;
 import com.batherphilippa.saunscapades.screen.*;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 
+/**
+ * OptionManager - la clase que es responsable de manejar los selecciones de bótones por el usuario.
+ */
 public class OptionManager {
 
     public static void handleConfigMenuClicked(VisTextButton btn, ShaunScapades game, Screen screen) {
@@ -64,7 +67,7 @@ public class OptionManager {
                 screen.dispose();
                 ShaunScapades.currGameLevel = GameLevel.LEVEL_1;
                 game.reset();
-                game.setScreen(new LevelOneInfoSplashScreen(game));
+                game.setScreen(new LevelOneInfoScreen(game));
             }
         });
     }

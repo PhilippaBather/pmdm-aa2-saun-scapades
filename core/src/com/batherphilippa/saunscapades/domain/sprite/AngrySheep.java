@@ -8,12 +8,15 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.batherphilippa.saunscapades.manager.SpriteManager;
-import com.batherphilippa.saunscapades.util.UserInput;
+import com.batherphilippa.saunscapades.screen.util.UserInput;
 
 import static com.batherphilippa.saunscapades.listener.WorldCategoryBits.ENEMY_BIT;
 import static com.batherphilippa.saunscapades.listener.WorldCategoryBits.ENEMY_HEAD_BIT;
-import static com.batherphilippa.saunscapades.util.Constants.PPM;
+import static com.batherphilippa.saunscapades.screen.constants.AppConstants.PPM;
 
+/**
+ * AngrySheep - define el inimigo de una oveja enfada; extiende Character.
+ */
 public class AngrySheep extends Character {
 
     private final Animation<TextureRegion> deadAnimation;
@@ -27,10 +30,10 @@ public class AngrySheep extends Character {
     public AngrySheep(TextureRegion region, World world, float x, float y, float radius, SpriteManager spriteManager) {
         super(region, world, x, y, radius, spriteManager, SpriteType.ENEMY);
 
-        // establecer el tamaño de la textura
-        setBounds(getX(), getY(), 16 / PPM, 16 / PPM);
+        // establece el tamaño de la textura
+        this.setBounds(getX(), getY(), 16 / PPM, 16 / PPM);
 
-        // establecer las regiones y animaciónes
+        // establece las regiones y animaciónes
         this.chargeAnimation = setAnimationFrames("black_sheep_run", 1, 4, 0.3f);
         this.deadAnimation = setAnimationFrames("black_sheep_dead", 1, 3, 0.5f);
 
@@ -43,8 +46,7 @@ public class AngrySheep extends Character {
     }
 
     /**
-     * Reverse velocity in the axis
-     *
+     * Vuelve al revés la veolocidad en el eje.     *
      * @param x - x velocidad
      * @param y y velocidad
      */
@@ -57,18 +59,26 @@ public class AngrySheep extends Character {
         }
     }
 
+    /**
+     * Crea una definición del 'fixture' en la cabeza del objeto.
+     * @param fixDef - fixture definition
+     */
     public void createHead(FixtureDef fixDef) {
         PolygonShape head = new PolygonShape();
         Vector2[] vertices = new Vector2[4];
         vertices[0] = new Vector2(-6, 10).scl( 1 / PPM);
-        vertices[1] = new Vector2(6, 10).scl( 1 / PPM); // to right
+        vertices[1] = new Vector2(6, 10).scl( 1 / PPM);
         vertices[2] = new Vector2(-5, 6).scl( 1 / PPM);
         vertices[3] = new Vector2(5, 6).scl( 1 / PPM);
         head.set(vertices);
         fixDef.shape = head;
-        // 'bounciness'
+
+        // 'bounciness' - el grado de rebote
         fixDef.restitution = 0.5f;
+
+        // aplica un bit de categoría
         fixDef.filter.categoryBits = ENEMY_HEAD_BIT;
+
         // tener acceso al objeto desde el 'collision handler'
         b2Body.createFixture(fixDef).setUserData(this);
     }
@@ -88,19 +98,29 @@ public class AngrySheep extends Character {
     @Override
     public void update(float delta) {
         this.stateTimer += delta;
+        // establece la animación/la región de textura
         setRegion(getFrame());
+
+        // si no está muerto, establece la velocidad lineal y la ubicación del B2Body
         if (!isDead) {
             b2Body.setLinearVelocity(movement);
             this.setPosition((b2Body.getPosition().x - getWidth() / 2), b2Body.getPosition().y - getHeight() / 2);
         } else if (!isDestroyed) {
+            // si está muerto, elimina el B2Body
             world.destroyBody(b2Body);
             isDestroyed = true;
-            stateTimer = 0; // reset timer
+            stateTimer = 0; // re-esetablecer el temporazidor
         }
     }
 
+    /**
+     * Devuelve la región de textura requerida para el fotograma ('frame').
+     * @return la región de la textura
+     */
     private TextureRegion getFrame() {
+        // obtiene la región de la textura
         TextureRegion region = getTextureRegion();
+        // cambia la dirección del B2Body depende de su moviemiento por el eje 'x'
         if ((b2Body.getLinearVelocity().x > 0 || !isDirRight) && !region.isFlipX()) {
             region.flip(true, false);
             isDirRight = false;
@@ -111,6 +131,10 @@ public class AngrySheep extends Character {
         return region;
     }
 
+    /**
+     * Devuele la región de la textura
+     * @return la región de la textura
+     */
     private TextureRegion getTextureRegion() {
         if (!isDead) {
             return chargeAnimation.getKeyFrame(stateTimer, true);
@@ -132,6 +156,5 @@ public class AngrySheep extends Character {
 
     @Override
     public void dispose() {
-
     }
 }

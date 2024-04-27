@@ -1,5 +1,8 @@
 package com.batherphilippa.saunscapades.screen.constants;
 
+/**
+ * PointsConstants - los constantes de los puntos.
+ */
 public class PointsConstants {
 
     public static final int POINTS_COIN = 50;

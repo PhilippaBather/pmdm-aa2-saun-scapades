@@ -17,6 +17,9 @@ import com.batherphilippa.saunscapades.screen.util.UIUtils;
 
 import static com.batherphilippa.saunscapades.manager.constants.ResourcesConstants.*;
 
+/**
+ * GameScreen - la clase que es responsable de la pantalla del juego; implementa Screen.
+ */
 public class GameScreen implements Screen {
 
     private final ShaunScapades game;

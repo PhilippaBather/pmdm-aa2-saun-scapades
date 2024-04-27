@@ -5,6 +5,9 @@ import com.batherphilippa.saunscapades.manager.CameraManager;
 import com.batherphilippa.saunscapades.manager.ResourceManager;
 import com.batherphilippa.saunscapades.screen.*;
 
+/**
+ * ShaunScapades - la clase define y empieza el juego; extiende Game.
+ */
 public class ShaunScapades extends Game {
     private CameraManager camManager;
     private ResourceManager resManager;
@@ -16,7 +19,7 @@ public class ShaunScapades extends Game {
     @Override
     public void create() {
         gameState = GameState.RUNNING;
-        currGameLevel = GameLevel.LEVEL_1;
+        currGameLevel = GameLevel.LEVEL_2;
         prevGameLevel = GameLevel.LEVEL_1;
         score = 0;
 
@@ -52,6 +55,6 @@ public class ShaunScapades extends Game {
 
     @Override
     public void dispose() {
-
+        resManager.dispose();
     }
 }

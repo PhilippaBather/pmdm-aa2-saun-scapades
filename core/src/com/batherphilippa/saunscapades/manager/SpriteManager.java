@@ -12,14 +12,17 @@ import com.batherphilippa.saunscapades.domain.sprite.*;
 import com.batherphilippa.saunscapades.screen.GameLevel;
 import com.batherphilippa.saunscapades.screen.GameState;
 import com.batherphilippa.saunscapades.screen.scene.Hud;
-import com.batherphilippa.saunscapades.util.UserInput;
+import com.batherphilippa.saunscapades.screen.util.UserInput;
 
 import static com.batherphilippa.saunscapades.ShaunScapades.currGameLevel;
 import static com.batherphilippa.saunscapades.ShaunScapades.setGameState;
 import static com.batherphilippa.saunscapades.manager.constants.ResourcesConstants.*;
 import static com.batherphilippa.saunscapades.screen.constants.PointsConstants.*;
-import static com.batherphilippa.saunscapades.util.Constants.PPM;
+import static com.batherphilippa.saunscapades.screen.constants.AppConstants.PPM;
 
+/**
+ * SpriteManager - la clase responable de manejar las acciones de Sprites; implementa Disposable.
+ */
 public class SpriteManager implements Disposable {
 
     private final B2WorldManager b2WorldManager;
@@ -30,7 +33,7 @@ public class SpriteManager implements Disposable {
     private Balloons balloons;
     private Array<Bomb> bombArr;
     private Array<AngrySheep> angrySheepArr;
-    private Array<KamizakeSheep> kamizakeSheepArr;
+    private Array<KamikazeSheep> kamizakeSheepArr;
     private Array<TrappedSheep> trappedSheepArr;
 
     public SpriteManager(ResourceManager resManager, SpriteBatch batch, Hud hud, B2WorldManager b2WorldManager) {
@@ -47,7 +50,7 @@ public class SpriteManager implements Disposable {
      */
     private void init() {
         this.player = new Shaun(resManager.loadRegion("shaun_idle", -1), b2WorldManager.getWorld(), 32, 38, 8, this);
-        this.balloons = b2WorldManager.renderLevelEndSheep(resManager.loadRegion("balloons", -1), this);
+        this.balloons = b2WorldManager.renderLevelEndBalloons(resManager.loadRegion("balloons", -1), this);
         this.angrySheepArr = b2WorldManager.renderAngrySheep(resManager.loadRegion("black_sheep_run", 1), this);
         this.bombArr = b2WorldManager.renderBombs(resManager.loadRegion("bomb_idle", -1), this);
 
@@ -57,10 +60,20 @@ public class SpriteManager implements Disposable {
         }
     }
 
+    /**
+     * Devuelve la región de una textura
+     * @param name - nombre de la textura
+     * @param index - índice de la textura
+     * @return la región de la textura
+     */
     public TextureRegion getTextureRegion(String name, int index) {
         return resManager.loadRegion(name, index);
     }
 
+    /**
+     * Devuelve la posición del jugador.
+     * @return
+     */
     public float getPlayerPosition() {
         return player.getB2Body().getPosition().x;
     }
@@ -83,21 +96,23 @@ public class SpriteManager implements Disposable {
             for (TrappedSheep sheep : trappedSheepArr) {
                 sheep.update(dt);
             }
-            for (KamizakeSheep sheep : kamizakeSheepArr) {
+            for (KamikazeSheep sheep : kamizakeSheepArr) {
                 if (sheep.getX() < player.getX() + 10 / PPM) {
                     sheep.update(dt);
                 }
             }
         }
-
     }
 
+    /**
+     * Maneja la entrada del usuario.
+     */
     public void manageInput() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && player.getB2Body().getLinearVelocity().y == 0) {
             player.move(UserInput.UP);
             resManager.playSound(SOUND_SHAUN_JUMP);
         }
-        // not just pressed as want to know if the user is holding the key down
+        // isKeyPressed para saber si el usuario está manteniendo pulsado el botón
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.getLinearVelocity() <= 2) {
             player.move(UserInput.RIGHT);
         }
@@ -123,7 +138,7 @@ public class SpriteManager implements Disposable {
             for (TrappedSheep sheep : trappedSheepArr) {
                 sheep.render(batch);
             }
-            for (KamizakeSheep sheep : kamizakeSheepArr) {
+            for (KamikazeSheep sheep : kamizakeSheepArr) {
                 sheep.render(batch);
             }
         }
@@ -131,16 +146,28 @@ public class SpriteManager implements Disposable {
         batch.end();
     }
 
+    /**
+     * Actualiza la punctuación en el HUD
+     * @param points
+     */
     public void updateScore(int points) {
         hud.updateScore(points);
     }
 
+    /**
+     * Maneja las acciones cuando un inimgo está matado.
+     */
     public void enemyKilled() {
         resManager.playSound(SOUND_ENEMY_DEATH);
         resManager.playSound(SOUND_SHAUN_CELEBRATION);
         hud.updateScore(POINTS_ENEMY_KILLED);
     }
 
+    /**
+     * Maneja las acciones cuando el jugador está golpeado.
+     * @param npc - non-playable character
+     * @param delay - retraso
+     */
     public void playerHit(SpriteType npc, int delay) {
         resManager.playSound(SOUND_SHAUN_DEATH_NOO);
 
@@ -151,6 +178,10 @@ public class SpriteManager implements Disposable {
         }
     }
 
+    /**
+     * Maneja las acciones cuando un inimigo está golpeado.
+     * @param delay
+     */
     private void handleEnemyHit(int delay) {
         hud.updateEnergy(-2);
         if (hud.getEnergy() <= 0) {
@@ -159,12 +190,20 @@ public class SpriteManager implements Disposable {
         }
     }
 
+    /**
+     * Maneja las acciones cuando el jugador está golpeado por una bomba detonando.
+     * @param delay - retraso
+     */
     private void handleBombHit(int delay) {
         player.launchShaun();
         resManager.playSound(SOUND_EXPLOSION);
         handleObjectHit(delay);
     }
 
+    /**
+     * Maneja las acciones cuando el jugador está golpeado y matado.
+     * @param delay - retraso
+     */
     private void handleObjectHit(int delay) {
         String music = currGameLevel == GameLevel.LEVEL_1 ? MUSIC_COUNTRYSIDE : MUSIC_SPACE;
         resManager.stopMusic(music);
@@ -172,18 +211,28 @@ public class SpriteManager implements Disposable {
         playerKilled(delay);
     }
 
+    /**
+     * Maneja las acciones cuando un socio está golpeado y matado.
+     */
     public void allyHit() {
         resManager.playSound(SOUND_EXPLOSION);
         resManager.playSound(SOUND_SHIRLEY_DEATH_NOO);
         resManager.playSound(SOUND_FALLING_SHEEP_DEATH);
     }
 
+    /**
+     * Maneja las acciones cuando un inimigo está matado por una bomba.
+     */
     public void handleEnemyHitByBomb() {
         resManager.playSound(SOUND_EXPLOSION);
         resManager.playSound(SOUND_SHAUN_CELEBRATION);
         resManager.playSound(SOUND_ENEMY_DEATH);
     }
 
+    /**
+     * Maneja las acciones cuando un jugado está matado.
+     * @param delay
+     */
     private void playerKilled(int delay) {
         player.resetState(SpriteState.DEAD);
         hud.updateLives(-1);
@@ -197,6 +246,10 @@ public class SpriteManager implements Disposable {
         }
     }
 
+    /**
+     * Método asíncrono que programar el método para re-empezar el estado del jugador depues de morir.
+     * @param delay
+     */
     public void schedulePlayerRestart(int delay) {
         Timer.Task task = new Timer.Task() {
             @Override
@@ -207,6 +260,9 @@ public class SpriteManager implements Disposable {
         Timer.instance().scheduleTask(task, delay);
     }
 
+    /**
+     * Re-empezar al jugador.
+     */
     private void restartPlayer() {
         if (hud.getEnergy() <= 0) {
             hud.updateEnergy(4);
@@ -215,6 +271,9 @@ public class SpriteManager implements Disposable {
         hud.resetWorldTimer();
     }
 
+    /**
+     * Re-establece al jugador.
+     */
     public void resetPlayer() {
         if (!b2WorldManager.getWorld().isLocked() && player.isHasLostLife()) {
             b2WorldManager.getWorld().destroyBody(player.getB2Body());
@@ -223,6 +282,9 @@ public class SpriteManager implements Disposable {
         }
     }
 
+    /**
+     * Maneja las acciones cuando una oveja está matado.
+     */
     public void handleSheepDeath() {
         resManager.playSound(SOUND_SHIRLEY_DEATH_NOO);
         resManager.playSound(SOUND_SHAUN_DEATH_NOO);
@@ -230,12 +292,18 @@ public class SpriteManager implements Disposable {
         hud.updateScore(POINTS_SHEEP_DEATH);
     }
 
+    /**
+     * Maneja las acciones cuando una oveja atrapada está salvado.
+     */
     public void handleSavedSheep() {
         resManager.playSound(SOUND_SHIRLEY_CELEBRATION);
         resManager.playSound(SOUND_SHAUN_CELEBRATION);
         hud.updateScore(POINTS_SHEEP_SAVED);
     }
 
+    /**
+     * Maneja las acciones cuando un nivel está terminado con éxito.
+     */
     public void levelEndCelebration() {
         player.resetState(SpriteState.VICTORY);
         String music = currGameLevel == GameLevel.LEVEL_1 ? MUSIC_COUNTRYSIDE : MUSIC_SPACE;
@@ -256,10 +324,16 @@ public class SpriteManager implements Disposable {
         Timer.instance().scheduleTask(task, 4);
     }
 
+    /**
+     * Maneja el sonido de una oveja cayendose.
+     */
     public void handleFallingSheep() {
         resManager.playSound(SOUND_TIMMY_TRAMPOLINE);
     }
 
+    /**
+     * Maneja las acciones cuando el jugador está paralizado por un KamikazeSheep.
+     */
     public void handleParalysedShaun() {
         handleFallingSheep();
         resManager.playSound(SOUND_SHAUN_PARALYSED);

@@ -6,11 +6,14 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.batherphilippa.saunscapades.manager.SpriteManager;
-import com.batherphilippa.saunscapades.util.UserInput;
+import com.batherphilippa.saunscapades.screen.util.UserInput;
 
 import static com.batherphilippa.saunscapades.listener.WorldCategoryBits.TRAPPED_SHEEP_BIT;
-import static com.batherphilippa.saunscapades.util.Constants.PPM;
+import static com.batherphilippa.saunscapades.screen.constants.AppConstants.PPM;
 
+/**
+ * TrappedSheep - define un objeto de una oveja atrapada; extiende Character
+ */
 public class TrappedSheep extends Character {
 
     private final TextureRegion shirleyIdle;
@@ -22,10 +25,12 @@ public class TrappedSheep extends Character {
     public TrappedSheep(TextureRegion region, World world, float x, float y, float radius, SpriteManager spriteManager) {
         super(region, world, x, y, radius, spriteManager, SpriteType.SHIRLEY);
 
-        setBounds(getX(), getY(), 16 / PPM, 16 / PPM);
+        // establece el tamaño de la textura
+        this.setBounds(getX(), getY(), 16 / PPM, 16 / PPM);
 
+        // asocia la región de textura con el sprite
         this.shirleyIdle = region;
-        setRegion(this.shirleyIdle);
+        this.setRegion(this.shirleyIdle);
         this.deadAnimation = setAnimationFrames("shirley_electrocute",0, 7, 0.5f);
 
         this.stateTimer = 0;
@@ -45,6 +50,10 @@ public class TrappedSheep extends Character {
         }
     }
 
+    /**
+     * Devuele la región de la textura
+     * @return la región de la textura
+     */
     private TextureRegion getTextureRegion() {
         if (!isDead) {
             return shirleyIdle;

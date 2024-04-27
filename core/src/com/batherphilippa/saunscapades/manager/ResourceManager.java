@@ -12,6 +12,10 @@ import java.util.Map;
 
 import static com.batherphilippa.saunscapades.manager.constants.ResourcesConstants.*;
 
+/**
+ * ResourceManager - la clase que es responsable de manejar los recursos del juego: la música, los sonidos, los Sprites;
+ * implementa Disposable.
+ */
 public class ResourceManager implements Disposable {
 
     private final TextureAtlas atlas;

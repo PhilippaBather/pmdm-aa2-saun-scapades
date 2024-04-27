@@ -11,18 +11,21 @@ import com.kotcrab.vis.ui.widget.VisTextButton;
 import static com.batherphilippa.saunscapades.screen.constants.UIConstants.BTN_RESUME;
 import static com.batherphilippa.saunscapades.screen.constants.UIConstants.LABEL_GAME_PAUSED_TITLE;
 
+/**
+ * PauseBackground - define una pantalla de fondo cuando el juego está en el estado de pausa; implementa Disposable.
+ */
 public class PauseBackground implements Disposable {
 
     private final ShaunScapades game;
     private final Stage stage;
-    private final VisTextButton resumBtn;
+    private final VisTextButton resumeBtn;
 
     public PauseBackground(ShaunScapades game) {
         this.game = game;
 
         VisTable table = UIUtils.createTableObj();
-        resumBtn = new VisTextButton(BTN_RESUME);
-        OptionManager.handleUnPauseClicked(resumBtn);
+        resumeBtn = new VisTextButton(BTN_RESUME);
+        OptionManager.handleUnPauseClicked(resumeBtn);
         defineTable(table);
 
         this.stage = new Stage();
@@ -38,7 +41,7 @@ public class PauseBackground implements Disposable {
         table.setFillParent(true);
         table.add(LABEL_GAME_PAUSED_TITLE).expandX().pad(10);
         table.row();
-        table.add(resumBtn).expandX().pad(10);
+        table.add(resumeBtn).expandX().pad(10);
     }
 
     public void draw() {

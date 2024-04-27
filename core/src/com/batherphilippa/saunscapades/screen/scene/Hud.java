@@ -14,6 +14,9 @@ import com.batherphilippa.saunscapades.screen.util.UIUtils;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 
+/**
+ * Hud - define el HUD que contiene información sobre la punctuación, energía, nivel actual, vidas y el temporazidor.
+ */
 public class Hud implements Disposable {
 
     private final SpriteBatch batch;

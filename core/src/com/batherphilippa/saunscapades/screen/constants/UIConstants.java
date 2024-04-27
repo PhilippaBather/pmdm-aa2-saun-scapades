@@ -1,5 +1,8 @@
 package com.batherphilippa.saunscapades.screen.constants;
 
+/**
+ * UIConstants - los constantes de la interfaz del usuario (UI).
+ */
 public class UIConstants {
 
     public static final String BTN_CONFIG = "CONFIGURATIONS";
