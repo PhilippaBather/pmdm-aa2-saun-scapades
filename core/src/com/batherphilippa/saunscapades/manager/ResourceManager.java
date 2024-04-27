@@ -6,7 +6,6 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.utils.Timer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -70,17 +69,6 @@ public class ResourceManager implements Disposable {
 
     public void playSound(String name) {
         this.soundMap.get(name).play();
-    }
-
-    public void playSound(String name, int delay) {
-        Timer.Task task = new Timer.Task() {
-            @Override
-            public void run() {
-                playSound(name);
-            }
-        };
-
-            Timer.instance().scheduleTask(task, delay);
     }
 
     public void stopMusic(String name) {
