@@ -198,8 +198,8 @@
   <object id="171" x="3479" y="119"/>
   <object id="172" x="3675" y="119"/>
  </objectgroup>
- <objectgroup id="4" name="shirley_sheep">
-  <object id="80" x="3828" y="181"/>
+ <objectgroup id="4" name="balloon_level_end">
+  <object id="80" x="3830" y="182"/>
  </objectgroup>
  <objectgroup id="7" name="blocks">
   <object id="71" x="209" y="387" width="1" height="1"/>
@@ -357,7 +357,7 @@
   <object id="181" x="1095" y="135"/>
   <object id="182" x="967" y="134"/>
  </objectgroup>
- <objectgroup id="10" name="falling_sheep">
+ <objectgroup id="10" name="kamikaze_sheep">
   <object id="359" x="70" y="-12"/>
   <object id="362" x="373" y="-11"/>
   <object id="363" x="456" y="-12"/>
