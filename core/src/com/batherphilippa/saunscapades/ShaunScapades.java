@@ -26,8 +26,7 @@ public class ShaunScapades extends Game {
         this.camManager = new CameraManager();
         this.resManager = new ResourceManager();
 
-//        this.setScreen(new GameSplashScreen(this));
-        this.setScreen(new GameScreen(this));
+        this.setScreen(new GameSplashScreen(this));
     }
 
     public CameraManager getCamManager() {
