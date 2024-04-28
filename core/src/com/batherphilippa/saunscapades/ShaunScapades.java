@@ -19,7 +19,7 @@ public class ShaunScapades extends Game {
     @Override
     public void create() {
         gameState = GameState.RUNNING;
-        currGameLevel = GameLevel.LEVEL_2;
+        currGameLevel = GameLevel.LEVEL_1;
         prevGameLevel = GameLevel.LEVEL_1;
         score = 0;
 
