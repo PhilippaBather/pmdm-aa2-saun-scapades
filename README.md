@@ -2,7 +2,7 @@
 
 ## Saun Scapades
 
-### A videogame for desktop and Anrdoid created using LibGdx with Box2D for the second submission for the subject Multimedia Programming and Mobiles.
+### A videogame for desktop created using LibGdx with Box2D for the second submission for the subject Multimedia Programming and Mobiles.
 
 #### Game description:
 
