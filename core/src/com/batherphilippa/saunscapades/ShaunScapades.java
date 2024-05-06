@@ -2,6 +2,7 @@ package com.batherphilippa.saunscapades;
 
 import com.badlogic.gdx.Game;
 import com.batherphilippa.saunscapades.manager.CameraManager;
+import com.batherphilippa.saunscapades.manager.ConfigManager;
 import com.batherphilippa.saunscapades.manager.ResourceManager;
 import com.batherphilippa.saunscapades.screen.*;
 
@@ -25,6 +26,8 @@ public class ShaunScapades extends Game {
 
         this.camManager = new CameraManager();
         this.resManager = new ResourceManager();
+
+        ConfigManager.resetGameSoundPref();
 
         this.setScreen(new GameSplashScreen(this));
     }
