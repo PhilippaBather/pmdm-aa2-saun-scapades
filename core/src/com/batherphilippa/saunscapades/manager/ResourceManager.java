@@ -67,12 +67,16 @@ public class ResourceManager implements Disposable {
     }
 
     public void playMusic(String name, boolean looping) {
-        this.musicMap.get(name).setLooping(looping);
-        this.musicMap.get(name).play();
+        if (ConfigManager.getGameSoundPref().equals("ON")) {
+            this.musicMap.get(name).setLooping(looping);
+            this.musicMap.get(name).play();
+        }
     }
 
     public void playSound(String name) {
-        this.soundMap.get(name).play();
+        if (ConfigManager.getGameSoundPref().equals("ON")) {
+            this.soundMap.get(name).play();
+        }
     }
 
     public void stopMusic(String name) {
