@@ -16,4 +16,7 @@ public class ConfigConstants {
     public static final String GAME_EASY = "Easy";
     public static final String GAME_MEDIUM = "Medium";
     public static final String GAME_HARD = "Hard";
+
+    public static final String SOUND_ON = "ON";
+    public static final String SOUND_OFF = "OFF";
 }
