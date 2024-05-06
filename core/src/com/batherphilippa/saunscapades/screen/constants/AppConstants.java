@@ -15,4 +15,7 @@ public class AppConstants {
     // el mundo
     public static float GRAVITY = -9.8f;
     public static float PPM = 100; // píxeles por metro
+
+    // archivo csv
+    public static String CSV_PATH = System.getProperty("user.home").concat("/libGDX/saunscapades/top_scores.csv");
 }
