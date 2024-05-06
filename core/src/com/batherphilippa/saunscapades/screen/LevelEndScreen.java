@@ -20,7 +20,6 @@ public class LevelEndScreen implements Screen {
     private Stage stage;
     private VisTextButton exitBtn;
     private VisTextButton playBtn;
-    private VisTextButton saveBtn;
     private VisLabel missionTitle;
     private VisLabel nextLevelInfo1;
     private VisLabel nextLevelInfo2;
@@ -60,13 +59,11 @@ public class LevelEndScreen implements Screen {
         this.nextLevelInfo3 = new VisLabel(LABEL_LEVEL_2_INFO_3);
         this.nextLevelInfo4 = new VisLabel(LABEL_LEVEL_2_INFO_4);
         this.playBtn = new VisTextButton(BTN_PLAY);
-        this.saveBtn = new VisTextButton(BTN_SAVE);
         this.exitBtn = new VisTextButton(BTN_EXIT);
     }
 
     private void setClickListeners() {
         OptionManager.handlePlayNewLevelClicked(playBtn, game, this);
-        OptionManager.handleSaveClicked(saveBtn, game, this);
         OptionManager.handleExitClicked(exitBtn, this);
     }
 
@@ -96,7 +93,6 @@ public class LevelEndScreen implements Screen {
         actionsTable.setPosition(0, -200);
         actionsTable.row();
         actionsTable.add(playBtn).center().width(150).height(30).pad(5);
-        actionsTable.add(saveBtn).center().width(150).height(30).pad(5);
         actionsTable.add(exitBtn).center().width(150).height(30).pad(5);
     }
 
