@@ -81,15 +81,12 @@ public class OptionManager {
         });
     }
 
-    public static void handleSaveClicked(VisTextButton btn, ShaunScapades game, Screen screen) {
+    public static void handleTopTenClicked(VisTextButton btn, ShaunScapades game, Screen screen) {
         btn.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                Gdx.app.log("Btn click", "handleSaveClicked");
-//                screen.dispose();
-//                game.setScreen(new GameScreen(game));
+                screen.dispose();
+                game.setScreen(new TopTenScreen(game));
             }
         });
     }
-
-
 }
