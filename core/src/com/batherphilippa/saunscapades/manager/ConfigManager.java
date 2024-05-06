@@ -16,6 +16,29 @@ public class ConfigManager {
 
     private static final Preferences prefs = Gdx.app.getPreferences(APP_NAME);
 
+    public static void handleGameSoundPref(VisList gameSoundList) {
+        gameSoundList.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                String opt = switch (gameSoundList.getSelectedIndex()) {
+                    case 0 -> SOUND_ON;
+                    case 1 -> SOUND_OFF;
+                    default -> throw new IllegalStateException("Unexpected value: " + gameSoundList.getSelectedIndex());
+                };
+                prefs.putString("game_sound", opt);
+                prefs.flush();
+            }
+        });
+    }
+
+    public static String getGameSoundPref() {
+        return prefs.getString("game_sound");
+    }
+
+    public static void resetGameSoundPref() {
+        prefs.putString("game_sound", SOUND_ON);
+        prefs.flush();
+    }
+
     public static void handleGameLengthPref(VisList gameLengthList) {
         gameLengthList.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
@@ -35,6 +58,7 @@ public class ConfigManager {
     public static float getGameLength() {
         return prefs.getFloat("game_length");
     }
+
 
     public static String getGameLengthOption() {
         float selected = getGameLength();
