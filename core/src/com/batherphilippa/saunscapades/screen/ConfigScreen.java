@@ -7,8 +7,10 @@ import com.batherphilippa.saunscapades.ShaunScapades;
 import com.batherphilippa.saunscapades.manager.ConfigManager;
 import com.batherphilippa.saunscapades.manager.OptionManager;
 import com.batherphilippa.saunscapades.screen.util.UIUtils;
-import com.kotcrab.vis.ui.VisUI;
-import com.kotcrab.vis.ui.widget.*;
+import com.kotcrab.vis.ui.widget.VisLabel;
+import com.kotcrab.vis.ui.widget.VisList;
+import com.kotcrab.vis.ui.widget.VisTable;
+import com.kotcrab.vis.ui.widget.VisTextButton;
 
 import static com.batherphilippa.saunscapades.screen.constants.ConfigConstants.*;
 import static com.batherphilippa.saunscapades.screen.constants.UIConstants.*;
@@ -36,10 +38,6 @@ public class ConfigScreen implements Screen {
     @Override
     public void show() {
         UIUtils.clearScreen();
-
-        if (!VisUI.isLoaded()) {
-            VisUI.load();
-        }
 
         VisTable optionsTable = UIUtils.createTableObj();
         VisTable actionsTable = UIUtils.createTableObj();

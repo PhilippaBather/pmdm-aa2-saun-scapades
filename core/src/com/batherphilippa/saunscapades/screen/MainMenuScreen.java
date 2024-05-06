@@ -23,6 +23,7 @@ public class MainMenuScreen implements Screen {
     private VisTextButton configBtn;
     private VisTextButton exitBtn;
     private VisTextButton playBtn;
+    private VisTextButton topTenBtn;
 
     public MainMenuScreen(ShaunScapades game) {
         this.game = game;
@@ -51,12 +52,14 @@ public class MainMenuScreen implements Screen {
         this.exitBtn = new VisTextButton(BTN_EXIT);
         this.configBtn = new VisTextButton(BTN_CONFIG);
         this.playBtn = new VisTextButton(BTN_PLAY);
+        this.topTenBtn = new VisTextButton(BTN_TOP_TEN);
     }
 
     private void setClickListeners() {
         OptionManager.handleExitClicked(exitBtn, this);
         OptionManager.handleConfigMenuClicked(configBtn, game, this); // screen game, menu type, sprite manager needed as param
         OptionManager.handlePlayClicked(playBtn, game, this);
+        OptionManager.handleTopTenClicked(topTenBtn, game, this);
     }
 
     private void createTableStructure(VisTable infoTable, VisTable actionsTable) {
@@ -69,6 +72,7 @@ public class MainMenuScreen implements Screen {
         actionsTable.row();
         actionsTable.add(playBtn).center().width(150).height(30).pad(5);
         actionsTable.add(configBtn).center().width(150).height(30).pad(5);
+        actionsTable.add(topTenBtn).center().width(150).height(30).pad(5);
         actionsTable.add(exitBtn).center().width(150).height(30).pad(5);
     }
     @Override

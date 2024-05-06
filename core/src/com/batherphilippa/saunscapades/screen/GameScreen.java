@@ -6,16 +6,14 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.batherphilippa.saunscapades.ShaunScapades;
-import com.batherphilippa.saunscapades.manager.B2WorldManager;
-import com.batherphilippa.saunscapades.manager.CameraManager;
-import com.batherphilippa.saunscapades.manager.ResourceManager;
-import com.batherphilippa.saunscapades.manager.SpriteManager;
+import com.batherphilippa.saunscapades.manager.*;
 import com.batherphilippa.saunscapades.screen.scene.Hud;
 import com.batherphilippa.saunscapades.screen.scene.OptionBar;
 import com.batherphilippa.saunscapades.screen.scene.PauseBackground;
 import com.batherphilippa.saunscapades.screen.util.UIUtils;
 
-import static com.batherphilippa.saunscapades.manager.constants.ResourcesConstants.*;
+import static com.batherphilippa.saunscapades.manager.constants.ResourcesConstants.MUSIC_COUNTRYSIDE;
+import static com.batherphilippa.saunscapades.manager.constants.ResourcesConstants.MUSIC_SPACE;
 
 /**
  * GameScreen - la clase que es responsable de la pantalla del juego; implementa Screen.
@@ -37,6 +35,8 @@ public class GameScreen implements Screen {
     private Stage optionBarStage;
     private Stage pauseStage;
 
+    private boolean isSound;
+
 
     public GameScreen(ShaunScapades game) {
         this.game = game;
@@ -51,8 +51,10 @@ public class GameScreen implements Screen {
 
         this.b2WorldManager = new B2WorldManager(this, resourceManager, hud);
         this.spriteManager = new SpriteManager(resourceManager, batch, hud, b2WorldManager);
-        this.pauseMenu = new PauseBackground(this.game);
+        this.pauseMenu = new PauseBackground(this.game, this);
         this.optionBar = new OptionBar(this.game, this.batch, this);
+
+        this.isSound = true;
     }
 
     public SpriteManager getSpriteManager() {
@@ -62,10 +64,12 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
         UIUtils.clearScreen();
-        if (ShaunScapades.currGameLevel == GameLevel.LEVEL_1) {
-            resourceManager.playMusic(MUSIC_COUNTRYSIDE, true);
-        } else {
-            resourceManager.playMusic(MUSIC_SPACE, true);
+        if (ConfigManager.getGameSoundPref().equals("ON")) {
+            if (ShaunScapades.currGameLevel == GameLevel.LEVEL_1) {
+                resourceManager.playMusic(MUSIC_COUNTRYSIDE, true);
+            } else {
+                resourceManager.playMusic(MUSIC_SPACE, true);
+            }
         }
         optionBarStage = optionBar.getStage();
         pauseStage = pauseMenu.getStage();
@@ -122,6 +126,12 @@ public class GameScreen implements Screen {
 
         } else {
             pauseStage.draw();
+            if (ConfigManager.getGameSoundPref().equals("OFF")) {
+                stopMusic();
+                isSound = false;
+            } else if (ConfigManager.getGameSoundPref().equals("ON") && !isSound) {
+                playMusic();
+            }
         }
     }
 
@@ -147,6 +157,16 @@ public class GameScreen implements Screen {
     public void hide() {
         String music = currLevel == GameLevel.LEVEL_1 ? MUSIC_COUNTRYSIDE : MUSIC_SPACE;
         resourceManager.stopMusic(music);
+    }
+
+    private void stopMusic() {
+        String music = currLevel == GameLevel.LEVEL_1 ? MUSIC_COUNTRYSIDE : MUSIC_SPACE;
+        resourceManager.stopMusic(music);
+    }
+
+    private void playMusic() {
+        String music = currLevel == GameLevel.LEVEL_1 ? MUSIC_COUNTRYSIDE : MUSIC_SPACE;
+        resourceManager.playMusic(music, true);
     }
 
     @Override

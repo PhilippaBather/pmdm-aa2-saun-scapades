@@ -25,8 +25,7 @@ public class OptionBar implements Disposable {
     private final Stage stage;
 
     // opciones de la tabla
-    private VisTextButton menuBtn;
-    private VisTextButton pauseBtn;
+    private VisTextButton gameMenuBtn;
     private VisTextButton exitBtn;
 
     public OptionBar(ShaunScapades game, SpriteBatch batch, GameScreen gameScreen) {
@@ -47,21 +46,18 @@ public class OptionBar implements Disposable {
 
     private void defineTable(VisTable table) {
         table.bottom().left();
-        table.add(pauseBtn).center().height(10).width(50);
-        table.add(menuBtn).center().height(10).width(50);
+        table.add(gameMenuBtn).center().height(10).width(50);
         table.add(exitBtn).center().height(10).width(50);
     }
 
     private void setTextButtons() {
-        menuBtn = new VisTextButton(BTN_MENU);
-        pauseBtn = new VisTextButton(BTN_PAUSE);
+        gameMenuBtn = new VisTextButton(BTN_GAME_MENU);
         exitBtn = new VisTextButton(BTN_EXIT);
     }
 
     private void addClickListeners() {
-        OptionManager.handlePauseClicked(pauseBtn);
+        OptionManager.handlePauseClicked(gameMenuBtn);
         OptionManager.handleExitClicked(exitBtn, gameScreen);
-        OptionManager.handleMainMenuClicked(menuBtn, game, gameScreen);
     }
 
     public Stage getStage() {
