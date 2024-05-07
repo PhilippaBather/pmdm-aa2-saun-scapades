@@ -69,6 +69,7 @@ public class GameScreen implements Screen {
                 resourceManager.playMusic(MUSIC_COUNTRYSIDE, true);
             } else {
                 resourceManager.playMusic(MUSIC_SPACE, true);
+                resourceManager.stopMusic(MUSIC_COUNTRYSIDE);
             }
         }
         optionBarStage = optionBar.getStage();
